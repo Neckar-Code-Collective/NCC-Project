@@ -18,8 +18,8 @@ public partial class ManaManager : Node
 		return currentMana;
 	}
 
-	public float removeMana(){
-		
+	public void removeMana(float amount){
+		currentMana -= amount;
 	}
 
 }
