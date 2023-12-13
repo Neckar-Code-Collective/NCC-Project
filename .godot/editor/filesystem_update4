@@ -1,2 +1,3 @@
-res://tests/test_gut_test.gd
-res://addons/gut/test.gd
+res://level.tscn
+res://scripts/level.cs
+res://scripts/Player.cs
