@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://cm0oo3g3hrblj"]
 
-[ext_resource type="Script" path="res://level.cs" id="1_2to5o"]
-[ext_resource type="Script" path="res://Player.cs" id="1_55jtn"]
+[ext_resource type="Script" path="res://scripts/level.cs" id="1_fnlip"]
+[ext_resource type="Script" path="res://scripts/Player.cs" id="2_ap4sp"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_28p2v"]
 
@@ -14,10 +14,10 @@ albedo_color = Color(0.733333, 0, 0.0156863, 1)
 albedo_color = Color(0, 0, 0, 1)
 
 [node name="Level" type="Node3D"]
-script = ExtResource("1_2to5o")
+script = ExtResource("1_fnlip")
 
 [node name="Player" type="CharacterBody3D" parent="."]
-script = ExtResource("1_55jtn")
+script = ExtResource("2_ap4sp")
 metadata/_edit_group_ = true
 
 [node name="Body" type="MeshInstance3D" parent="Player"]
