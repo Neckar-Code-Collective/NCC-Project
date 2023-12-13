@@ -34,16 +34,32 @@ public partial class HealthComponent : Node
 
 	}
 
+	public bool isDead(){
+		return checkIfDead();
+	}
+
 	public void applyDamage(float damage){
 
+		if(damage < 0){
+			GD.Print("Trying to do negtaive damage!");
+		}else{
 		this.currentHealth -= damage;
 		EmitSignal(SignalName.onDamage);
+		}
 
 	}
 
 	public void heal(float heal){
 
+		if(heal < 0){
+			GD.Print("Trying to heal negative damage");
+		}else{
 		this.currentHealth += heal;
+			if(this.getCurrentHealth() > this.getMaxHealth()){
+				this.currentHealth = maxHealth;
+			}
+		}
+		
 
 	}
 
