@@ -20,4 +20,8 @@ project/assembly_name="NCC-Project"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gut/plugin.cfg")
+enabled=PackedStringArray("res://addons/gdUnit4/plugin.cfg", "res://addons/gut/plugin.cfg")
+
+[gdunit4]
+
+settings/test/test_lookup_folder="tests"
