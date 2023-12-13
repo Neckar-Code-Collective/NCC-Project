@@ -8,6 +8,6 @@ public class TestsTest {
 
     [TestCase]
     public void TestDieTests(){
-        Assertions.AssertBool(true).IsEqual(true);
+        Assertions.AssertBool(true).IsEqual(true);       
     }
 }
