@@ -15,7 +15,7 @@ public partial class Player : CharacterBody3D
 		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
 			velocity.Y = JumpVelocity;
 
-		// Direkte Tastenabfrage für WASD-Bewegung
+		// Direkte Tastenabfrage für WASD-Bewegung (Tastatur)
 		Vector3 direction = Vector3.Zero;
 		if (Input.IsKeyPressed(Key.W)) // Vorwärts
 			direction.Z -= 1;
@@ -25,6 +25,15 @@ public partial class Player : CharacterBody3D
 			direction.X -= 1;
 		if (Input.IsKeyPressed(Key.D)) // Rechts
 			direction.X += 1;
+
+		//Joystickeingaben vermutlich noch nicht richtig
+		/*
+		direction += new Vector3(
+			-Input.GetActionStrength("move_left") + Input.GetActionStrength("move_right"),
+			0,
+			-Input.GetActionStrength("move_forward") + Input.GetActionStrength("move_back")
+		);
+		*/
 
 		// Normalisieren der Richtung und Anwenden der Geschwindigkeit
 		direction = direction.Normalized();

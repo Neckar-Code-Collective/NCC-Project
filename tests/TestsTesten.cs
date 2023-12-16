@@ -6,8 +6,8 @@ namespace Tests;
 [TestSuite]
 public class TestsTest {
 
-    [TestCase]
-    public void TestDieTests(){
-        Assertions.AssertBool(true).IsEqual(true);       
-    }
+	[TestCase]
+	public void TestDieTests(){
+		Assertions.AssertBool(true).IsEqual(true);       
+	}
 }

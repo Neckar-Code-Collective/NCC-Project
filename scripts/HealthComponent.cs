@@ -69,16 +69,16 @@ public partial class HealthComponent : Node
 
 	}
 
-    public override void _PhysicsProcess(double delta) //Update Funktion
-    {
-        base._PhysicsProcess(delta);
+	public override void _PhysicsProcess(double delta) //Update Funktion
+	{
+		base._PhysicsProcess(delta);
 		if(checkIfDead()){
 			die();
 		}
 		
-    }
+	}
 
-    
+	
 
 	public float getMaxHealth(){
 
