@@ -31,8 +31,12 @@ mesh = SubResource("BoxMesh_gqtyv")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_gwmr1")
 
+[node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0156879, 0, -0.0872682)
+polygon = PackedVector2Array(0.548314, 0.878116, -0.555273, 0.891213, -0.54972, -0.724631, 0.516403, -0.757947)
+
 [node name="Ground" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.994611, 0)
 use_collision = true
 size = Vector3(20, 1, 20)
 
