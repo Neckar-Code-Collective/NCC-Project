@@ -3,8 +3,15 @@ using GdUnit4.Asserts;
 
 namespace Tests;
 
+/// <summary>
+/// All Tests related to the ManaManager
+/// </summary>
 [TestSuite]
 public class ManaManagerTests{
+
+	/// <summary>
+	/// Tests the setters of ManaManager
+	/// </summary>
 
 	[TestCase]
 	public void TestManaManagerSetter(){
@@ -15,6 +22,10 @@ public class ManaManagerTests{
 		manager.Free();
 	}
 
+
+	/// <summary>
+	/// Tests the mana regeneration logic
+	/// </summary>
 	[TestCase]
 	public void TestManaRegenFromZero(){
 		var manager = new ManaManager();
@@ -24,6 +35,9 @@ public class ManaManagerTests{
 		manager.Free();
 	}
 
+	/// <summary>
+	/// Tests that the mana regenration caps of at maxMana
+	/// </summary>
 	[TestCase]
 	public void TestManaUntilMaxRegen(){
 		var manager = new ManaManager();

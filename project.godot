@@ -14,6 +14,10 @@ config/name="NCC-Project"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+EntityManager="*res://scripts/EntityManager.cs"
+
 [dotnet]
 
 project/assembly_name="NCC-Project"

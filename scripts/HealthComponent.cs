@@ -1,6 +1,10 @@
 using Godot;
 using System;
 
+///<summary>
+///	The component, which manages the health of a entity
+///</summary>
+
 public partial class HealthComponent : Node
 {
 
