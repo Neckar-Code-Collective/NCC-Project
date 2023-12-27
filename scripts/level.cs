@@ -6,7 +6,7 @@ using System;
 
 public partial class level : Node3D
 {
-	private const double JOYSTICKSENSITIVITY = 0.2f; 
+	/*private const double JOYSTICKSENSITIVITY = 0.2f; 
 	private const float RAYLENGHT = 2000f; 
 
 	public override void _PhysicsProcess(double delta)
@@ -30,7 +30,7 @@ public partial class level : Node3D
 			   mousePosition.Y < GetViewport().GetVisibleRect().Size.Y;   //assertion
 	}
 
-	private void ProcessMouseRotation(Godot.Vector2 mousePosition)
+	public void ProcessMouseRotation(Godot.Vector2 mousePosition)
 	{
 			Godot.Vector3 rayOrigin = Godot.Vector3.Zero;
 			Godot.Vector3 rayTarget = Godot.Vector3.Zero;
@@ -40,13 +40,22 @@ public partial class level : Node3D
 			rayTarget = rayOrigin + camera.ProjectRayNormal(mousePosition) * RAYLENGHT;  //extended ray
 
 			PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
+			PhysicsRayQueryParameters3D rayQueryParameters = null;
 
-			var rayQueryParameters = new PhysicsRayQueryParameters3D           //needed to get the intersection, null beachten, try-catch
+			try
 			{
-				From = rayOrigin,
-				To = rayTarget
-			};
-			
+				rayQueryParameters = new PhysicsRayQueryParameters3D           //needed to get the intersection
+				{
+					From = rayOrigin,
+					To = rayTarget
+				};
+			}
+
+			catch(OutOfMemoryException ex)
+			{
+				Console.WriteLine("Memory allocation error" + ex.Message);
+				return ;
+			}
 
 			var intersection = spaceState.IntersectRay(rayQueryParameters);
 
@@ -54,17 +63,25 @@ public partial class level : Node3D
 			{
 				GodotObject collider = (GodotObject) intersection["collider"];
 				Godot.Vector3 pos = (Godot.Vector3) intersection["position"];
-				Player player = GetNode<Player>("Player");
+				Shooter shooter = GetNode<Shooter>("Shooter");
 				
-				if (collider != null && collider!= player && (CsgBox3D)collider == ground)   // making sure that only collison with ground is recognized
-				{
-					Godot.Vector3 lookAtMe = new Godot.Vector3(pos.X, player.Position.Y , pos.Z);  //new überprüfung
-					player.LookAt(lookAtMe, Godot.Vector3.Up);
+				if (collider != null && collider!= shooter && (CsgBox3D)collider == ground)   // making sure that only collison with ground is recognized
+				{	
+					try
+					{
+					Godot.Vector3 lookAtMe = new Godot.Vector3(pos.X, shooter.Position.Y , pos.Z);  //new überprüfung
+					shooter.LookAt(lookAtMe, Godot.Vector3.Up);
+					}
+					catch(OutOfMemoryException ex)
+					{
+						Console.WriteLine("Memory allocation error" + ex.Message);
+						return;
+					}
 				}
 			}
 	}
 
-	private void ProcessJoystickRotation()
+	public void ProcessJoystickRotation()
 	{
 		//Code for Player-Rotation with joystick
 		float joystickRightX = Input.GetJoyAxis(0, JoyAxis.RightX);   //if abfrage sparen mit sensitivity untermethode in der abgefragt wird
@@ -72,11 +89,21 @@ public partial class level : Node3D
 
 		if (Math.Abs(joystickRightX) > JOYSTICKSENSITIVITY|| Math.Abs(joystickRightY) > JOYSTICKSENSITIVITY)
 		{
-			Player player = GetNode<Player>("Player");
+			Shooter shooter = GetNode<Shooter>("Shooter");
 			// calculating new View out of right-joystick direction
+			try
+			{
 			Godot.Vector3 targetDirection = new Godot.Vector3(joystickRightX, 0, joystickRightY).Normalized();
-			Godot.Vector3 targetPosition = player.GlobalTransform.Origin + targetDirection;
-			player.LookAt(targetPosition, Godot.Vector3.Up);
+			Godot.Vector3 targetPosition = shooter.GlobalTransform.Origin + targetDirection;
+			shooter.LookAt(targetPosition, Godot.Vector3.Up);
+			}
+			catch(OutOfMemoryException ex)
+			{
+				Console.WriteLine("Memory allocation error" + ex.Message);
+				return;
+			}
 		}
 	}
+	*/
 }
+

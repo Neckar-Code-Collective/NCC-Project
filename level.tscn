@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://cm0oo3g3hrblj"]
 
 [ext_resource type="Script" path="res://scripts/level.cs" id="1_fnlip"]
-[ext_resource type="Script" path="res://scripts/Player.cs" id="2_ap4sp"]
+[ext_resource type="Script" path="res://scripts/Shooter.cs" id="2_wrc6k"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_28p2v"]
 
@@ -16,22 +16,22 @@ albedo_color = Color(0, 0, 0, 1)
 [node name="Level" type="Node3D"]
 script = ExtResource("1_fnlip")
 
-[node name="Player" type="CharacterBody3D" parent="."]
-script = ExtResource("2_ap4sp")
+[node name="Shooter" type="CharacterBody3D" parent="."]
+script = ExtResource("2_wrc6k")
 metadata/_edit_group_ = true
 
-[node name="Body" type="MeshInstance3D" parent="Player"]
+[node name="Body" type="MeshInstance3D" parent="Shooter"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 mesh = SubResource("CapsuleMesh_28p2v")
 surface_material_override/0 = SubResource("StandardMaterial3D_hltu8")
 
-[node name="Eyes" type="MeshInstance3D" parent="Player/Body"]
+[node name="Eyes" type="MeshInstance3D" parent="Shooter/Body"]
 transform = Transform3D(0.31184, 0, 0, 0, 0.4, 0, 0, 0, 0.630079, 0.350757, 0.310238, -0.0260257)
 mesh = SubResource("BoxMesh_gqtyv")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_gwmr1")
 
-[node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="Player"]
+[node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="Shooter"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0156879, 0, -0.0872682)
 polygon = PackedVector2Array(0.548314, 0.878116, -0.555273, 0.891213, -0.54972, -0.724631, 0.516403, -0.757947)
 
