@@ -1,17 +1,43 @@
 using Godot;
 using System;
 
+/// <summary>
+/// The Shooter class represents a player character with abilities to move, jump, and rotate based on user input.
+/// </summary>
 public partial class Shooter : CharacterBody3D
 {
+	//TODO WeaponManager weapons;
+	//TODO MoneyManager money;
+	bool isLocalPlayer = false;
+	/// <summary>Speed of the character's movement.</summary>
 	public const float SPEED = 5.0f;
+
+	/// <summary>Velocity of the character's jump.</summary>
 	public const float JUMPVELOCITY = 4.5f;
 
+	/// <summary>Deadzone value for joystick input.</summary>
 	private const float JOYSTICKDEADZONE = 0.1f;   //DeadZone-Value
+
+	/// <summary>Raylenght value for mouse intersection.</summary>
 	private const float RAYLENGHT = 2000f;
+
+	/// <summary>Gravity value affecting the character.</summary>
 	public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
 
+	private float _simulatedJoystickX = 0;
+    private float _simulatedJoystickZ = 0;
 
-	
+	 public void SetSimulatedJoystickInput(float x, float z)
+    {
+        _simulatedJoystickX = x;
+        _simulatedJoystickZ = z;
+    }
+
+
+	/// <summary>
+	/// Handles the physics process for the character, including movement and rotation based on user input.
+	/// </summary>
+	/// <param name="delta">Time elapsed since the last frame.</param>
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector3 velocity = Velocity;
@@ -56,6 +82,10 @@ public partial class Shooter : CharacterBody3D
 		return GetTree().Root.FindChild("Ground", true, false) as CsgBox3D;
 	}
 
+	/// <summary>
+	/// Calculates and returns the direction of keyboard input.
+	/// </summary>
+	/// <returns>Direction vector based on WASD keyboard input.</returns>
 	private Vector3 GetKeyboardInputDirection()
 	{
 		Vector3 direction = Vector3.Zero;
@@ -70,20 +100,35 @@ public partial class Shooter : CharacterBody3D
 		return direction;
 	}
 
-	 private Vector3 GetJoystickInputDirection()
+	/// <summary>
+	/// Calculates and returns the direction of joystick input.
+	/// </summary>
+	/// <returns>Direction vector based on joystick input.</returns>
+	 public Vector3 GetJoystickInputDirection()
 	{
-		Vector3 direction = Vector3.Zero;
-		float joystickX = -Input.GetActionStrength("ui_left") + Input.GetActionStrength("ui_right");
-		float joystickZ = -Input.GetActionStrength("ui_up") + Input.GetActionStrength("ui_down");
+        float joystickX = _simulatedJoystickX != 0 ? _simulatedJoystickX : Input.GetActionStrength("ui_right") - Input.GetActionStrength("ui_left");
+        float joystickZ = _simulatedJoystickZ != 0 ? _simulatedJoystickZ : Input.GetActionStrength("ui_down") - Input.GetActionStrength("ui_up");
 
-		if (Math.Abs(joystickX) > JOYSTICKDEADZONE)
-			direction.X += joystickX;
-		if (Math.Abs(joystickZ) > JOYSTICKDEADZONE)
-			direction.Z += joystickZ;
-
-		return direction;
+		try
+		{
+			Vector3 direction = new Vector3(joystickX, 0, joystickZ);
+			if (direction.Length() > JOYSTICKDEADZONE)
+				return direction.Normalized();
+			return Vector3.Zero;
+		}
+		catch(OutOfMemoryException ex)
+		{
+			Console.WriteLine("Memory allocation error" + ex.Message);
+			return Vector3.Zero;
+		}
+		
 	}
 
+	/// <summary>
+	/// Checks if the mouse is within the viewport.
+	/// </summary>
+	/// <param name="mousePosition">Current mouse position.</param>
+	/// <returns>True if the mouse is within the viewport; otherwise, false.</returns>
 	private bool IsMouseInViewport(Vector2 mousePosition)
 	{
 		return mousePosition.X >= 0 && mousePosition.Y >= 0 &&
@@ -91,6 +136,10 @@ public partial class Shooter : CharacterBody3D
 			   mousePosition.Y < GetViewport().GetVisibleRect().Size.Y;
 	}
 
+	/// <summary>
+	/// Processes the rotation of the character based on mouse input.
+	/// </summary>
+	/// <param name="mousePosition">Current mouse position for calculating the rotation.</param>
 	private void ProcessMouseRotation(Vector2 mousePosition)
 	{
 		Camera3D camera = GetCamera();
@@ -142,6 +191,9 @@ public partial class Shooter : CharacterBody3D
 		}
 	}
 
+	/// <summary>
+	/// Processes the rotation of the character based on joystick input.
+	/// </summary>
 	private void ProcessJoystickRotation()
 	{
 		float joystickRightX = Input.GetJoyAxis(0, JoyAxis.RightX);
@@ -160,4 +212,16 @@ public partial class Shooter : CharacterBody3D
 		
 		return -GlobalTransform.Basis.Z.Normalized();
 	}
+
+	[Rpc]
+	public void RpcSetActiveWeapon(int weaponIndex)
+	{
+
+	}
+
+	public virtual void Shoot()
+	{
+
+	}
+
 }
