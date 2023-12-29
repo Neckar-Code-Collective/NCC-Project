@@ -107,19 +107,38 @@ public class ShooterTests
         Assertions.AssertVec3(direction).IsEqual(new Vector3(0, 0, 1)); 
     }
 
-	/*
+	
 	[TestCase]
 	public async Task TestMouseRotation()
 	{
-		
+		// save origin rotation degree
+		var originalRotation = _shooter.GetLookDirection();
+
+        // set mouse on start position and simulate rotation
+        _runner.SetMousePos(new Vector2(160, 20));
+        await _runner.SimulateFrames(5,100);
+        _runner.SimulateMouseMove(new Vector2(400, 100));
+        await _runner.SimulateFrames(5,100);
+
+        
+        var newRotation = _shooter.GetLookDirection();
+        Assertions.AssertVec3(newRotation).IsNotEqual(originalRotation); 
 	}
 
+	
 	[TestCase]
 	public async Task TestJoystickRotation()
 	{
-		
+		var originalRotation = _shooter.GetLookDirection();
+		_shooter.SetSimulatedJoystickRotationInput(new Vector2(1, 0)); // simulate rotation
+        await _runner.SimulateFrames(5,100);
+
+		var newRotation = _shooter.RotationDegrees;
+        Assertions.AssertVec3(newRotation).IsNotEqual(originalRotation);
+		_shooter.SetSimulatedJoystickRotationInput(Vector2.Zero);
+
 	}
 
-	// Weitere Testmethoden...
-	*/
+	
+	
 }

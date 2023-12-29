@@ -25,12 +25,19 @@ public partial class Shooter : CharacterBody3D
 	public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
 
 	private float _simulatedJoystickX = 0;
-    private float _simulatedJoystickZ = 0;
+	private float _simulatedJoystickZ = 0;
+	private Vector2 _simulatedJoystickRotation = Vector2.Zero;
+
 
 	 public void SetSimulatedJoystickInput(float x, float z)
+	{
+		_simulatedJoystickX = x;
+		_simulatedJoystickZ = z;
+	}
+
+	public void SetSimulatedJoystickRotationInput(Vector2 rotationInput)
     {
-        _simulatedJoystickX = x;
-        _simulatedJoystickZ = z;
+        _simulatedJoystickRotation = rotationInput;
     }
 
 
@@ -106,8 +113,8 @@ public partial class Shooter : CharacterBody3D
 	/// <returns>Direction vector based on joystick input.</returns>
 	 public Vector3 GetJoystickInputDirection()
 	{
-        float joystickX = _simulatedJoystickX != 0 ? _simulatedJoystickX : Input.GetActionStrength("ui_right") - Input.GetActionStrength("ui_left");
-        float joystickZ = _simulatedJoystickZ != 0 ? _simulatedJoystickZ : Input.GetActionStrength("ui_down") - Input.GetActionStrength("ui_up");
+		float joystickX = _simulatedJoystickX != 0 ? _simulatedJoystickX : Input.GetActionStrength("ui_right") - Input.GetActionStrength("ui_left");
+		float joystickZ = _simulatedJoystickZ != 0 ? _simulatedJoystickZ : Input.GetActionStrength("ui_down") - Input.GetActionStrength("ui_up");
 
 		try
 		{
@@ -196,8 +203,8 @@ public partial class Shooter : CharacterBody3D
 	/// </summary>
 	private void ProcessJoystickRotation()
 	{
-		float joystickRightX = Input.GetJoyAxis(0, JoyAxis.RightX);
-		float joystickRightY = Input.GetJoyAxis(0, JoyAxis.RightY);
+		float joystickRightX = _simulatedJoystickRotation.X != 0 ? _simulatedJoystickRotation.X : Input.GetJoyAxis(0, JoyAxis.RightX);
+        float joystickRightY = _simulatedJoystickRotation.Y != 0 ? _simulatedJoystickRotation.Y : Input.GetJoyAxis(0, JoyAxis.RightY);
 
 		if (Math.Abs(joystickRightX) > JOYSTICKDEADZONE || Math.Abs(joystickRightY) > JOYSTICKDEADZONE)
 		{
