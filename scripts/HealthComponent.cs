@@ -41,7 +41,7 @@ public partial class HealthComponent : Node
 	public void applyDamage(float damage){
 
 		if(damage < 0){
-			GD.Print("Trying to do negtaive damage!");
+			GD.Print("Trying to do negative damage!");
 		}else{
 		this.currentHealth -= damage;
 		EmitSignal(SignalName.onDamage);

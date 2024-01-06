@@ -13,7 +13,7 @@ public class HealthComponentTests {
         Assertions.AssertBool(true).IsEqual(true);
     }
 
-//TestCase CHechIfDead()
+//TestCase CheckIfDead()
 
     [TestCase]
     public void TestCheckIfDeadNegative(){
