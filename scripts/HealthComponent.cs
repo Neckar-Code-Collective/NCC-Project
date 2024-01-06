@@ -8,6 +8,9 @@ using System;
 public partial class HealthComponent : Node
 {
 
+	/// <summary>
+    /// 
+    /// </summary>
 	float maxHealth;
 	float currentHealth;
 

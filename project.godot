@@ -29,3 +29,9 @@ enabled=PackedStringArray("res://addons/gdUnit4/plugin.cfg")
 [gdunit4]
 
 settings/test/test_lookup_folder="tests"
+
+[layer_names]
+
+3d_physics/layer_1="Environment"
+3d_physics/layer_2="Shooter"
+3d_physics/layer_3="Enemy"
