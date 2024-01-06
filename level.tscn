@@ -1,6 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cm0oo3g3hrblj"]
+[gd_scene load_steps=8 format=3 uid="uid://cm0oo3g3hrblj"]
 
+[ext_resource type="Script" path="res://scripts/WeaponComponent.cs" id="2_2vhfj"]
 [ext_resource type="Script" path="res://scripts/Shooter.cs" id="2_wrc6k"]
+[ext_resource type="PackedScene" uid="uid://cmop8ss2cn2m7" path="res://weapon.tscn" id="3_jmvsl"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_28p2v"]
 
@@ -15,6 +17,7 @@ albedo_color = Color(0, 0, 0, 1)
 [node name="Level" type="Node3D"]
 
 [node name="Shooter" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.161361, 0)
 script = ExtResource("2_wrc6k")
 metadata/_edit_group_ = true
 
@@ -29,9 +32,16 @@ mesh = SubResource("BoxMesh_gqtyv")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_gwmr1")
 
+[node name="Hand" type="Marker3D" parent="Shooter/Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.440081, 2.38419e-07, 0.466989)
+
 [node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="Shooter"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0156879, 0, -0.0872682)
 polygon = PackedVector2Array(0.548314, 0.878116, -0.555273, 0.891213, -0.54972, -0.724631, 0.516403, -0.757947)
+
+[node name="WeaponComponent" type="Node" parent="Shooter"]
+script = ExtResource("2_2vhfj")
+StartingWeapon = ExtResource("3_jmvsl")
 
 [node name="Ground" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.994611, 0)

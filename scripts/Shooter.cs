@@ -9,10 +9,10 @@ public partial class Shooter : CharacterBody3D
 	//TODO WeaponManager weapons;
 	//TODO MoneyManager money;
 	bool isLocalPlayer = false;
-	/// <summary>Speed of the character's movement.</summary>
+	/// <summary>Speed of the shooter's movement.</summary>
 	public const float SPEED = 5.0f;
 
-	/// <summary>Velocity of the character's jump.</summary>
+	/// <summary>Velocity of the shooter's jump.</summary>
 	public const float JUMPVELOCITY = 4.5f;
 
 	/// <summary>Deadzone value for joystick input.</summary>
@@ -36,13 +36,13 @@ public partial class Shooter : CharacterBody3D
 	}
 
 	public void SetSimulatedJoystickRotationInput(Vector2 rotationInput)
-    {
-        _simulatedJoystickRotation = rotationInput;
-    }
+	{
+		_simulatedJoystickRotation = rotationInput;
+	}
 
 
 	/// <summary>
-	/// Handles the physics process for the character, including movement and rotation based on user input.
+	/// Handles the physics process for the shooter, including movement and rotation based on user input.
 	/// </summary>
 	/// <param name="delta">Time elapsed since the last frame.</param>
 	public override void _PhysicsProcess(double delta)
@@ -144,7 +144,7 @@ public partial class Shooter : CharacterBody3D
 	}
 
 	/// <summary>
-	/// Processes the rotation of the character based on mouse input.
+	/// Processes the rotation of the shooter based on mouse input.
 	/// </summary>
 	/// <param name="mousePosition">Current mouse position for calculating the rotation.</param>
 	private void ProcessMouseRotation(Vector2 mousePosition)
@@ -199,12 +199,12 @@ public partial class Shooter : CharacterBody3D
 	}
 
 	/// <summary>
-	/// Processes the rotation of the character based on joystick input.
+	/// Processes the rotation of the shooter based on joystick input.
 	/// </summary>
 	private void ProcessJoystickRotation()
 	{
 		float joystickRightX = _simulatedJoystickRotation.X != 0 ? _simulatedJoystickRotation.X : Input.GetJoyAxis(0, JoyAxis.RightX);
-        float joystickRightY = _simulatedJoystickRotation.Y != 0 ? _simulatedJoystickRotation.Y : Input.GetJoyAxis(0, JoyAxis.RightY);
+		float joystickRightY = _simulatedJoystickRotation.Y != 0 ? _simulatedJoystickRotation.Y : Input.GetJoyAxis(0, JoyAxis.RightY);
 
 		if (Math.Abs(joystickRightX) > JOYSTICKDEADZONE || Math.Abs(joystickRightY) > JOYSTICKDEADZONE)
 		{
@@ -214,6 +214,9 @@ public partial class Shooter : CharacterBody3D
 		}
 	}
 
+	/// <summary>
+	/// Returns the look direction of the shooter
+	/// </summary>
 	 public Vector3 GetLookDirection()
 	{
 		

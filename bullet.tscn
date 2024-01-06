@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dp17dallkcbda"]
+
+[ext_resource type="Script" path="res://scripts/bullettest.cs" id="1_sm27b"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_gwtyb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2gj0y"]
+albedo_color = Color(0, 0, 0, 1)
+
+[node name="Bullet" type="Area3D"]
+script = ExtResource("1_sm27b")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("BoxMesh_gwtyb")
+surface_material_override/0 = SubResource("StandardMaterial3D_2gj0y")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(10.3877, 0, 0, 0, 10.7498, 0, 0, 0, 10.0479, 0, 0, 0)
