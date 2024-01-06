@@ -1,9 +1,16 @@
 using Godot;
 using System;
 
+///<summary>
+///	The component, which manages the health of a entity
+///</summary>
+
 public partial class HealthComponent : Node
 {
 
+	/// <summary>
+    /// 
+    /// </summary>
 	float maxHealth;
 	float currentHealth;
 
@@ -69,16 +76,16 @@ public partial class HealthComponent : Node
 
 	}
 
-    public override void _PhysicsProcess(double delta) //Update Funktion
-    {
-        base._PhysicsProcess(delta);
+	public override void _PhysicsProcess(double delta) //Update Funktion
+	{
+		base._PhysicsProcess(delta);
 		if(checkIfDead()){
 			die();
 		}
 		
-    }
+	}
 
-    
+	
 
 	public float getMaxHealth(){
 
