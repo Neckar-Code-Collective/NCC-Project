@@ -10,7 +10,7 @@ public partial class Bullet : Area3D
 	/// <summary>
     /// Shows whether this bullet is simulated locally
     /// </summary>
-    bool locally_owned = false;
+    bool locally_owned = true;
 
     /// <summary>
     /// After being alive for this many seconds, the bullet kills itself.
@@ -92,13 +92,15 @@ public partial class Bullet : Area3D
     }
 
 	void OnHit(Entity e){
-		if(locally_owned){
+        GD.Print("HIT");
+        if(locally_owned){
             //we own this bullet, we should deal damage
             e.Rpc(nameof(e.RpcDealDamage), damage);
+            e.RpcDealDamage(damage);
             QueueFree();
         }
 		else{
-            //we dont own this bullet, just removing ourselves
+            //we dont own this bullet, just remove it
             QueueFree();
         }
 	}

@@ -28,16 +28,20 @@ public partial class Weapon : Node3D
 	{
 		if (canShoot)
 		{
-			Area3D newBullet = Bullet.Instantiate() as Area3D;
-			//Area3D newBulletObject = newBullet.GetChild<Area3D>("Bullet");
-			if (newBullet == null) return;
+            //Area3D newBullet = Bullet.Instantiate() as Area3D;
+            //Area3D newBulletObject = newBullet.GetChild<Area3D>("Bullet");
+            Bullet newBullet = Bullet.Instantiate<Bullet>();
+            if (newBullet == null) return;
 
+            GetTree().Root.AddChild(newBullet);
+            Marker3D muzzle = GetNode<Marker3D>("Muzzle");
+            newBullet.Setup(muzzle.GlobalPosition, muzzle.GlobalBasis.Z*30, 10);
+            //newBullet.GlobalTransform = GetNode<Marker3D>("Muzzle").GlobalTransform;
 
-			newBullet.GlobalTransform = GetNode<Marker3D>("Muzzle").GlobalTransform;
-			//newBulletObject.speed = MUZZLESPEED;
-			Node3D sceneRoot = GetTree().Root.GetChildren()[1] as Node3D;
-			sceneRoot.AddChild(newBullet);
-			GD.Print("pew!");
+            //newBulletObject.speed = MUZZLESPEED;
+            //Node3D sceneRoot = GetTree().Root.GetChildren()[1] as Node3D;
+            //sceneRoot.AddChild(newBullet);
+            GD.Print("pew!");
 			canShoot = false;
 			rofTimer.Start();
 		}

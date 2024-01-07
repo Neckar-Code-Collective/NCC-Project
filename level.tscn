@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cm0oo3g3hrblj"]
+[gd_scene load_steps=12 format=3 uid="uid://cm0oo3g3hrblj"]
 
 [ext_resource type="Script" path="res://scripts/WeaponComponent.cs" id="2_2vhfj"]
 [ext_resource type="Script" path="res://scripts/Shooter.cs" id="2_wrc6k"]
 [ext_resource type="PackedScene" uid="uid://cmop8ss2cn2m7" path="res://weapon.tscn" id="3_jmvsl"]
+[ext_resource type="Script" path="res://scripts/Enemy.cs" id="4_jcnqv"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_28p2v"]
 
@@ -13,6 +14,13 @@ albedo_color = Color(0.733333, 0, 0.0156863, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gwmr1"]
 albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_x04j6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cij8w"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_x436u"]
 
 [node name="Level" type="Node3D"]
 
@@ -54,3 +62,14 @@ shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 7, 7)
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.75919, 0, -5.21616)
+script = ExtResource("4_jcnqv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("CapsuleShape3D_x04j6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+material_override = SubResource("StandardMaterial3D_cij8w")
+mesh = SubResource("CapsuleMesh_x436u")

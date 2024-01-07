@@ -1,10 +1,10 @@
 using Godot;
 using System;
 
-public partial class Entity : Node3D
+public partial class Entity : Area3D
 {
-	//TODO [Export]
-	//TODO HealthComponent health;
+	
+	 HealthComponent health;
 	//TODO NetworkedTransform netTrans;
 
 
@@ -12,7 +12,11 @@ public partial class Entity : Node3D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-	}
+        health = new HealthComponent();
+        AddChild(health);
+
+
+    }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
@@ -20,7 +24,9 @@ public partial class Entity : Node3D
 	}
 
 	[Rpc]
-	public void RpcDealDamage(float amount){}
+	public void RpcDealDamage(float amount){
+        GD.Print("AUA!");
+    }
 
 	[Rpc]
 	public void RpcPlayAnimation(string anim,float speed){}
