@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cm0oo3g3hrblj"]
+[gd_scene load_steps=11 format=3 uid="uid://cm0oo3g3hrblj"]
 
 [ext_resource type="Script" path="res://scripts/WeaponComponent.cs" id="2_2vhfj"]
 [ext_resource type="Script" path="res://scripts/Shooter.cs" id="2_wrc6k"]
 [ext_resource type="PackedScene" uid="uid://cmop8ss2cn2m7" path="res://weapon.tscn" id="3_jmvsl"]
+[ext_resource type="PackedScene" uid="uid://j7s8agd142uc" path="res://basic_enemy.tscn" id="4_jy5dv"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_28p2v"]
 
@@ -14,7 +15,16 @@ albedo_color = Color(0.733333, 0, 0.0156863, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gwmr1"]
 albedo_color = Color(0, 0, 0, 1)
 
+[sub_resource type="NavigationMesh" id="NavigationMesh_miygd"]
+vertices = PackedVector3Array(-9.5, -0.5, -9.5, -9.5, -0.5, 9.5, 9.5, -0.5, 9.5, 9.5, -0.5, -9.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_3gulo"]
+size = Vector2(20, 20)
+center_offset = Vector3(0, -1, 0)
+
 [node name="Level" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.86286, -0.999227, 2.18601)
 
 [node name="Shooter" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.161361, 0)
@@ -54,3 +64,13 @@ shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 7, 7)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_miygd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("PlaneMesh_3gulo")
+
+[node name="BasicEnemy" parent="." instance=ExtResource("4_jy5dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.38778, -0.494611, -5.23798)
