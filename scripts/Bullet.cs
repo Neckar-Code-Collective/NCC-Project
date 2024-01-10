@@ -93,6 +93,7 @@ public partial class Bullet : Area3D
 
 	void OnHit(Entity e){
         GD.Print("HIT");
+        EmitSignal(SignalName.Hit, e);
         if(locally_owned){
             //we own this bullet, we should deal damage
             e.Rpc(nameof(e.RpcDealDamage), damage);
