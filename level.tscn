@@ -1,9 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://cm0oo3g3hrblj"]
+[gd_scene load_steps=18 format=3 uid="uid://cm0oo3g3hrblj"]
 
 [ext_resource type="Script" path="res://scripts/WeaponComponent.cs" id="2_2vhfj"]
 [ext_resource type="Script" path="res://scripts/Shooter.cs" id="2_wrc6k"]
 [ext_resource type="PackedScene" uid="uid://cmop8ss2cn2m7" path="res://weapon.tscn" id="3_jmvsl"]
 [ext_resource type="PackedScene" uid="uid://j7s8agd142uc" path="res://BasicEnemy.tscn" id="4_jy5dv"]
+[ext_resource type="PackedScene" uid="uid://dgvxpb4rt6cga" path="res://Mage.tscn" id="6_3651a"]
+[ext_resource type="Script" path="res://scripts/debug/BloodSpawner.cs" id="7_rrgbw"]
+[ext_resource type="PackedScene" uid="uid://hos0rmwwl317" path="res://BloodPrefab.tscn" id="8_gbddo"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_28p2v"]
 
@@ -73,3 +76,11 @@ mesh = SubResource("PlaneMesh_3gulo")
 
 [node name="BasicEnemy" parent="." instance=ExtResource("4_jy5dv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.38778, -0.494611, -5.23798)
+
+[node name="Mage" parent="." instance=ExtResource("6_3651a")]
+
+[node name="BloodSpawner" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.214161, 0.246074, -0.863779)
+script = ExtResource("7_rrgbw")
+emitInterval = 0.5
+BloodPrefab = ExtResource("8_gbddo")

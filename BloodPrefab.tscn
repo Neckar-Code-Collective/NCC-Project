@@ -1,0 +1,122 @@
+[gd_scene load_steps=14 format=3 uid="uid://hos0rmwwl317"]
+
+[ext_resource type="Script" path="res://scripts/Blood.cs" id="1_dkd8r"]
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_nld13"]
+default_input_values = [0, 0.0, 1, 0.5]
+operator = 2
+
+[sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_bk51d"]
+constant = Color(0.275159, 3.15858e-07, 7.21961e-08, 1)
+
+[sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_i87is"]
+constant = Color(0.999855, 0.281107, 0.277021, 1)
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_xiiei"]
+input_name = "time"
+
+[sub_resource type="VisualShaderNodeSmoothStep" id="VisualShaderNodeSmoothStep_okaxx"]
+default_input_values = [0, Quaternion(0, 0, 0, 0), 1, Quaternion(1, 1, 1, 1), 2, Quaternion(0.5, 0.5, 0.5, 0.5)]
+op_type = 5
+
+[sub_resource type="VisualShaderNodeFloatFunc" id="VisualShaderNodeFloatFunc_hq0vk"]
+function = 0
+
+[sub_resource type="VisualShaderNodeClamp" id="VisualShaderNodeClamp_k051i"]
+default_input_values = [0, 0.0, 1, 0.2, 2, 0.9]
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_c2opb"]
+default_input_values = [0, 0.0, 1, 10.0]
+operator = 2
+
+[sub_resource type="VisualShader" id="VisualShader_3vmli"]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+
+
+
+
+void fragment() {
+// ColorConstant:4
+	vec4 n_out4p0 = vec4(0.999855, 0.281107, 0.277021, 1.000000);
+
+
+// ColorConstant:2
+	vec4 n_out2p0 = vec4(0.275159, 0.000000, 0.000000, 1.000000);
+
+
+// Input:5
+	float n_out5p0 = TIME;
+
+
+// FloatOp:9
+	float n_in9p1 = 10.00000;
+	float n_out9p0 = n_out5p0 * n_in9p1;
+
+
+// FloatFunc:7
+	float n_out7p0 = sin(n_out9p0);
+
+
+// FloatOp:10
+	float n_in10p1 = 0.50000;
+	float n_out10p0 = n_out7p0 * n_in10p1;
+
+
+// Clamp:8
+	float n_in8p1 = 0.20000;
+	float n_in8p2 = 0.90000;
+	float n_out8p0 = clamp(n_out10p0, n_in8p1, n_in8p2);
+
+
+// SmoothStep:6
+	vec4 n_out6p0 = smoothstep(n_out4p0, n_out2p0, vec4(n_out8p0));
+
+
+// Output:0
+	ALBEDO = vec3(n_out6p0.xyz);
+
+
+}
+"
+graph_offset = Vector2(-232.044, -13.1435)
+nodes/fragment/0/position = Vector2(980, 140)
+nodes/fragment/2/node = SubResource("VisualShaderNodeColorConstant_bk51d")
+nodes/fragment/2/position = Vector2(40, 340)
+nodes/fragment/4/node = SubResource("VisualShaderNodeColorConstant_i87is")
+nodes/fragment/4/position = Vector2(40, 180)
+nodes/fragment/5/node = SubResource("VisualShaderNodeInput_xiiei")
+nodes/fragment/5/position = Vector2(-180, 500)
+nodes/fragment/6/node = SubResource("VisualShaderNodeSmoothStep_okaxx")
+nodes/fragment/6/position = Vector2(620, 180)
+nodes/fragment/7/node = SubResource("VisualShaderNodeFloatFunc_hq0vk")
+nodes/fragment/7/position = Vector2(300, 580)
+nodes/fragment/8/node = SubResource("VisualShaderNodeClamp_k051i")
+nodes/fragment/8/position = Vector2(700, 560)
+nodes/fragment/9/node = SubResource("VisualShaderNodeFloatOp_c2opb")
+nodes/fragment/9/position = Vector2(127.569, 628.86)
+nodes/fragment/10/node = SubResource("VisualShaderNodeFloatOp_nld13")
+nodes/fragment/10/position = Vector2(521.454, 639.802)
+nodes/fragment/connections = PackedInt32Array(4, 0, 6, 0, 2, 0, 6, 1, 6, 0, 0, 0, 8, 0, 6, 2, 5, 0, 9, 0, 9, 0, 7, 0, 7, 0, 10, 0, 10, 0, 8, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kmrvh"]
+render_priority = 0
+shader = SubResource("VisualShader_3vmli")
+
+[sub_resource type="SphereMesh" id="SphereMesh_ivlu6"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_sh8fw"]
+
+[node name="BloodPrefab" type="Area3D"]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+collision_layer = 8
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_dkd8r")
+
+[node name="Visual" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_kmrvh")
+mesh = SubResource("SphereMesh_ivlu6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_sh8fw")

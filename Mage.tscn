@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://dgvxpb4rt6cga"]
+
+[ext_resource type="Script" path="res://scripts/Mage.cs" id="1_jhfcn"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_igq4p"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cjna1"]
+transparency = 1
+albedo_color = Color(0.0235294, 1, 1, 0.235294)
+
+[sub_resource type="SphereMesh" id="SphereMesh_buetd"]
+radius = 0.2
+height = 0.4
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_m3ivx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j1ccx"]
+transparency = 1
+albedo_color = Color(0.482353, 1, 1, 0.0235294)
+
+[sub_resource type="SphereMesh" id="SphereMesh_jnrhl"]
+
+[node name="Mage" type="Node"]
+script = ExtResource("1_jhfcn")
+
+[node name="BloodCollector" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 8
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BloodCollector"]
+shape = SubResource("SphereShape3D_igq4p")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="BloodCollector"]
+material_override = SubResource("StandardMaterial3D_cjna1")
+mesh = SubResource("SphereMesh_buetd")
+
+[node name="BloodAttractor" type="Area3D" parent="."]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
+collision_layer = 0
+collision_mask = 8
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BloodAttractor"]
+shape = SubResource("SphereShape3D_m3ivx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="BloodAttractor"]
+material_override = SubResource("StandardMaterial3D_j1ccx")
+mesh = SubResource("SphereMesh_jnrhl")
