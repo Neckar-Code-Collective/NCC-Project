@@ -2,58 +2,17 @@ using Godot;
 using Microsoft.CodeAnalysis;
 using System;
 
-/// <summary>
-/// BasicEnemy has the overall pathfinding functions targettet at the shooter
-/// Missing Functions: Health, Damage, OnCollision, MovementSpeed 
-/// </summary>
-
-public partial class BasicEnemy : CharacterBody3D{
 
 
-/// <summary>
-/// nav_agent connected and creation of onready function
-/// aggroRange is the range at which the Enemy starts targeting a Shooter
-/// </summary>
-NavigationAgent3D nav_agent;
+public partial class BasicEnemy : Enemy{
 
-    Shooter target;
-
-    public override void _Ready(){
+    public override void _Ready()
+    {
         base._Ready();
-        nav_agent = GetNode<NavigationAgent3D>("NavigationAgent3D");
-        var aggroRange = GetNode<Area3D>("Area3D");
-        aggroRange.BodyEntered += (Node3D body)=>{
-
-            if(body is Shooter){
-                target = (Shooter)body;
-            }
-
-        };
+        health.setMaxHealth(100f);
+        health.setCurrentHealth(health.getMaxHealth());
     }
 
 
-    float speed = 3.0f;
-
-    /// <summary>
-    /// This function lets the Enemy move towords the shooter
-    /// </summary>
-    /// <param name="delta"></param>
-
-    public override void _PhysicsProcess(double delta){ //Update Funktion
-		base._PhysicsProcess(delta);
-        var current_location = GlobalTransform.Origin;
-        var next_location = nav_agent.GetNextPathPosition();
-        var new_velocity = (next_location - current_location).Normalized() * speed;
-
-        Velocity = new_velocity;
-        MoveAndSlide();
-
-        if(target != null){
-            nav_agent.TargetPosition = target.GlobalPosition;
-
-        }
-
-
-	}
 
 }

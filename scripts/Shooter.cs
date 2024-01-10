@@ -4,7 +4,7 @@ using System;
 /// <summary>
 /// The Shooter class represents a player character with abilities to move, jump, and rotate based on user input.
 /// </summary>
-public partial class Shooter : CharacterBody3D
+public partial class Shooter : Entity
 {
 	//TODO WeaponManager weapons;
 	//TODO MoneyManager money;

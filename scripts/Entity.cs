@@ -1,10 +1,10 @@
 using Godot;
 using System;
 
-public partial class Entity : Area3D
+public partial class Entity : CharacterBody3D
 {
 	
-	 HealthComponent health;
+	protected HealthComponent health;
 	//TODO NetworkedTransform netTrans;
 
 
@@ -26,6 +26,7 @@ public partial class Entity : Area3D
 	[Rpc]
 	public void RpcDealDamage(float amount){
         GD.Print("AUA!");
+        health.applyDamage(amount);
     }
 
 	[Rpc]
