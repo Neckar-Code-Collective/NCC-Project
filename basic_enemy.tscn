@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://5l6gx6khdrwf"]
+
+[ext_resource type="Script" path="res://basic_enemy.cs" id="1_5rxhi"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mcyxc"]
+albedo_color = Color(0.0352941, 0.392157, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_dw47b"]
+material = SubResource("StandardMaterial3D_mcyxc")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7iksv"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_8kxqe"]
+radius = 100.0
+
+[node name="BasicEnemy" type="CharacterBody3D"]
+script = ExtResource("1_5rxhi")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_dw47b")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_7iksv")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_8kxqe")
