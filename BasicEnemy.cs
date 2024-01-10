@@ -11,7 +11,10 @@ public partial class BasicEnemy : Enemy{
         base._Ready();
         health.setMaxHealth(100f);
         health.setCurrentHealth(health.getMaxHealth());
+        setMovementSpeed(1.0f);
     }
+
+    
 
 
 

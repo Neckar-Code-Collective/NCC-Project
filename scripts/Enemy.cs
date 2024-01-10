@@ -8,7 +8,7 @@ using System;
 public partial class Enemy : Entity{
 
 	float damage;
-    
+    float movementSpeed = 3.0f;
 
 
 
@@ -39,7 +39,7 @@ public partial class Enemy : Entity{
 	}
 
 
-	float speed = 3.0f;
+	
 
 	/// <summary>
 	/// This function lets the Enemy move towords the shooter
@@ -50,7 +50,7 @@ public partial class Enemy : Entity{
 		base._PhysicsProcess(delta);
 		var current_location = GlobalTransform.Origin;
 		var next_location = nav_agent.GetNextPathPosition();
-		var new_velocity = (next_location - current_location).Normalized() * speed;
+		var new_velocity = (next_location - current_location).Normalized() * movementSpeed;
 
 		Velocity = new_velocity;
 		MoveAndSlide();
@@ -81,6 +81,15 @@ public partial class Enemy : Entity{
 	public void setDamge(float _dmg){
 		this.damage = _dmg;
 	}
+
+    public float getMovementSpeed(){
+        return this.movementSpeed;
+    }
+
+    public void setMovementSpeed(float _ms){
+        this.movementSpeed = _ms;
+
+    }
 
    
 
