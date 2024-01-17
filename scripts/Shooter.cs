@@ -149,9 +149,24 @@ public partial class Shooter : Entity
 	/// <param name="mousePosition">Current mouse position for calculating the rotation.</param>
 	private void ProcessMouseRotation(Vector2 mousePosition)
 	{
+
+		var mousePosInView = GetViewport().GetMousePosition();
+
+        var camera = GetViewport().GetCamera3D();
+
+        var origin = camera.ProjectRayOrigin(mousePosInView);
+        var direction = camera.ProjectRayNormal(mousePosInView);
+
+        var distance = -origin.Y / direction.Y;
+
+        var target_position = origin + direction * distance;
+
+        target_position.Y = GlobalPosition.Y;
+        LookAt(target_position);
+
+        /*
 		Camera3D camera = GetCamera();
 		CsgBox3D ground = GetGround();
-
 		if (camera == null || ground == null) return;
 
 		Vector3 rayOrigin = camera.ProjectRayOrigin(mousePosition);
@@ -195,8 +210,8 @@ public partial class Shooter : Entity
 					return;
 				}
 			}
-		}
-	}
+		}*/
+    }
 
 	/// <summary>
 	/// Processes the rotation of the shooter based on joystick input.
