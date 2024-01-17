@@ -8,25 +8,29 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d58rd"]
 albedo_color = Color(0.137255, 0.133333, 0.121569, 1)
 
-[node name="Weapon" type="Node3D" node_paths=PackedStringArray("ejectionPoint")]
+[node name="Weapon" type="Node3D"]
 transform = Transform3D(0.999647, 0, 0, 0, 0.999647, 0, 0, 0, 0.999647, 0.50467, 0, 0)
 script = ExtResource("1_cnc6x")
-ejectionPoint = NodePath("Muzzle")
-bulletPrefab = ExtResource("2_2q80j")
+BulletPrefab = ExtResource("2_2q80j")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.56, 0, 0, 0, 0.377074, 0, 0, 0, 0.359302, 0, 0, 0)
-mesh = SubResource("BoxMesh_lb24t")
-surface_material_override/0 = SubResource("StandardMaterial3D_d58rd")
+[node name="Visual" type="Node3D" parent="."]
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Visual"]
 transform = Transform3D(0.441235, -0.266631, 0, 0.441235, 0.266631, 0, 0, 0, 0.359302, -0.76671, -0.253701, 0)
 mesh = SubResource("BoxMesh_lb24t")
+skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_d58rd")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1.56, 0, 0, 0, 0.377074, 0, 0, 0, 0.359302, 0, 0, 0)
+mesh = SubResource("BoxMesh_lb24t")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_d58rd")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Visual"]
 transform = Transform3D(-0.176453, -0.361684, 0, 0.598532, -0.106628, 0, 0, 0, 0.359302, 0.256505, -0.236881, 0)
 mesh = SubResource("BoxMesh_lb24t")
+skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_d58rd")
 
 [node name="Muzzle" type="Marker3D" parent="."]
