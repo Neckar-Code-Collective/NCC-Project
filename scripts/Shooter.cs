@@ -251,11 +251,12 @@ public partial class Shooter : Entity
 
 	}
 
-    public override void _Ready()
+    /*public override void _Ready()
     {
         Area3D moneyCollector = GetNode<Area3D>("MoneyCollector");
         moneyCollector.AreaEntered += OnMoneyCollectorCollision;
     }
+	*/
 
 	public void OnMoneyCollectorCollision(Node3D other){
 		if(other is Money m){

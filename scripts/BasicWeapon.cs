@@ -11,6 +11,7 @@ public partial class BasicWeapon : AbstractWeapon
     [Export] public float ShootDelay = 0.33333333333334f;
     [Export] public int ClipSize = 30;
     [Export] public float DamagePerBullet = 10;
+    [Export] public Marker3D Muzzle;
 
     private Timer rofTimer;
     private bool canShoot = true;
@@ -47,7 +48,7 @@ public partial class BasicWeapon : AbstractWeapon
         if (newBullet == null) return;
 
         GetTree().Root.AddChild(newBullet);
-        newBullet.Setup(GlobalTransform.Origin, GlobalTransform.Basis.X * MuzzleSpeed, DamagePerBullet);
+        newBullet.Setup(Muzzle.GlobalPosition, Muzzle.GlobalBasis.Z*30, DamagePerBullet);
        
 
         currentClipsSize--;
@@ -61,6 +62,9 @@ public partial class BasicWeapon : AbstractWeapon
         canShoot = true;
     }
 
+    /// <summary>
+    /// Called when the weapon is disabled (e.g., when unequipped).
+    /// </summary>
     public override void onDisable()
     {
         Visible = false;
