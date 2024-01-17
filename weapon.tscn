@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cmop8ss2cn2m7"]
 
-[ext_resource type="Script" path="res://scripts/Weapon.cs" id="1_n6c67"]
+[ext_resource type="Script" path="res://scripts/BasicWeapon.cs" id="1_cnc6x"]
 [ext_resource type="PackedScene" uid="uid://crbym1byr6oa7" path="res://DebugBullet.tscn" id="2_2q80j"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_lb24t"]
@@ -8,10 +8,11 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d58rd"]
 albedo_color = Color(0.137255, 0.133333, 0.121569, 1)
 
-[node name="Weapon" type="Node3D"]
+[node name="Weapon" type="Node3D" node_paths=PackedStringArray("ejectionPoint")]
 transform = Transform3D(0.999647, 0, 0, 0, 0.999647, 0, 0, 0, 0.999647, 0.50467, 0, 0)
-script = ExtResource("1_n6c67")
-Bullet = ExtResource("2_2q80j")
+script = ExtResource("1_cnc6x")
+ejectionPoint = NodePath("Muzzle")
+bulletPrefab = ExtResource("2_2q80j")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.56, 0, 0, 0, 0.377074, 0, 0, 0, 0.359302, 0, 0, 0)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cm0oo3g3hrblj"]
+[gd_scene load_steps=14 format=3 uid="uid://cm0oo3g3hrblj"]
 
 [ext_resource type="Script" path="res://scripts/WeaponComponent.cs" id="2_2vhfj"]
 [ext_resource type="Script" path="res://scripts/Shooter.cs" id="2_wrc6k"]
@@ -84,3 +84,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.214161, 0.246074, -0.863779
 script = ExtResource("7_rrgbw")
 emitInterval = 0.5
 BloodPrefab = ExtResource("8_gbddo")
+
+[node name="Node3D" type="Node3D" parent="."]
