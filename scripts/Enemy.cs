@@ -41,7 +41,7 @@ public partial class Enemy : Entity{
  			//Spawn Money
             var money = MoneyPrefab.Instantiate<Money>();
             money.setLerpSpeed(0.05f);
-            money.setMoneyAmount(2);
+            money.setMoneyAmount(5);
             GetTree().Root.AddChild(money);
 			
 
