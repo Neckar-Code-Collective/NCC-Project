@@ -10,6 +10,9 @@ public partial class Enemy : Entity{
 	float damage;
     float movementSpeed = 3.0f;
 
+	 [Export]
+    PackedScene MoneyPrefab;
+
 
 
 
@@ -35,6 +38,13 @@ public partial class Enemy : Entity{
 
 		health.onDeath += () =>{
 			QueueFree();
+ 			//Spawn Money
+            var money = MoneyPrefab.Instantiate<Money>();
+            money.setLerpSpeed(0.05f);
+            money.setMoneyAmount(2);
+            GetTree().Root.AddChild(money);
+			
+
 		};
 	}
 
