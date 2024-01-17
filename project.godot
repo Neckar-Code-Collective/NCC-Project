@@ -25,7 +25,7 @@ project/assembly_name="NCC-Project"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gdUnit4/plugin.cfg")
+enabled=PackedStringArray("res://addons/MagicaVoxel_Importer_with_Extensions/plugin.cfg", "res://addons/gdUnit4/plugin.cfg")
 
 [gdunit4]
 
@@ -38,3 +38,7 @@ settings/test/test_lookup_folder="tests"
 3d_physics/layer_3="Enemy"
 3d_physics/layer_4="Blood/Mage Collectible"
 3d_physics/layer_5="Money"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
