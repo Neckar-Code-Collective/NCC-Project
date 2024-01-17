@@ -6,9 +6,11 @@ using System;
 /// </summary>
 public partial class Shooter : Entity
 {
-	//TODO WeaponManager weapons;
-	//TODO MoneyManager money;
-	bool isLocalPlayer = false;
+    //TODO WeaponManager weapons;
+    //TODO MoneyManager money;
+
+    int currentMoneyCount = 0;
+    bool isLocalPlayer = false;
 	/// <summary>Speed of the shooter's movement.</summary>
 	public const float SPEED = 5.0f;
 
@@ -249,4 +251,20 @@ public partial class Shooter : Entity
 
 	}
 
+    public override void _Ready()
+    {
+        Area3D moneyCollector = GetNode<Area3D>("MoneyCollector");
+        moneyCollector.AreaEntered += OnMoneyCollectorCollision;
+    }
+
+	public void OnMoneyCollectorCollision(Node3D other){
+		if(other is Money m){
+            currentMoneyCount += m.getMoneyAmount();
+            m.QueueFree();
+            GD.Print("Current money: " + currentMoneyCount);
+
+
+        }
+
+	}
 }

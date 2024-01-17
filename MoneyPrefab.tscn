@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bn5yq3gg0rh2r"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_kxsgu"]
+size = Vector2(0.2, 0.1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_0f27t"]
+radius = 0.3
+
+[node name="MoneyPrefab" type="Area3D"]
+collision_layer = 16
+collision_mask = 0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00925153, 0.0555127, -0.0396113)
+mesh = SubResource("PlaneMesh_kxsgu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_0f27t")
