@@ -30,9 +30,53 @@ public partial class BulletTests
 
     }
 
-	[After]
-	public void Clear(){
-        
+    [TestCase]
+    public async Task TestCollisionWithWall(){
+        var runner = ISceneRunner.Load("res://tests/weapontests/bulletcolls/BulletWallCollTest.tscn");
+        var bullet = GD.Load<PackedScene>("res://DebugBullet.tscn").Instantiate<Bullet>();
+        runner.Scene().AddChild(bullet);
+        bullet.Setup(Vector3.Zero, Vector3.Right, 10);
+
+        await runner.SimulateFrames(25, 100);
+        Assertions.AssertBool(GodotObject.IsInstanceValid(bullet)).IsFalse();
     }
+
+
+    [TestCase]
+    public async Task TestCollisionWithEnemy(){
+        var runner = ISceneRunner.Load("res://tests/weapontests/EmptyScene.tscn");
+        var bullet = GD.Load<PackedScene>("res://DebugBullet.tscn").Instantiate<Bullet>();
+        var enemy = GD.Load<PackedScene>("res://BasicEnemy.tscn").Instantiate<BasicEnemy>();
+
+        runner.Scene().AddChild(bullet);
+        bullet.Setup(Vector3.Zero, Vector3.Right, 10);
+
+        bool gotCalled = false;
+        runner.Scene().AddChild(enemy);
+        enemy.GlobalPosition = new Vector3(5, 0, 0);
+        enemy.getHealth().onDamage += () =>
+        {
+            gotCalled = true;
+        };
+
+
+
+        await runner.SimulateFrames(25, 100);
+        Assertions.AssertFloat(enemy.getHealth().getCurrentHealth()).IsEqual(90);
+        Assertions.AssertBool(GodotObject.IsInstanceValid(bullet)).IsFalse();
+        Assertions.AssertBool(gotCalled).IsTrue();
+    }
+
+
+    [TestCase]
+    public async Task TestBulletGetsDeletedAfterTime(){
+        var runner = ISceneRunner.Load("res://tests/weapontests/EmptyScene.tscn");
+        var bullet = new Bullet();
+        runner.Scene().AddChild(bullet);
+        bullet.Setup(Vector3.Zero, Vector3.Right, 10);
+        await runner.SimulateFrames(11, 1000);
+        Assertions.AssertBool(Godot.GodotObject.IsInstanceValid(bullet)).IsFalse();
+    }
+
 	
 }

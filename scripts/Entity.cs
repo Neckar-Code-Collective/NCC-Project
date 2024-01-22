@@ -23,6 +23,10 @@ public partial class Entity : CharacterBody3D
 	{
 	}
 
+	public HealthComponent getHealth(){
+        return health;
+    }
+
 	[Rpc]
 	public void RpcDealDamage(float amount){
         GD.Print("AUA!");
