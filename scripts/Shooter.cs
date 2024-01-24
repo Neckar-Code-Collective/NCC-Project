@@ -250,7 +250,7 @@ public partial class Shooter : Entity
 	{
 
 	}
-
+	// Warum wurde das hier auskommentiert? Brauche ich für das Geldeinsammeln
     /*public override void _Ready()
     {
         Area3D moneyCollector = GetNode<Area3D>("MoneyCollector");
