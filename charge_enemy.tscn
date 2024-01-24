@@ -1,0 +1,34 @@
+[gd_scene load_steps=7 format=3 uid="uid://dum81xlrbqj6o"]
+
+[ext_resource type="Script" path="res://scripts/ChargeEnemy.cs" id="1_news6"]
+[ext_resource type="PackedScene" uid="uid://bn5yq3gg0rh2r" path="res://MoneyPrefab.tscn" id="2_ktx4u"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3a345"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h7247"]
+albedo_color = Color(0, 0, 0.521569, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_8fgjw"]
+material = SubResource("StandardMaterial3D_h7247")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_q5nbg"]
+radius = 79.004
+
+[node name="ChargeEnemy" type="CharacterBody3D"]
+script = ExtResource("1_news6")
+MoneyPrefab = ExtResource("2_ktx4u")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_3a345")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_8fgjw")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="Area3D" type="Area3D" parent="."]
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_q5nbg")

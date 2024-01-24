@@ -13,6 +13,8 @@ public partial class Enemy : Entity{
 	 [Export]
     PackedScene MoneyPrefab;
 
+    int NetWorth = 5;
+
 
 
 
@@ -39,11 +41,13 @@ public partial class Enemy : Entity{
 		health.onDeath += () =>{
 			QueueFree();
  			//Spawn Money
-            var money = MoneyPrefab.Instantiate<Money>();
-            money.setLerpSpeed(0.05f);
-            money.setMoneyAmount(5);
-            GetTree().Root.AddChild(money);
-			
+            for (int i = 0; i < NetWorth; i++)
+            {
+				var money = MoneyPrefab.Instantiate<Money>();
+                money.setMoneyAmount(1);
+				GetTree().Root.AddChild(money);
+                money.GlobalPosition = this.GlobalPosition;
+            }
 
 		};
 	}
@@ -99,6 +103,14 @@ public partial class Enemy : Entity{
     public void setMovementSpeed(float _ms){
         this.movementSpeed = _ms;
 
+    }
+
+	public int getNetWorth(){
+        return this.NetWorth;
+    }
+
+	public void setNetWorth(int _nw){
+        this.NetWorth = _nw;
     }
 
    

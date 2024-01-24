@@ -1,14 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://bn5yq3gg0rh2r"]
+[gd_scene load_steps=5 format=3 uid="uid://bn5yq3gg0rh2r"]
 
 [ext_resource type="Script" path="res://scripts/Money.cs" id="1_8psjd"]
 [ext_resource type="ArrayMesh" uid="uid://dtvgkk0308n1v" path="res://Grafik/dollar.vox" id="2_5dgt6"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_0f27t"]
-radius = 0.6
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_np27p"]
+absorbent = true
 
-[node name="MoneyPrefab" type="Area3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_vf5pk"]
+size = Vector3(0.25238, 0.0800171, 0.464325)
+
+[node name="MoneyPrefab" type="RigidBody3D"]
 collision_layer = 16
-collision_mask = 0
+collision_mask = 16
+mass = 0.1
+physics_material_override = SubResource("PhysicsMaterial_np27p")
 script = ExtResource("1_8psjd")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -16,5 +21,5 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0.2)
 mesh = ExtResource("2_5dgt6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.975469, 0.220136, 0, -0.220136, 0.975469, 0, 0, 0)
-shape = SubResource("SphereShape3D_0f27t")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0221252, 0.0116272, 0.0274811)
+shape = SubResource("BoxShape3D_vf5pk")

@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Money: Area3D {
+public partial class Money: RigidBody3D {
 
     int moneyAmount = 0;
 
@@ -11,8 +11,17 @@ public partial class Money: Area3D {
 
     public override void _Ready()
 	{
-
-	}
+        Vector3 force = new Vector3();
+        force.X = Random.Shared.NextSingle()*10;
+        force.Y = 10;
+        force.Z = Random.Shared.NextSingle()*10;
+        ApplyForce(force);
+        Vector3 torque = new Vector3();
+        torque.X = Random.Shared.NextSingle();
+        torque.Y = Random.Shared.NextSingle();
+        torque.Z = Random.Shared.NextSingle();
+        ApplyTorque(torque);
+    }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
@@ -40,7 +49,7 @@ public partial class Money: Area3D {
 
     public override void _PhysicsProcess(double delta)
     {
-        GlobalPosition = GlobalPosition.Lerp(lerpTarget, lerpSpeed);
+        //GlobalPosition = GlobalPosition.Lerp(lerpTarget, lerpSpeed);
     }
 
 
