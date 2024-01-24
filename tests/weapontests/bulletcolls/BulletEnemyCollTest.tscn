@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cilgawqmwnqx6"]
+
+[ext_resource type="PackedScene" uid="uid://j7s8agd142uc" path="res://BasicEnemy.tscn" id="1_k4v5s"]
+[ext_resource type="PackedScene" uid="uid://crbym1byr6oa7" path="res://DebugBullet.tscn" id="2_8h2oh"]
+
+[node name="BulletEnemyCollTest" type="Node3D"]
+
+[node name="BasicEnemy" parent="." instance=ExtResource("1_k4v5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
+
+[node name="DebugBullet" parent="." instance=ExtResource("2_8h2oh")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.779655, -4.07907e-08, -0.626209, 0.503012, 0.595622, 0.626269, 0.372984, -0.803265, 0.46438, 0.0903156, 3.29998, 1.80254)
