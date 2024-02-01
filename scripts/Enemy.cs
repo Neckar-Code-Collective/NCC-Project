@@ -74,12 +74,13 @@ public partial class Enemy : Entity{
 
 		}
 
-
+		Attack();
 	}
 
 	public void Attack(){
 		var distance = target.GlobalPosition - this.GlobalPosition;
 		if(distance.Length() < 1 ){
+			target.Rpc(nameof(RpcDealDamage), 2);
 			target.RpcDealDamage(2);
 		} 
 

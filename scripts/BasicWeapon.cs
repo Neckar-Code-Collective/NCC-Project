@@ -6,83 +6,83 @@ using System;
 /// </summary>
 public partial class BasicWeapon : AbstractWeapon
 {
-    [Export] public PackedScene BulletPrefab;
-    [Export] public float MuzzleSpeed = 30;
-    [Export] public float ShootDelay = 0.33333333333334f;
-    [Export] public int ClipSize = 30;
-    [Export] public float DamagePerBullet = 10;
-    [Export] public Marker3D Muzzle;
+	[Export] public PackedScene BulletPrefab;
+	[Export] public float MuzzleSpeed = 30;
+	[Export] public float ShootDelay = 0.33333333333334f;
+	[Export] public int ClipSize = 30;
+	[Export] public float DamagePerBullet = 10;
+	[Export] public Marker3D Muzzle;
 
-    private Timer rofTimer;
-    private bool canShoot = true;
-    private float timeSinceLastShot = 0;
-    private int currentClipsSize;
+	private Timer rofTimer;
+	private bool canShoot = true;
+	private float timeSinceLastShot = 0;
+	private int currentClipsSize;
 
-    public override void _Ready()
-    {
-        rofTimer = new Timer();
-        AddChild(rofTimer);
-        rofTimer.WaitTime = ShootDelay;
-        rofTimer.OneShot = true;
-        rofTimer.Timeout+= OnRofTimerTimeout;
-        currentClipsSize = ClipSize;
-    }
+	public override void _Ready()
+	{
+		rofTimer = new Timer();
+		AddChild(rofTimer);
+		rofTimer.WaitTime = ShootDelay;
+		rofTimer.OneShot = true;
+		rofTimer.Timeout+= OnRofTimerTimeout;
+		currentClipsSize = ClipSize;
+	}
 
-    public override void _PhysicsProcess(double delta)
-    {
-        timeSinceLastShot += (float)delta;
-        if (CanShoot())
-        {
-            Shoot();
-        }
-    }
+	public override void _PhysicsProcess(double delta)
+	{
+		timeSinceLastShot += (float)delta;
+		if (CanShoot())
+		{
+			Shoot();
+		}
+	}
 
-    private bool CanShoot()
-    {
-        return timeSinceLastShot > ShootDelay && currentClipsSize > 0 && canShoot;
-    }
+	private bool CanShoot()
+	{
+		return timeSinceLastShot > ShootDelay && currentClipsSize > 0 && canShoot;
+	}
 
-    private void Shoot()
-    {
-        Bullet newBullet = BulletPrefab.Instantiate<Bullet>();
-        if (newBullet == null) return;
+	private void Shoot()
+	{
+		Bullet newBullet = BulletPrefab.Instantiate<Bullet>();
+		if (newBullet == null) return;
 
-        GetTree().Root.AddChild(newBullet);
-        newBullet.Setup(Muzzle.GlobalPosition, Muzzle.GlobalBasis.Z*30, DamagePerBullet);
-       
+		GetTree().Root.AddChild(newBullet);
+		newBullet.Setup(Muzzle.GlobalPosition, Muzzle.GlobalBasis.Z*30, DamagePerBullet);
+	   
 
-        currentClipsSize--;
-        timeSinceLastShot = 0;
-        canShoot = false;
-        rofTimer.Start();
-    }
+		currentClipsSize--;
+		timeSinceLastShot = 0;
+		canShoot = false;
+		rofTimer.Start();
+	}
 
-    private void OnRofTimerTimeout()
-    {
-        canShoot = true;
-    }
+	private void OnRofTimerTimeout()
+	{
+		canShoot = true;
+	}
 
-    /// <summary>
-    /// Called when the weapon is disabled (e.g., when unequipped).
-    /// </summary>
-    public override void onDisable()
-    {
-        Visible = false;
-    }
+	/// <summary>
+	/// Called when the weapon is disabled (e.g., when unequipped).
+	/// </summary>
+	public override void onDisable()
+	{
+		Visible = false;
+	}
 
-    public override void onEnable()
-    {
-        Visible = true;
-    }
+	public override void onEnable()
+	{
+		Visible = true;
+	}
 
 
-    public override void Reload()
-    {
-        currentClipsSize = ClipSize;
-        
-    }
+	public override void Reload()
+	{
+		currentClipsSize = ClipSize;
+		
+	}
 
-    
+	
 }
 
 /*using Godot;
@@ -93,102 +93,102 @@ using System;
 /// </summary>
 public partial class BasicWeapon : AbstractWeapon
 {
-    [Export] public PackedScene Bullet;
+	[Export] public PackedScene Bullet;
 	/// <summary>
-    /// The delay between every shot, in seconds
-    /// </summary>
-    [Export(PropertyHint.Range,"0.00001,2")]
-    float shootDelay = 0.33333333333334f;
+	/// The delay between every shot, in seconds
+	/// </summary>
+	[Export(PropertyHint.Range,"0.00001,2")]
+	float shootDelay = 0.33333333333334f;
 
 	/// <summary>
-    /// The amount of bullets in a single magazine
-    /// </summary>
-    [Export]
-    int clipSize = 30;
-
-	/// <summary>
-    /// The damage per bullet (duh)
-    /// </summary>
+	/// The amount of bullets in a single magazine
+	/// </summary>
 	[Export]
-    float damagePerBullet = 10;
+	int clipSize = 30;
 
 	/// <summary>
-    /// Node3d of the ejection point, should be a extra node placed at the top of the gun
-    /// </summary>
+	/// The damage per bullet (duh)
+	/// </summary>
 	[Export]
-    Node3D ejectionPoint = null;
+	float damagePerBullet = 10;
 
 	/// <summary>
-    /// The Bullet prefab, from which bullets get instantiated. Must be of type Bullet
-    /// </summary>
-    [Export]
-    PackedScene bulletPrefab = null;
-
-
-    /// <summary>
-    /// time since the last shot has been emitted, used for shootDelay
-    /// </summary>
-    float timeSinceLastShot = 0;
+	/// Node3d of the ejection point, should be a extra node placed at the top of the gun
+	/// </summary>
+	[Export]
+	Node3D ejectionPoint = null;
 
 	/// <summary>
-    /// amount of ammo currently loaded
-    /// </summary>
-    int currentClipsSize = 0;
+	/// The Bullet prefab, from which bullets get instantiated. Must be of type Bullet
+	/// </summary>
+	[Export]
+	PackedScene bulletPrefab = null;
 
-    public override void _PhysicsProcess(double delta)
-    {
-        timeSinceLastShot += (float)delta;
-    }
-
-    public override void ShootInput(Vector3 velocity)
-    {
-        //check if can shoot
-		if (CanShoot()){
-            //time is sufficient, shoot
-            Shoot(velocity);
-        }
-    }
 
 	/// <summary>
-    /// Determines if there is enough delay since the last shot and enough ammo
-    /// </summary>
-    /// <returns></returns>
-	public bool CanShoot(){
-        return timeSinceLastShot > shootDelay && currentClipsSize > 0;
-    }
+	/// time since the last shot has been emitted, used for shootDelay
+	/// </summary>
+	float timeSinceLastShot = 0;
 
 	/// <summary>
-    /// Gets called when this weapon should eject a projectile.
-    /// </summary>
-	public void Shoot(Vector3 vel){
-        timeSinceLastShot = 0;
-        currentClipsSize--;
+	/// amount of ammo currently loaded
+	/// </summary>
+	int currentClipsSize = 0;
 
-        var bullet = bulletPrefab.Instantiate() as Bullet;
-        GetTree().Root.AddChild(bullet);
-        bullet.Setup(ejectionPoint.GlobalPosition, vel, damagePerBullet);
-
-    }
-
-    // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
+	public override void _PhysicsProcess(double delta)
 	{
-        currentClipsSize = clipSize;
-    }
+		timeSinceLastShot += (float)delta;
+	}
 
-    public override void onDisable()
-    {
+	public override void ShootInput(Vector3 velocity)
+	{
+		//check if can shoot
+		if (CanShoot()){
+			//time is sufficient, shoot
+			Shoot(velocity);
+		}
+	}
+
+	/// <summary>
+	/// Determines if there is enough delay since the last shot and enough ammo
+	/// </summary>
+	/// <returns></returns>
+	public bool CanShoot(){
+		return timeSinceLastShot > shootDelay && currentClipsSize > 0;
+	}
+
+	/// <summary>
+	/// Gets called when this weapon should eject a projectile.
+	/// </summary>
+	public void Shoot(Vector3 vel){
+		timeSinceLastShot = 0;
+		currentClipsSize--;
+
+		var bullet = bulletPrefab.Instantiate() as Bullet;
+		GetTree().Root.AddChild(bullet);
+		bullet.Setup(ejectionPoint.GlobalPosition, vel, damagePerBullet);
+
+	}
+
+	// Called when the node enters the scene tree for the first time.
+	public override void _Ready()
+	{
+		currentClipsSize = clipSize;
+	}
+
+	public override void onDisable()
+	{
 		
-    }
+	}
 
-    public override void onEnable()
-    {
-        
-    }
+	public override void onEnable()
+	{
+		
+	}
 
-    public override void Reload()
-    {
-        currentClipsSize = clipSize;
-    }
+	public override void Reload()
+	{
+		currentClipsSize = clipSize;
+	}
 }
 */

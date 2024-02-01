@@ -6,11 +6,11 @@ using System;
 /// </summary>
 public partial class Shooter : Entity
 {
-    //TODO WeaponManager weapons;
-    //TODO MoneyManager money;
+	//TODO WeaponManager weapons;
+	//TODO MoneyManager money;
 
-    int currentMoneyCount = 0;
-    bool isLocalPlayer = false;
+	int currentMoneyCount = 0;
+	bool isLocalPlayer = false;
 	/// <summary>Speed of the shooter's movement.</summary>
 	public const float SPEED = 5.0f;
 
@@ -79,6 +79,7 @@ public partial class Shooter : Entity
 			ProcessMouseRotation(mousePosition);
 		}
 		ProcessJoystickRotation();
+		GD.Print(health.getCurrentHealth());
 		
 	}
 	private Camera3D GetCamera()
@@ -251,20 +252,33 @@ public partial class Shooter : Entity
 
 	}
 	// Warum wurde das hier auskommentiert? Brauche ich für das Geldeinsammeln
-    public override void _Ready()
-    {
-        Area3D moneyCollector = GetNode<Area3D>("MoneyCollector");
-        moneyCollector.BodyEntered += OnMoneyCollectorCollision;
-    }
+	public override void _Ready()
+	{
+		base._Ready();
+		health.setMaxHealth(10);
+		health.setCurrentHealth(10);
+		Area3D moneyCollector = GetNode<Area3D>("MoneyCollector");
+		moneyCollector.BodyEntered += OnMoneyCollectorCollision;
+		//var deathMethod = new Callable(this, nameof(HandleDeath));
+		health.onDeath += HandleDeath;
+		//health.Connect("onDeath",deathMethod);
+
+		
+	}
 
 	public void OnMoneyCollectorCollision(Node3D other){
 		if(other is Money m){
-            currentMoneyCount += m.getMoneyAmount();
-            m.QueueFree();
-            GD.Print("Current money: " + currentMoneyCount);
+			currentMoneyCount += m.getMoneyAmount();
+			m.QueueFree();
+			GD.Print("Current money: " + currentMoneyCount);
 
 
-        }
+		}
 
+	}
+
+	 private void HandleDeath()
+	{
+		QueueFree();
 	}
 }
