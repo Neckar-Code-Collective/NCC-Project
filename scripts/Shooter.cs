@@ -79,7 +79,7 @@ public partial class Shooter : Entity
 			ProcessMouseRotation(mousePosition);
 		}
 		ProcessJoystickRotation();
-		GD.Print(health.getCurrentHealth());
+		//GD.Print(health.getCurrentHealth());
 		
 	}
 	private Camera3D GetCamera()
