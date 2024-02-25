@@ -9,7 +9,7 @@ public partial class RevenantEnemy : Enemy{
 
     enum RevenantEnemyState
     { 
-        ALIVE, REVENANT
+        ALIVE, REVENANT, DEAD
     }
 
     RevenantEnemyState state = RevenantEnemyState.ALIVE;
@@ -38,6 +38,10 @@ public partial class RevenantEnemy : Enemy{
                     setMovementSpeed(3.0f);
                     break;
                 case RevenantEnemyState.REVENANT:
+                    state = RevenantEnemyState.DEAD;
+                    Ticker();
+                    break;
+                case RevenantEnemyState.DEAD:
                     break;
             }
         }
@@ -48,7 +52,12 @@ public partial class RevenantEnemy : Enemy{
 
    public void Ticker (){
     while(health.getCurrentHealth() > 0){
-            break;
+            ticker.Start(1);
+            if (health.getCurrentHealth() > 0)
+            {
+                setMovementSpeed(getMovementSpeed() * 1.5f);
+                health.setCurrentHealth(health.getCurrentHealth() - 1);
+            }
         }
 
    }

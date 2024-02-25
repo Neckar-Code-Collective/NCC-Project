@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://c5joc54q5pfa0"]
+
+[ext_resource type="Script" path="res://scripts/RevenantEnemy.cs" id="1_2t2w0"]
+[ext_resource type="PackedScene" uid="uid://bn5yq3gg0rh2r" path="res://MoneyPrefab.tscn" id="2_313yw"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_i5rlv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3kj4p"]
+albedo_color = Color(1, 0, 1, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_jlfoh"]
+material = SubResource("StandardMaterial3D_3kj4p")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_56kqn"]
+radius = 100.0
+
+[node name="RevenantEnemy" type="CharacterBody3D"]
+script = ExtResource("1_2t2w0")
+MoneyPrefab = ExtResource("2_313yw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_i5rlv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_jlfoh")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_56kqn")

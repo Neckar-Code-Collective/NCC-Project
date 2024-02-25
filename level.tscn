@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cm0oo3g3hrblj"]
+[gd_scene load_steps=19 format=3 uid="uid://cm0oo3g3hrblj"]
 
 [ext_resource type="Script" path="res://scripts/WeaponComponent.cs" id="2_2vhfj"]
 [ext_resource type="Script" path="res://scripts/Shooter.cs" id="2_wrc6k"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scripts/debug/BloodSpawner.cs" id="7_rrgbw"]
 [ext_resource type="PackedScene" uid="uid://dum81xlrbqj6o" path="res://charge_enemy.tscn" id="8_5b1aa"]
 [ext_resource type="PackedScene" uid="uid://hos0rmwwl317" path="res://BloodPrefab.tscn" id="8_gbddo"]
+[ext_resource type="PackedScene" uid="uid://c5joc54q5pfa0" path="res://revenant_enemy.tscn" id="9_i3b40"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_28p2v"]
 
@@ -102,8 +103,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.214161, 0.246074, -0.863779
 script = ExtResource("7_rrgbw")
 emitInterval = 0.5
 BloodPrefab = ExtResource("8_gbddo")
+emitRange = null
 
 [node name="Node3D" type="Node3D" parent="."]
 
 [node name="ChargeEnemy" parent="." instance=ExtResource("8_5b1aa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.13714, -0.000773013, -7.18601)
+
+[node name="RevenantEnemy" parent="." instance=ExtResource("9_i3b40")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.8344, 0.04424, -5.97063)
