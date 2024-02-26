@@ -9,7 +9,7 @@ public partial class RevenantEnemy : Enemy{
 
     enum RevenantEnemyState
     { 
-        ALIVE, REVENANT, DEAD
+        ALIVE, REVENANT
     }
 
     RevenantEnemyState state = RevenantEnemyState.ALIVE;
@@ -24,43 +24,49 @@ public partial class RevenantEnemy : Enemy{
     public override void _Ready()
     {
         base._Ready();
+        AddChild(timer);
+        AddChild(ticker);
         health.setMaxHealth(100f);
         health.setCurrentHealth(health.getMaxHealth());
+        health.ResetDeathHandler();
         setMovementSpeed(1.0f);
         setNetWorth(15);
 
-        if(health.getCurrentHealth() <= 5){
-            switch(state){
+        health.onDeath += () =>
+        {
+            switch (state)
+            {
                 case RevenantEnemyState.ALIVE:
                     state = RevenantEnemyState.REVENANT;
+                    ticker.OneShot = false;
+                    timer.OneShot = true;
+                    ticker.Start(2.1f);
+                    ticker.Timeout += Ticker;
+                    setMovementSpeed(0);
+                    timer.Timeout += () =>
+                    {
+                        health.setCurrentHealth(120f);
+                        setMovementSpeed(2.0f);
+                    };
                     timer.Start(2);
-                    health.setCurrentHealth(120f);
-                    setMovementSpeed(3.0f);
                     break;
                 case RevenantEnemyState.REVENANT:
-                    state = RevenantEnemyState.DEAD;
-                    Ticker();
-                    break;
-                case RevenantEnemyState.DEAD:
-                    break;
-            }
-        }
 
-        
+                    break;
+
+            }
+        };
+
+
+
+
 
     }
 
    public void Ticker (){
-    while(health.getCurrentHealth() > 0){
-            ticker.Start(1);
-            if (health.getCurrentHealth() > 0)
-            {
-                setMovementSpeed(getMovementSpeed() * 1.5f);
-                health.setCurrentHealth(health.getCurrentHealth() - 1);
-            }
-        }
-
-   }
+        RpcDealDamage(5);
+        setMovementSpeed(getMovementSpeed() * 1.2f);
+    }
 
 
 

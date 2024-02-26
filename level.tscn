@@ -39,6 +39,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.86286, -0.999227, 2.18601)
 
 [node name="Shooter" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.55101, 0.045115, 1.00584)
+collision_layer = 2
 script = ExtResource("2_wrc6k")
 metadata/_edit_group_ = true
 

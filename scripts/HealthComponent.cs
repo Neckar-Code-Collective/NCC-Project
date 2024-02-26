@@ -88,6 +88,11 @@ public partial class HealthComponent : Node
 		
 	}
 
+	public void ResetDeathHandler(){
+        backing_onDeath = null;
+
+    }
+
 	
 
 	public float getMaxHealth(){
