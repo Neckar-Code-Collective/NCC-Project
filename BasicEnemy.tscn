@@ -1,13 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://j7s8agd142uc"]
+[gd_scene load_steps=6 format=3 uid="uid://j7s8agd142uc"]
 
 [ext_resource type="Script" path="res://scripts/BasicEnemy.cs" id="1_k6s2h"]
 [ext_resource type="PackedScene" uid="uid://bn5yq3gg0rh2r" path="res://MoneyPrefab.tscn" id="2_ens4v"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mcyxc"]
-albedo_color = Color(0.0352941, 0.392157, 0, 1)
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_dw47b"]
-material = SubResource("StandardMaterial3D_mcyxc")
+[ext_resource type="ArrayMesh" uid="uid://d007yoa5o13c0" path="res://basicEnemyPrefab.vox" id="3_vfgpr"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7iksv"]
 
@@ -19,8 +14,8 @@ script = ExtResource("1_k6s2h")
 MoneyPrefab = ExtResource("2_ens4v")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("CapsuleMesh_dw47b")
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+mesh = ExtResource("3_vfgpr")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
