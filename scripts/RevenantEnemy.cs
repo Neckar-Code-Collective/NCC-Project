@@ -43,18 +43,27 @@ public partial class RevenantEnemy : Enemy{
                     ticker.Start(2.1f);
                     ticker.Timeout += Ticker;
                     setMovementSpeed(0);
+                    health.setCurrentHealth(120f);
                     timer.Timeout += () =>
                     {
-                        health.setCurrentHealth(120f);
                         setMovementSpeed(2.0f);
                     };
                     timer.Start(2);
                     break;
                 case RevenantEnemyState.REVENANT:
 
+                    QueueFree();
+                    //Spawn Money
+                    for (int i = 0; i < NetWorth; i++)
+                    {
+                        var money = MoneyPrefab.Instantiate<Money>();
+                        money.setMoneyAmount(1);
+                        GetTree().Root.AddChild(money);
+                        money.GlobalPosition = this.GlobalPosition;
+                    }
                     break;
-
-            }
+            
+                }
         };
 
 
@@ -63,8 +72,9 @@ public partial class RevenantEnemy : Enemy{
 
     }
 
-   public void Ticker (){
-        RpcDealDamage(5);
+    public void Ticker (){
+        //health.setCurrentHealth(health.getCurrentHealth() - 60);
+        RpcDealDamage(20);
         setMovementSpeed(getMovementSpeed() * 1.2f);
     }
 

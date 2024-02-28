@@ -104,6 +104,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.214161, 0.246074, -0.863779
 script = ExtResource("7_rrgbw")
 emitInterval = 0.5
 BloodPrefab = ExtResource("8_gbddo")
+emitRange = null
 
 [node name="Node3D" type="Node3D" parent="."]
 

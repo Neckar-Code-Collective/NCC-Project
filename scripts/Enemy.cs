@@ -11,9 +11,9 @@ public partial class Enemy : Entity{
     float movementSpeed = 3.0f;
 
 	 [Export]
-    PackedScene MoneyPrefab;
+    protected PackedScene MoneyPrefab;
 
-    int NetWorth = 5;
+    protected int NetWorth = 5;
 
 
 
@@ -65,7 +65,7 @@ public partial class Enemy : Entity{
 		var current_location = GlobalTransform.Origin;
 		var next_location = nav_agent.GetNextPathPosition();
 		var new_velocity = (next_location - current_location).Normalized() * movementSpeed;
-		//LookAt(Shooter.GlobalPosition.X(), Vector3.Up);
+		LookAt(target.GlobalPosition, Vector3.Up);
 
 		Velocity = new_velocity;
 		MoveAndSlide();

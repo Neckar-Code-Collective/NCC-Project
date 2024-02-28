@@ -14,7 +14,7 @@ script = ExtResource("1_k6s2h")
 MoneyPrefab = ExtResource("2_ens4v")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+transform = Transform3D(-2.18557e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.18557e-08, 0, -0.0413432, 0)
 mesh = ExtResource("3_vfgpr")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
