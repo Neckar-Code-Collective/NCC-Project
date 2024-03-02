@@ -5,7 +5,7 @@ public partial class Entity : CharacterBody3D
 {
 	
 	protected HealthComponent health;
-	//TODO NetworkedTransform netTrans;
+	NetworkedTransform netTrans;
 
 
 	
@@ -15,6 +15,9 @@ public partial class Entity : CharacterBody3D
         health = new HealthComponent();
         AddChild(health);
 
+        netTrans = new NetworkedTransform();
+        netTrans.SetTarget(this);
+        AddChild(netTrans);
 
     }
 

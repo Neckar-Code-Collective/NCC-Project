@@ -1,0 +1,54 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpojbptvgw07n"]
+
+[ext_resource type="Script" path="res://scripts/BeginScene.cs" id="1_eqn6w"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_eqn6w")
+
+[node name="ClientButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 61.0
+offset_top = 36.0
+offset_right = 361.0
+offset_bottom = 236.0
+theme_override_font_sizes/font_size = 34
+text = "Connect as Client "
+
+[node name="TextEdit" type="TextEdit" parent="."]
+layout_mode = 0
+offset_left = 59.0
+offset_top = 266.0
+offset_right = 199.0
+offset_bottom = 316.0
+text = "127.0.0.1"
+
+[node name="ServerButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 654.0
+offset_top = 29.0
+offset_right = 954.0
+offset_bottom = 229.0
+theme_override_font_sizes/font_size = 34
+text = "Start Server"
+
+[node name="TextEdit2" type="TextEdit" parent="."]
+layout_mode = 0
+offset_left = 219.0
+offset_top = 266.0
+offset_right = 359.0
+offset_bottom = 316.0
+text = "12345"
+
+[node name="TextEdit3" type="TextEdit" parent="."]
+layout_mode = 0
+offset_left = 728.0
+offset_top = 276.0
+offset_right = 868.0
+offset_bottom = 326.0
+text = "12345"

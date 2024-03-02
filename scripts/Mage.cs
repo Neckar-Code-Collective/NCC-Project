@@ -13,6 +13,11 @@ public partial class Mage : Node
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
+
+        if(!Global.Is_Mage){
+            QueueFree();
+        }
+
         Collector = GetNode<Area3D>("BloodCollector");
         Attractor = GetNode<Area3D>("BloodAttractor");
 
