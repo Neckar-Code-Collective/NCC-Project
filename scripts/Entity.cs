@@ -12,12 +12,28 @@ public partial class Entity : CharacterBody3D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+
+
         health = new HealthComponent();
+        health.Name = "Health";
+        health.SetMultiplayerAuthority(GetMultiplayerAuthority());
         AddChild(health);
 
+
         netTrans = new NetworkedTransform();
+        netTrans.Name = "NetworkTransform";
+        netTrans.SetMultiplayerAuthority(GetMultiplayerAuthority());
         netTrans.SetTarget(this);
         AddChild(netTrans);
+
+		if (int.TryParse(Name, System.Globalization.NumberStyles.Any, null, out int id) && Multiplayer.GetUniqueId() == int.Parse(Name))
+        {
+            // GD.Print("Setting Auhtority "+id);
+            SetMultiplayerAuthority(id, true);
+			
+        }
+
+        GD.Print("NETTRANS AUTH IS " + netTrans.GetMultiplayerAuthority());
 
     }
 
@@ -30,7 +46,7 @@ public partial class Entity : CharacterBody3D
         return health;
     }
 
-	[Rpc]
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer)]
 	public void RpcDealDamage(float amount){
         GD.Print("AUA!");
         health.applyDamage(amount);

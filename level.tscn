@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://cm0oo3g3hrblj"]
+[gd_scene load_steps=13 format=3 uid="uid://cm0oo3g3hrblj"]
 
-[ext_resource type="PackedScene" uid="uid://dhcvs3jv6hkgk" path="res://Shooter.tscn" id="1_o7l0a"]
+[ext_resource type="PackedScene" uid="uid://dhcvs3jv6hkgk" path="res://Shooter.tscn" id="2_i3ihx"]
 [ext_resource type="PackedScene" uid="uid://j7s8agd142uc" path="res://BasicEnemy.tscn" id="4_jy5dv"]
 [ext_resource type="PackedScene" uid="uid://dgvxpb4rt6cga" path="res://Mage.tscn" id="6_3651a"]
 [ext_resource type="Script" path="res://scripts/debug/BloodSpawner.cs" id="7_rrgbw"]
 [ext_resource type="PackedScene" uid="uid://dum81xlrbqj6o" path="res://charge_enemy.tscn" id="8_5b1aa"]
+[ext_resource type="Script" path="res://scripts/NetworkManager.cs" id="8_cefut"]
 [ext_resource type="PackedScene" uid="uid://hos0rmwwl317" path="res://BloodPrefab.tscn" id="8_gbddo"]
 [ext_resource type="PackedScene" uid="uid://c5joc54q5pfa0" path="res://revenant_enemy.tscn" id="9_i3b40"]
 
@@ -23,10 +24,18 @@ size = Vector3(20, 1, 20)
 [node name="Level" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.86286, -0.999227, 2.18601)
 
-[node name="Shooter" parent="." instance=ExtResource("1_o7l0a")]
+[node name="NetworkManager" type="Node" parent="."]
+script = ExtResource("8_cefut")
+ShooterPrefab = ExtResource("2_i3ihx")
+
+[node name="Shooters" type="Node3D" parent="."]
+
+[node name="ShooterSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Shooter.tscn")
+spawn_path = NodePath("../Shooters")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.12941, -0.866025, 0.482963, -0.224144, 0.5, 0.836516, -0.965926, 2.04752e-08, -0.258819, 8, 5, 0)
+transform = Transform3D(-0.12941, -0.866025, 0.482963, -0.224144, 0.5, 0.836516, -0.965926, 2.8924e-07, -0.258819, 8, 5, 0)
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
@@ -56,6 +65,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.214161, 0.246074, -0.863779
 script = ExtResource("7_rrgbw")
 emitInterval = 0.5
 BloodPrefab = ExtResource("8_gbddo")
+emitRange = null
 
 [node name="Node3D" type="Node3D" parent="."]
 

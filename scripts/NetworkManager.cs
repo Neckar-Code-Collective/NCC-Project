@@ -3,10 +3,20 @@ using System;
 
 public partial class NetworkManager : Node
 {
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
+
+    [Export]
+    PackedScene ShooterPrefab;
+
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
 	{
-	}
+        Multiplayer.PeerConnected += PeerConnected;
+        Multiplayer.PeerDisconnected += PeerDisconnected;
+        Multiplayer.ConnectedToServer += ConnectedToServer;
+        Multiplayer.ConnectionFailed += ConnectionFailed;
+        Multiplayer.ServerDisconnected += ServerDisconnected;
+
+    }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
@@ -14,15 +24,21 @@ public partial class NetworkManager : Node
 	}
 
 	#region Server Callbacks
-	public void PeerConnected(int id){
+	public void PeerConnected(long id){
 		if(!Multiplayer.IsServer()){
             return;
         }
 
         GD.Print("New Client connected: " + id);
+
+        var shooter = ShooterPrefab.Instantiate<Shooter>();
+        shooter.Name = id.ToString();
+        shooter.SetMultiplayerAuthority((int)id, true);
+        GD.Print(shooter.GetMultiplayerAuthority());
+        GetNode("../Shooters").AddChild(shooter);
     }
 
-	public void PeerDisconnected(int id){
+	public void PeerDisconnected(long id){
 		if(!Multiplayer.IsServer()){
             return;
         }

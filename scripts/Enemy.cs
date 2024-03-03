@@ -65,7 +65,6 @@ public partial class Enemy : Entity{
 		var current_location = GlobalTransform.Origin;
 		var next_location = nav_agent.GetNextPathPosition();
 		var new_velocity = (next_location - current_location).Normalized() * movementSpeed;
-		LookAt(target.GlobalPosition, Vector3.Up);
 
 		Velocity = new_velocity;
 		MoveAndSlide();
@@ -73,9 +72,10 @@ public partial class Enemy : Entity{
 		if(target != null){
 			nav_agent.TargetPosition = target.GlobalPosition;
 
+			LookAt(target.GlobalPosition, Vector3.Up);
+			Attack();
 		}
 
-		Attack();
 	}
 
 	public void Attack(){

@@ -41,6 +41,7 @@ public partial class NetworkedTransform : Node
             return;
         }
 
+        // GD.Print(Multiplayer.GetUniqueId());
         Rpc(nameof(RPCUpdatePosition), target.GlobalPosition);
 
     }
@@ -53,7 +54,12 @@ public partial class NetworkedTransform : Node
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _PhysicsProcess(double delta)
 	{
+        if(target is Shooter){
+            GD.Print(GetMultiplayerAuthority());
+        }
+        
 		if(IsMultiplayerAuthority()){
+            // GD.Print(Multiplayer.GetUniqueId());
             return;
         }
 
@@ -61,6 +67,6 @@ public partial class NetworkedTransform : Node
             return;
         }
 
-        target.GlobalPosition.Lerp(targetPosition, 0.8f);
+        target.GlobalPosition = target.GlobalPosition.Lerp(targetPosition, 0.8f);
     }
 }

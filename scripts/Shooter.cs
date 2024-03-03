@@ -49,6 +49,11 @@ public partial class Shooter : Entity
 	/// <param name="delta">Time elapsed since the last frame.</param>
 	public override void _PhysicsProcess(double delta)
 	{
+
+		if(!IsMultiplayerAuthority()){
+            return;
+        }
+
 		Vector3 velocity = Velocity;
 		
 		// Handle Jump.
@@ -255,6 +260,12 @@ public partial class Shooter : Entity
 	public override void _Ready()
 	{
 		base._Ready();
+        
+
+        if (!IsMultiplayerAuthority()){
+			return;
+        }
+
 		health.setMaxHealth(10);
 		health.setCurrentHealth(10);
 		Area3D moneyCollector = GetNode<Area3D>("MoneyCollector");
