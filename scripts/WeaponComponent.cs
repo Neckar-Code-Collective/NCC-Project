@@ -36,4 +36,11 @@ public partial class WeaponComponent : Node
 	public override void _Process(double delta)
 	{
 	}
+
+	public void ShootAction(){
+		if(equippedWeapon != null){
+            (equippedWeapon as BasicWeapon).ShootInput(Vector3.Zero);
+        }
+	}
+
 }

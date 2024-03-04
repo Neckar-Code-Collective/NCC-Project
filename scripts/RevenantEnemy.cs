@@ -52,7 +52,7 @@ public partial class RevenantEnemy : Enemy{
                     break;
                 case RevenantEnemyState.REVENANT:
 
-                    QueueFree();
+                    Rpc(nameof(RpcDie));
                     //Spawn Money
                     for (int i = 0; i < NetWorth; i++)
                     {

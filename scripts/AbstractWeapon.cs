@@ -28,7 +28,7 @@ public abstract partial class AbstractWeapon : Node3D
     /// <param name="vel">the velocity of the spawned bullet</param>
     /// <param name="data">additional data (e.g. different bullet type)</param>
 	[Rpc]
-	public void RpcShoot(Vector3 pos,Vector3 vel, int data){
+	public virtual void RpcShoot(Vector3 pos,Vector3 vel, int data){
 
 	}
 

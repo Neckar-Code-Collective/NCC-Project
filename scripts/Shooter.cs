@@ -6,7 +6,7 @@ using System;
 /// </summary>
 public partial class Shooter : Entity
 {
-	//TODO WeaponManager weapons;
+	WeaponComponent weapons;
 	//TODO MoneyManager money;
 
 	int currentMoneyCount = 0;
@@ -84,7 +84,10 @@ public partial class Shooter : Entity
 			ProcessMouseRotation(mousePosition);
 		}
 		ProcessJoystickRotation();
-		//GD.Print(health.getCurrentHealth());
+
+		if(Input.IsMouseButtonPressed(MouseButton.Left)){
+            weapons.ShootAction();
+        }
 		
 	}
 	private Camera3D GetCamera()
@@ -252,15 +255,14 @@ public partial class Shooter : Entity
 
 	}
 
-	public virtual void Shoot()
-	{
 
-	}
 	// Warum wurde das hier auskommentiert? Brauche ich für das Geldeinsammeln
 	public override void _Ready()
 	{
 		base._Ready();
-        
+
+        weapons = GetNode<WeaponComponent>("WeaponComponent");
+
 
         if (!IsMultiplayerAuthority()){
 			return;
@@ -290,6 +292,6 @@ public partial class Shooter : Entity
 
 	 private void HandleDeath()
 	{
-		QueueFree();
-	}
+        Rpc(nameof(RpcDie));
+    }
 }

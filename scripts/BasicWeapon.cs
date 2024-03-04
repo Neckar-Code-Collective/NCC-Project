@@ -31,15 +31,12 @@ public partial class BasicWeapon : AbstractWeapon
 	public override void _PhysicsProcess(double delta)
 	{
 		timeSinceLastShot += (float)delta;
-		if (CanShoot())
-		{
-			Shoot();
-		}
+		
 	}
 
 	private bool CanShoot()
 	{
-		return timeSinceLastShot > ShootDelay && currentClipsSize > 0 && canShoot;
+		return currentClipsSize > 0 && canShoot;
 	}
 
 	private void Shoot()
@@ -48,14 +45,33 @@ public partial class BasicWeapon : AbstractWeapon
 		if (newBullet == null) return;
 
 		GetTree().Root.AddChild(newBullet);
-		newBullet.Setup(Muzzle.GlobalPosition, Muzzle.GlobalBasis.Z*30, DamagePerBullet);
-	   
+		newBullet.Setup(Muzzle.GlobalPosition, Muzzle.GlobalBasis.Z*30, DamagePerBullet,true);
+        Rpc(nameof(RpcShoot),Muzzle.GlobalPosition,Muzzle.GlobalBasis.Z*30,0);
 
-		currentClipsSize--;
+
+        currentClipsSize--;
 		timeSinceLastShot = 0;
 		canShoot = false;
 		rofTimer.Start();
 	}
+
+    public override void RpcShoot(Vector3 pos, Vector3 vel, int data)
+    {
+        Bullet newBullet = BulletPrefab.Instantiate<Bullet>();
+
+        GetTree().Root.AddChild(newBullet);
+
+        newBullet.Setup(pos, vel, 0, false);
+    }
+
+    public override void ShootInput(Vector3 velocity)
+    {
+        if(CanShoot()){
+            Shoot();
+        }
+    }
+
+    
 
 	private void OnRofTimerTimeout()
 	{

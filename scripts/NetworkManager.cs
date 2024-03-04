@@ -16,6 +16,7 @@ public partial class NetworkManager : Node
         Multiplayer.ConnectionFailed += ConnectionFailed;
         Multiplayer.ServerDisconnected += ServerDisconnected;
 
+        GD.PushWarning("Ich bin : " +Multiplayer.GetUniqueId());
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

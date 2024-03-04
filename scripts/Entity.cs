@@ -26,7 +26,7 @@ public partial class Entity : CharacterBody3D
         netTrans.SetTarget(this);
         AddChild(netTrans);
 
-		if (int.TryParse(Name, System.Globalization.NumberStyles.Any, null, out int id) && Multiplayer.GetUniqueId() == int.Parse(Name))
+		if (int.TryParse(Name, System.Globalization.NumberStyles.Any, null, out int id) )
         {
             // GD.Print("Setting Auhtority "+id);
             SetMultiplayerAuthority(id, true);
@@ -46,8 +46,11 @@ public partial class Entity : CharacterBody3D
         return health;
     }
 
-	[Rpc(MultiplayerApi.RpcMode.AnyPeer)]
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer,CallLocal = true)]
 	public void RpcDealDamage(float amount){
+        if (!IsMultiplayerAuthority()){
+            return;
+        }
         GD.Print("AUA!");
         health.applyDamage(amount);
     }
@@ -55,6 +58,8 @@ public partial class Entity : CharacterBody3D
 	[Rpc]
 	public void RpcPlayAnimation(string anim,float speed){}
 
-	[Rpc]
-	public void RpcDie(){}
+	[Rpc(MultiplayerApi.RpcMode.Authority,CallLocal = true)]
+	public void RpcDie(){
+        QueueFree();
+    }
 }

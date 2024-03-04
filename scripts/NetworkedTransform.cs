@@ -8,9 +8,10 @@ public partial class NetworkedTransform : Node
     Timer updateTimer;
 
     [Export(PropertyHint.Range,"0,2")]
-    float updateInterval = 0.05f;
+    float updateInterval = 0.035f;
 
     Vector3 targetPosition;
+    float targetRotation;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -42,20 +43,21 @@ public partial class NetworkedTransform : Node
         }
 
         // GD.Print(Multiplayer.GetUniqueId());
-        Rpc(nameof(RPCUpdatePosition), target.GlobalPosition);
+        Rpc(nameof(RPCUpdatePosition), target.GlobalPosition,target.GlobalRotationDegrees.Y);
 
     }
 
 	[Rpc(MultiplayerApi.RpcMode.Authority)]
-	public void RPCUpdatePosition(Vector3 pos){
+	public void RPCUpdatePosition(Vector3 pos,float rotY){
         targetPosition = pos;
+        targetRotation = rotY;
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _PhysicsProcess(double delta)
 	{
         if(target is Shooter){
-            GD.Print(GetMultiplayerAuthority());
+            // GD.Print(GetMultiplayerAuthority());
         }
         
 		if(IsMultiplayerAuthority()){
@@ -67,6 +69,7 @@ public partial class NetworkedTransform : Node
             return;
         }
 
-        target.GlobalPosition = target.GlobalPosition.Lerp(targetPosition, 0.8f);
+        target.GlobalPosition = target.GlobalPosition.Lerp(targetPosition, 0.6f);
+        target.GlobalRotationDegrees = target.GlobalRotationDegrees.Lerp(new Vector3(0, targetRotation, 0),0.8f);
     }
 }

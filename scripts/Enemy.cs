@@ -39,8 +39,8 @@ public partial class Enemy : Entity{
 		};
 
 		health.onDeath += () =>{
-			QueueFree();
- 			//Spawn Money
+            Rpc(nameof(RpcDie));
+            //Spawn Money
             for (int i = 0; i < NetWorth; i++)
             {
 				var money = MoneyPrefab.Instantiate<Money>();
@@ -62,6 +62,11 @@ public partial class Enemy : Entity{
 
 	public override void _PhysicsProcess(double delta){ //Update Funktion
 		base._PhysicsProcess(delta);
+
+		if(!IsMultiplayerAuthority()){
+            return;
+        }
+
 		var current_location = GlobalTransform.Origin;
 		var next_location = nav_agent.GetNextPathPosition();
 		var new_velocity = (next_location - current_location).Normalized() * movementSpeed;
@@ -70,6 +75,12 @@ public partial class Enemy : Entity{
 		MoveAndSlide();
 
 		if(target != null){
+
+			if(!IsInstanceValid(target)){
+                target = null;
+                return;
+            }
+
 			nav_agent.TargetPosition = target.GlobalPosition;
 
 			LookAt(target.GlobalPosition, Vector3.Up);
@@ -114,16 +125,5 @@ public partial class Enemy : Entity{
 	public void setNetWorth(int _nw){
         this.NetWorth = _nw;
     }
-
-   
-
- 
-  
-
-
-	
-
-
-	
 	
 }

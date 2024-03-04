@@ -15,8 +15,11 @@ public class ShooterTests
 	{
 		_runner = ISceneRunner.Load("res://level.tscn");
 		await _runner.AwaitIdleFrame();
-		_shooter = _runner.Scene().GetNode<Shooter>("Shooter");
-	}
+
+        _shooter = GD.Load<PackedScene>("res://Shooter.tscn").Instantiate<Shooter>();
+        _shooter.Name = "1";
+        _runner.Scene().AddChild(_shooter);
+    }
 	
 	[TestCase]
 	 public async Task TestWMovement()

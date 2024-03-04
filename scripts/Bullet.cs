@@ -55,10 +55,11 @@ public partial class Bullet : Area3D
         }
     }
 
-	public void Setup(Vector3 pos,Vector3 vel,float damage){
+	public void Setup(Vector3 pos,Vector3 vel,float damage,bool locally_owned){
         this.damage = damage;
         GlobalPosition = pos;
         velocity = vel;
+        this.locally_owned = locally_owned;
     }
 
 	public void SetCollisionMaskForPlayerBullet(){
@@ -89,6 +90,7 @@ public partial class Bullet : Area3D
             return;
         }
         OnHit((Entity)body);
+        
     }
 
 	void OnHit(Entity e){
@@ -97,7 +99,6 @@ public partial class Bullet : Area3D
         if(locally_owned){
             //we own this bullet, we should deal damage
             e.Rpc(nameof(e.RpcDealDamage), damage);
-            e.RpcDealDamage(damage);
             QueueFree();
         }
 		else{
