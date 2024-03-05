@@ -12,7 +12,7 @@ public partial class Entity : CharacterBody3D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-
+        EntityManager.registerEntity(this);
 
         health = new HealthComponent();
         health.Name = "Health";
@@ -60,6 +60,7 @@ public partial class Entity : CharacterBody3D
 
 	[Rpc(MultiplayerApi.RpcMode.Authority,CallLocal = true)]
 	public void RpcDie(){
+        EntityManager.registerEntity(this);
         QueueFree();
     }
 }

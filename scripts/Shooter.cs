@@ -263,6 +263,8 @@ public partial class Shooter : Entity
 
         weapons = GetNode<WeaponComponent>("WeaponComponent");
 
+        
+
 
         if (!IsMultiplayerAuthority()){
 			return;
