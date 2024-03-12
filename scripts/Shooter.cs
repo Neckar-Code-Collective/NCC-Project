@@ -270,7 +270,8 @@ public partial class Shooter : Entity
 			return;
         }
 
-		health.setMaxHealth(10);
+        Global.LocalShooter = this;
+        health.setMaxHealth(10);
 		health.setCurrentHealth(10);
 		Area3D moneyCollector = GetNode<Area3D>("MoneyCollector");
 		moneyCollector.BodyEntered += OnMoneyCollectorCollision;
