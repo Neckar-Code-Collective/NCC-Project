@@ -58,7 +58,7 @@ shape = SubResource("BoxShape3D_85twn")
 mesh = SubResource("BoxMesh_f6ui4")
 
 [node name="BasicEnemy" parent="." instance=ExtResource("4_jy5dv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.38778, -0.99552, -5.23798)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.38778, -0.99552, -4.86932)
 
 [node name="Mage" parent="." instance=ExtResource("6_3651a")]
 
@@ -75,3 +75,42 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.13714, -0.000773013, -7.18
 
 [node name="RevenantEnemy" parent="." instance=ExtResource("9_i3b40")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.8344, 0.04424, -5.97063)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 3565.0
+offset_bottom = 1146.0
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_right = 294.0
+offset_bottom = 32.0
+color = Color(0, 0.431373, 0.137255, 1)
+
+[node name="MoneyLabel" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_right = 2456.0
+offset_bottom = 815.0
+theme_override_font_sizes/font_size = 28
+
+[node name="Control2" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer/Control2"]
+visible = false
+clip_contents = true
+offset_right = 296.0
+offset_bottom = 32.0
+color = Color(0.631373, 0.172549, 0.180392, 1)
+
+[node name="BloodLabel" type="Label" parent="CanvasLayer/Control2"]
+layout_mode = 0
+offset_right = 2095.0
+offset_bottom = 594.0
+theme_override_font_sizes/font_size = 28

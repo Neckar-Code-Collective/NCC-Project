@@ -40,15 +40,7 @@ public partial class Enemy : Entity{
 
 		health.onDeath += () =>{
             Rpc(nameof(RpcDie));
-            //Spawn Money
-            for (int i = 0; i < NetWorth; i++)
-            {
-				var money = MoneyPrefab.Instantiate<Money>();
-                money.setMoneyAmount(1);
-				GetTree().Root.AddChild(money);
-                money.GlobalPosition = this.GlobalPosition;
-            }
-
+			Rpc(nameof(RpcSpawnMoney), this.GlobalPosition);
 		};
 	}
 
@@ -88,6 +80,19 @@ public partial class Enemy : Entity{
 		}
 
 	}
+	
+	[Rpc]
+	public void RpcSpawnMoney(Vector3 spawnPosition)
+	{
+		for (int i = 0; i < NetWorth; i++)
+		{
+			var money = MoneyPrefab.Instantiate<Money>();
+			money.setMoneyAmount(1);
+			GetTree().Root.AddChild(money);
+			money.GlobalPosition = spawnPosition;
+		}
+	}
+
 
 	public void Attack(){
 		var distance = target.GlobalPosition - this.GlobalPosition;
