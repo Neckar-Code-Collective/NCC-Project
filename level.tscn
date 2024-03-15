@@ -60,6 +60,38 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.38778, -0.99552, -5.23798)
 
 [node name="Mage" parent="." instance=ExtResource("6_3651a")]
 
+[node name="MageUI" type="Control" parent="Mage"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Mage/MageUI"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 140.0
+offset_top = -118.0
+offset_right = -140.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="BasicEnemy" type="Button" parent="Mage/MageUI/Panel"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 5.0
+offset_right = 111.0
+offset_bottom = -5.0
+grow_vertical = 2
+text = "BasicEnemy"
+
 [node name="BloodSpawner" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.214161, 0.246074, -0.863779)
 script = ExtResource("7_rrgbw")

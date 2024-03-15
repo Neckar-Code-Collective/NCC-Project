@@ -10,6 +10,11 @@ public partial class Mage : Node
 
     int currentBloodCount = 0;
 
+
+    SelectionState SelectionState;
+
+    Button BasicEnemyButton;
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
@@ -23,6 +28,8 @@ public partial class Mage : Node
 
         Collector.AreaEntered += OnBloodCollectorCollision;
         Attractor.AreaEntered += OnBloodAttractorCollision;
+
+        BasicEnemyButton = GetNode<Button>("MageUI/Panel/BasicEnemy");
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -72,3 +79,7 @@ public partial class Mage : Node
 
 
 }
+
+    public enum SelectionState {
+        NONE,BASIC_ENEMY
+    }

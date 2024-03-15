@@ -60,7 +60,7 @@ public partial class Entity : CharacterBody3D
 
 	[Rpc(MultiplayerApi.RpcMode.Authority,CallLocal = true)]
 	public void RpcDie(){
-        EntityManager.registerEntity(this);
+        EntityManager.removeEntity(this);
         QueueFree();
     }
 }
