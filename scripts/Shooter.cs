@@ -29,6 +29,8 @@ public partial class Shooter : Entity
 	private float _simulatedJoystickX = 0;
 	private float _simulatedJoystickZ = 0;
 	private Vector2 _simulatedJoystickRotation = Vector2.Zero;
+	public Label MoneyLabel;
+
 
 
 	 public void SetSimulatedJoystickInput(float x, float z)
@@ -88,6 +90,8 @@ public partial class Shooter : Entity
 		if(Input.IsMouseButtonPressed(MouseButton.Left)){
             weapons.ShootAction();
         }
+
+		MoneyLabel.Text = "MONEY IN THE BANK : " + currentMoneyCount;
 		
 	}
 	private Camera3D GetCamera()
@@ -175,53 +179,7 @@ public partial class Shooter : Entity
 		target_position.Y = GlobalPosition.Y;
 		LookAt(target_position);
 
-		/*
-		Camera3D camera = GetCamera();
-		CsgBox3D ground = GetGround();
-		if (camera == null || ground == null) return;
-
-		Vector3 rayOrigin = camera.ProjectRayOrigin(mousePosition);
-		Vector3 rayTarget = rayOrigin + camera.ProjectRayNormal(mousePosition) * RAYLENGHT;
-
-
-		var spaceState = GetWorld3D().DirectSpaceState;
-		PhysicsRayQueryParameters3D rayQueryParameters = null;
-
-		try
-		{
-			rayQueryParameters = new PhysicsRayQueryParameters3D           //needed to get the intersection
-			{
-				From = rayOrigin,
-				To = rayTarget
-			};
-		}
-
-		catch(OutOfMemoryException ex)
-		{
-			Console.WriteLine("Memory allocation error" + ex.Message);
-			return;
-		}
-
-		var intersection = spaceState.IntersectRay(rayQueryParameters);
-		if (intersection != null && intersection.ContainsKey("collider"))
-		{
-			var collider = intersection["collider"] as Object;
-			Vector3 pos = (Vector3)intersection["position"];
-
-			if (collider != null && collider != this)
-			{
-				try
-				{
-					Vector3 lookAtMe = new Vector3(pos.X, Position.Y, pos.Z);
-					LookAt(lookAtMe, Vector3.Up);
-				}
-				catch(OutOfMemoryException ex)
-				{
-					Console.WriteLine("Memory allocation error" + ex.Message);
-					return;
-				}
-			}
-		}*/
+		
 	}
 
 	/// <summary>
@@ -263,6 +221,10 @@ public partial class Shooter : Entity
 
         weapons = GetNode<WeaponComponent>("WeaponComponent");
 
+		MoneyLabel = GetTree().Root.GetNode<Label>("Level/CanvasLayer/Control/MoneyLabel");
+		InitializeLabels();
+		
+
         
 
 
@@ -270,7 +232,8 @@ public partial class Shooter : Entity
 			return;
         }
 
-		health.setMaxHealth(10);
+        Global.LocalShooter = this;
+        health.setMaxHealth(10);
 		health.setCurrentHealth(10);
 		Area3D moneyCollector = GetNode<Area3D>("MoneyCollector");
 		moneyCollector.BodyEntered += OnMoneyCollectorCollision;
@@ -278,16 +241,30 @@ public partial class Shooter : Entity
 		health.onDeath += HandleDeath;
 		//health.Connect("onDeath",deathMethod);
 
+
 		
+	}
+
+	private void InitializeLabels()
+	{
+		ColorRect green = GetTree().Root.GetNode<ColorRect>("Level/CanvasLayer/Control/ColorRect");
+		if(!Multiplayer.IsServer())
+		{
+			MoneyLabel.Visible = true;
+			green.Visible = true;
+
+		}
+		else
+		{
+			MoneyLabel.Visible = false;
+			green.Visible = false;
+		}
 	}
 
 	public void OnMoneyCollectorCollision(Node3D other){
 		if(other is Money m){
 			currentMoneyCount += m.getMoneyAmount();
 			m.QueueFree();
-			GD.Print("Current money: " + currentMoneyCount);
-
-
 		}
 
 	}

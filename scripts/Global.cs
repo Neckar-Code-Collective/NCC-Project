@@ -6,4 +6,6 @@ public partial class Global : Node
 
     public static bool Is_Mage = false;
     public static bool Is_Shooter = false;
+
+    public static Shooter LocalShooter = null;
 }

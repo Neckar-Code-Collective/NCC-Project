@@ -22,16 +22,21 @@ public partial class BloodSpawner : Node3D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-        spawnCounter += (float)delta;
-		if(spawnCounter >= emitInterval){
-            spawnCounter = 0;
+        if (Multiplayer.IsServer())
+        {
+            spawnCounter += (float)delta;
+            if (spawnCounter >= emitInterval)
+            {
+                spawnCounter = 0;
 
-            //Spawn Blood
-            var blood = BloodPrefab.Instantiate<Blood>();
-            blood.setLerpSpeed(0.01f);
-            blood.setLerpTarget(getRandomPosInRange(emitRange));
-            blood.setAmount(Random.Shared.Next(0,11));
-            GetTree().Root.AddChild(blood);
+                //Spawn Blood
+                var blood = BloodPrefab.Instantiate<Blood>();
+                blood.setLerpSpeed(0.01f);
+                blood.setLerpTarget(getRandomPosInRange(emitRange));
+                blood.setAmount(Random.Shared.Next(0, 11));
+                GetTree().Root.AddChild(blood);
+
+            }
         }
     }
 

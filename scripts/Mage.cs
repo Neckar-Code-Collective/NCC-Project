@@ -8,7 +8,9 @@ public partial class Mage : Node
     Area3D Collector;
     Area3D Attractor;
 
-    int currentBloodCount = 0;
+    public int currentBloodCount = 0;
+    public Label BloodLabel;
+    
 
 
     SelectionState SelectionState;
@@ -30,6 +32,8 @@ public partial class Mage : Node
         Attractor.AreaEntered += OnBloodAttractorCollision;
 
         BasicEnemyButton = GetNode<Button>("MageUI/Panel/BasicEnemy");
+        BloodLabel = GetTree().Root.GetNode<Label>("Level/CanvasLayer/Control2/BloodLabel");
+        InitializeLabels();
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -56,8 +60,23 @@ public partial class Mage : Node
 
         Collector.GlobalPosition = target_position;
         Attractor.GlobalPosition = target_position;
+        BloodLabel.Text = "BLOOD IN THE BANK: " + currentBloodCount;
 
     }
+    	private void InitializeLabels()
+	    {
+            ColorRect red = GetTree().Root.GetNode<ColorRect>("Level/CanvasLayer/Control2/ColorRect2");
+            if(!Multiplayer.IsServer())
+            {
+                BloodLabel.Visible = false;
+                red.Visible = false;
+            }
+            else
+            {
+                BloodLabel.Visible = true;
+                red.Visible = true;
+            }
+	    }
 
 	public void OnBloodCollectorCollision(Node3D other){
         //GD.Print("ICH SPÜRE BLUUUUUUUUUUUUUUUUUT!");
@@ -65,7 +84,6 @@ public partial class Mage : Node
 		if(other is Blood b){
             currentBloodCount += b.getAmount();
             b.QueueFree();
-            GD.Print("Current blood: " + currentBloodCount);
         }
     }
 
