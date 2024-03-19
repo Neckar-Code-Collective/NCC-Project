@@ -16,12 +16,18 @@ public partial class Mage : Node
     SelectionState SelectionState;
 
     Button BasicEnemyButton;
+    Button ChargerEnemyButton;
+    Button RevenantButton;
 
     [Export]
     Node _entityHolder;
 
     [Export]
     PackedScene _basicEnemyPrefab;
+    [Export]
+    PackedScene _chargerEnemyPrefab;
+    [Export]
+    PackedScene _revenantEnemyPrefab;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -40,6 +46,11 @@ public partial class Mage : Node
 
         BasicEnemyButton = GetNode<Button>("CanvasLayer/MageUI/Panel/BasicEnemy");
         BasicEnemyButton.Pressed += _onBasicEnemyPress;
+        ChargerEnemyButton = GetNode<Button>("CanvasLayer/MageUI/Panel/ChargerEnemy");
+        ChargerEnemyButton.Pressed += _onChargerEnemyPress;
+        RevenantButton = GetNode<Button>("CanvasLayer/MageUI/Panel/RevenantEnemy");
+        RevenantButton.Pressed += _onRevenantEnemyPress;
+
 
         BloodLabel = GetTree().Root.GetNode<Label>("Level/CanvasLayer/Control2/BloodLabel");
         InitializeLabels();
@@ -145,12 +156,34 @@ public partial class Mage : Node
                 _entityHolder.AddChild(e,true);
                 e.GlobalPosition = pos;
                 break;
+            case SelectionState.CHARGER_ENEMY:
+                var ch = _chargerEnemyPrefab.Instantiate<ChargeEnemy>();
+                _entityHolder.AddChild(ch,true);
+                ch.GlobalPosition = pos;
+                break;
+            case SelectionState.REVENANT_ENEMY:
+                var r = _revenantEnemyPrefab.Instantiate<RevenantEnemy>();
+                _entityHolder.AddChild(r,true);
+                r.GlobalPosition = pos;
+                break;
         }
     }
 
     private void _onBasicEnemyPress()
     {
         SelectionState = SelectionState.BASIC_ENEMY;
+        GD.Print("Selecting");
+    }
+
+    private void _onChargerEnemyPress()
+    {
+        SelectionState = SelectionState.CHARGER_ENEMY;
+        GD.Print("Selecting");
+    }
+
+    private void _onRevenantEnemyPress()
+    {
+        SelectionState = SelectionState.REVENANT_ENEMY;
         GD.Print("Selecting");
     }
 
@@ -195,5 +228,5 @@ public partial class Mage : Node
 
 public enum SelectionState
 {
-    NONE, BASIC_ENEMY
+    NONE, BASIC_ENEMY, CHARGER_ENEMY, REVENANT_ENEMY
 }

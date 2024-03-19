@@ -32,7 +32,7 @@ ShooterPrefab = ExtResource("2_i3ihx")
 [node name="Shooters" type="Node3D" parent="."]
 
 [node name="ShooterSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://Shooter.tscn", "res://BasicEnemy.tscn")
+_spawnable_scenes = PackedStringArray("res://Shooter.tscn", "res://BasicEnemy.tscn", "res://charge_enemy.tscn", "res://revenant_enemy.tscn")
 spawn_path = NodePath("../Shooters")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -57,12 +57,11 @@ shape = SubResource("BoxShape3D_85twn")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D"]
 mesh = SubResource("BoxMesh_f6ui4")
 
-[node name="BasicEnemy" parent="." instance=ExtResource("4_jy5dv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.38778, -0.99552, -4.86932)
-
 [node name="Mage" parent="." node_paths=PackedStringArray("_entityHolder") instance=ExtResource("6_3651a")]
 _entityHolder = NodePath("../Shooters")
 _basicEnemyPrefab = ExtResource("4_jy5dv")
+_chargerEnemyPrefab = ExtResource("8_5b1aa")
+_revenantEnemyPrefab = ExtResource("9_i3b40")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Mage"]
 
@@ -98,7 +97,29 @@ offset_top = 5.0
 offset_right = 111.0
 offset_bottom = -5.0
 grow_vertical = 2
-text = "BasicEnemy"
+text = "Basic Enemy"
+
+[node name="ChargerEnemy" type="Button" parent="Mage/CanvasLayer/MageUI/Panel"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 130.0
+offset_top = 5.0
+offset_right = 231.0
+offset_bottom = -5.0
+grow_vertical = 2
+text = "Charge Enemy"
+
+[node name="RevenantEnemy" type="Button" parent="Mage/CanvasLayer/MageUI/Panel"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 270.0
+offset_top = 5.0
+offset_right = 389.0
+offset_bottom = -5.0
+grow_vertical = 2
+text = "Revenant"
 
 [node name="BloodSpawner" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.214161, 0.246074, -0.863779)
@@ -107,12 +128,6 @@ emitInterval = 0.5
 BloodPrefab = ExtResource("8_gbddo")
 
 [node name="Node3D" type="Node3D" parent="."]
-
-[node name="ChargeEnemy" parent="." instance=ExtResource("8_5b1aa")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.13714, -0.000773013, -7.18601)
-
-[node name="RevenantEnemy" parent="." instance=ExtResource("9_i3b40")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.8344, 0.04424, -5.97063)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

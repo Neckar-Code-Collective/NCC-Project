@@ -12,7 +12,8 @@ albedo_color = Color(0.137255, 0.133333, 0.121569, 1)
 transform = Transform3D(0.999647, 0, 0, 0, 0.999647, 0, 0, 0, 0.999647, 0.50467, 0, 0)
 script = ExtResource("1_cnc6x")
 BulletPrefab = ExtResource("2_2q80j")
-ClipSize = 50
+ShootDelay = 0.1
+ClipSize = 9999
 Muzzle = NodePath("Muzzle")
 
 [node name="Visual" type="Node3D" parent="."]
