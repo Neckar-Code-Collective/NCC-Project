@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 EntityManager="*res://scripts/EntityManager.cs"
 
+[display]
+
+window/stretch/mode="canvas_items"
+
 [dotnet]
 
 project/assembly_name="NCC-Project"
@@ -30,6 +34,7 @@ enabled=PackedStringArray("res://addons/MagicaVoxel_Importer_with_Extensions/plu
 [gdunit4]
 
 settings/test/test_lookup_folder="tests"
+settings/common/update_notification_enabled=false
 
 [layer_names]
 

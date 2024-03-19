@@ -61,6 +61,7 @@ public partial class Entity : CharacterBody3D
 	[Rpc(MultiplayerApi.RpcMode.Authority,CallLocal = true)]
 	public void RpcDie(){
         EntityManager.removeEntity(this);
+        netTrans.QueueFree();
         QueueFree();
     }
 }
