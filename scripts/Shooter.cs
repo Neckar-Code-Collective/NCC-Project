@@ -31,6 +31,8 @@ public partial class Shooter : Entity
 	private Vector2 _simulatedJoystickRotation = Vector2.Zero;
 	public Label MoneyLabel;
 
+	private Camera3D camera;
+
 
 
 	 public void SetSimulatedJoystickInput(float x, float z)
@@ -92,6 +94,9 @@ public partial class Shooter : Entity
         }
 
 		MoneyLabel.Text = "MONEY IN THE BANK : " + currentMoneyCount;
+
+		healthbar.SetHealth(health.getCurrentHealth(), health.getMaxHealth());
+		UpdateHealthBarPosition();
 		
 	}
 	private Camera3D GetCamera()
@@ -241,6 +246,13 @@ public partial class Shooter : Entity
 		health.onDeath += HandleDeath;
 		//health.Connect("onDeath",deathMethod);
 
+		var healthBarScene = (PackedScene)GD.Load("res://Healthbar.tscn");
+		healthbar = healthBarScene.Instantiate() as ProgressBar;
+		GetTree().Root.GetNode<CanvasLayer>("Level/CanvasLayer2").AddChild(healthbar);
+		healthbar.SetHealth(health.getCurrentHealth(), health.getMaxHealth());
+
+		camera = GetViewport().GetCamera3D() as Camera3D;
+		
 
 		
 	}
@@ -273,4 +285,13 @@ public partial class Shooter : Entity
 	{
         Rpc(nameof(RpcDie));
     }
+
+	private void UpdateHealthBarPosition()
+	{
+		
+			var screenPosition = camera.UnprojectPosition(GlobalTransform.Origin);
+			healthbar.Position = screenPosition + new Vector2(-healthbar.Size.X / 2, -100);
+		
+	}
+
 }

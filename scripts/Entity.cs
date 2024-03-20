@@ -7,6 +7,8 @@ public partial class Entity : CharacterBody3D
 	protected HealthComponent health;
 	NetworkedTransform netTrans;
 
+    protected ProgressBar healthbar;
+
 
 	
 	// Called when the node enters the scene tree for the first time.
