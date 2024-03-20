@@ -31,9 +31,16 @@ public partial class Shooter : Entity
 	private Vector2 _simulatedJoystickRotation = Vector2.Zero;
 	public Label MoneyLabel;
 
+    [Export]
+    AnimationPlayer _animPlayer;
+
+	/// <summary>
+    /// shows whether we are currently walking. Is used to start and stop the animation.
+    /// </summary>
+    bool _isWalking = false;
 
 
-	 public void SetSimulatedJoystickInput(float x, float z)
+    public void SetSimulatedJoystickInput(float x, float z)
 	{
 		_simulatedJoystickX = x;
 		_simulatedJoystickZ = z;
@@ -64,6 +71,7 @@ public partial class Shooter : Entity
 		
 		Vector3 direction = GetKeyboardInputDirection() + GetJoystickInputDirection();
 
+
 		// normalizing vector
 		direction = direction.Normalized();
 		if (direction != Vector3.Zero)
@@ -76,6 +84,18 @@ public partial class Shooter : Entity
 			velocity.X = Mathf.Lerp(Velocity.X, 0, SPEED * (float)delta);
 			velocity.Z = Mathf.Lerp(Velocity.Z, 0, SPEED * (float)delta);
 		}
+
+		if (direction.Length() > 0.1 && !_isWalking){
+            //This means we started walking, we should also start the animation player
+            _isWalking = true;
+            Rpc(nameof(_RPCPlayWalkAnimation), true);
+        }
+
+		else if(direction.Length() < 0.1 && _isWalking){
+            //this means we were walking, but the player has stopped pressing the button
+            _isWalking = false;
+            Rpc(nameof(_RPCPlayWalkAnimation), false);
+        }
 
 		Velocity = velocity;
 		MoveAndSlide();
@@ -223,10 +243,12 @@ public partial class Shooter : Entity
 
 		MoneyLabel = GetTree().Root.GetNode<Label>("Level/CanvasLayer/Control/MoneyLabel");
 		InitializeLabels();
-		
 
-        
 
+
+        _animPlayer.Play("ArmatureAction_001");
+        _animPlayer.Pause();
+        _animPlayer.Seek(0.5f, true);
 
         if (!IsMultiplayerAuthority()){
 			return;
@@ -273,4 +295,19 @@ public partial class Shooter : Entity
 	{
         Rpc(nameof(RpcDie));
     }
+
+	/// <summary>
+    /// gets called by the owning player to set the animation state on all peers
+    /// </summary>
+    /// <param name="shouldPlay">whether the animation should start or stop</param>
+	[Rpc(CallLocal = true)]
+	void _RPCPlayWalkAnimation(bool shouldPlay){
+		if(shouldPlay){
+            _animPlayer.Play();
+        }
+		else{
+            _animPlayer.Pause();
+            _animPlayer.Seek(0.5f);
+        }
+	}
 }
