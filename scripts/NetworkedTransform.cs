@@ -1,75 +1,99 @@
 using Godot;
 using System;
 
+/// <summary>
+/// Networked Transform replicates the position of a gameobject to all other peers
+/// </summary>
 public partial class NetworkedTransform : Node
 {
-    Node3D target;
+    /// <summary>
+    /// The node this NT replicates
+    /// </summary>
+    Node3D _target;
 
-    Timer updateTimer;
+    /// <summary>
+    /// The timer which calls the replication function
+    /// </summary>
+    Timer _updateTimer;
 
+    /// <summary>
+    /// The interval in which this NT replicates the position
+    /// </summary>
     [Export(PropertyHint.Range,"0,2")]
-    float updateInterval = 0.035f;
+    float _updateInterval = 0.035f;
 
-    Vector3 targetPosition;
-    float targetRotation;
+    /// <summary>
+    /// Used on the client. Is the current target position that we are lerping to.
+    /// </summary>
+    Vector3 _targetPosition;
+
+    /// <summary>
+    /// Used on the client. Is the current target rotation that we are lerping to.
+    /// </summary>
+    float _targetRotation;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
-        updateTimer = new Timer
+        //Setup timer
+        _updateTimer = new Timer
         {
             OneShot = false
         };
-        AddChild(updateTimer);
-        updateTimer.Timeout += OnTimer;
-        updateTimer.Start(updateInterval);
+        AddChild(_updateTimer);
+        _updateTimer.Timeout += OnTimer;
+        _updateTimer.Start(_updateInterval);
 
-        targetPosition = target.GlobalPosition;
+        _targetPosition = _target.GlobalPosition;
 
     }
 
 	public void SetTarget(Node3D t){
-        target = t;
+        _target = t;
     }
 
+    //Called when the timer fires. Calls the Replication RPC on all other clients
 	public void OnTimer(){
+        //in case we are not the authority, we dont want to call the rpc
 		if(!IsMultiplayerAuthority()){
             return;
         }
-
-		if(target == null){
+        //in case no target is set, we cancel so we dont create errors
+		if(_target == null){
             GD.PushWarning("target is null");
             return;
         }
 
-        // GD.Print(Multiplayer.GetUniqueId());
-        Rpc(nameof(RPCUpdatePosition), target.GlobalPosition,target.GlobalRotationDegrees.Y);
+        //replicates _targets position and rotation to all other peers
+        Rpc(nameof(RPCUpdatePosition), _target.GlobalPosition,_target.GlobalRotationDegrees.Y);
 
     }
 
+    /// <summary>
+    /// RPC. Gets called by the owner on all other peers to broadcast the new position and rotation
+    /// </summary>
+    /// <param name="pos"></param>
+    /// <param name="rotY"></param>
 	[Rpc(MultiplayerApi.RpcMode.Authority)]
 	public void RPCUpdatePosition(Vector3 pos,float rotY){
-        targetPosition = pos;
-        targetRotation = rotY;
+        _targetPosition = pos;
+        _targetRotation = rotY;
     }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	// In case we arent the authority, we lerp to the current target position and rotation
 	public override void _PhysicsProcess(double delta)
 	{
-        if(target is Shooter){
-            // GD.Print(GetMultiplayerAuthority());
-        }
         
 		if(IsMultiplayerAuthority()){
             // GD.Print(Multiplayer.GetUniqueId());
             return;
         }
 
-		if(target == null){
+		if(_target == null){
             return;
         }
 
-        target.GlobalPosition = target.GlobalPosition.Lerp(targetPosition, 0.6f);
-        target.GlobalRotationDegrees = target.GlobalRotationDegrees.Lerp(new Vector3(0, targetRotation, 0),0.8f);
+        _target.GlobalPosition = _target.GlobalPosition.Lerp(_targetPosition, 0.6f);
+        _target.GlobalRotationDegrees = _target.GlobalRotationDegrees.Lerp(new Vector3(0, _targetRotation, 0),0.8f);
     }
 }

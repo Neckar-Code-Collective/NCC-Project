@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://j7s8agd142uc"]
+[gd_scene load_steps=5 format=3 uid="uid://j7s8agd142uc"]
 
 [ext_resource type="Script" path="res://scripts/BasicEnemy.cs" id="1_k6s2h"]
-[ext_resource type="PackedScene" uid="uid://bn5yq3gg0rh2r" path="res://MoneyPrefab.tscn" id="2_ens4v"]
 [ext_resource type="ArrayMesh" uid="uid://d007yoa5o13c0" path="res://basicEnemyPrefab.vox" id="3_vfgpr"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7iksv"]
@@ -12,7 +11,6 @@ radius = 100.0
 [node name="BasicEnemy" type="CharacterBody3D"]
 collision_layer = 4
 script = ExtResource("1_k6s2h")
-MoneyPrefab = ExtResource("2_ens4v")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(-2.18557e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.18557e-08, 0, -1, 0)

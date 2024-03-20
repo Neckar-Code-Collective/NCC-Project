@@ -9,13 +9,10 @@ public partial class Shooter : Entity
 	WeaponComponent weapons;
 	//TODO MoneyManager money;
 
-	int currentMoneyCount = 0;
-	bool isLocalPlayer = false;
+	int _currentMoneyCount = 0;
+
 	/// <summary>Speed of the shooter's movement.</summary>
 	public const float SPEED = 5.0f;
-
-	/// <summary>Velocity of the shooter's jump.</summary>
-	public const float JUMPVELOCITY = 4.5f;
 
 	/// <summary>Deadzone value for joystick input.</summary>
 	private const float JOYSTICKDEADZONE = 0.1f;   //DeadZone-Value
@@ -23,8 +20,6 @@ public partial class Shooter : Entity
 	/// <summary>Raylenght value for mouse intersection.</summary>
 	private const float RAYLENGHT = 2000f;
 
-	/// <summary>Gravity value affecting the character.</summary>
-	public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
 
 	private float _simulatedJoystickX = 0;
 	private float _simulatedJoystickZ = 0;
@@ -64,10 +59,6 @@ public partial class Shooter : Entity
         }
 
 		Vector3 velocity = Velocity;
-		
-		// Handle Jump.
-		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
-			velocity.Y = JUMPVELOCITY;
 		
 		Vector3 direction = GetKeyboardInputDirection() + GetJoystickInputDirection();
 
@@ -111,7 +102,7 @@ public partial class Shooter : Entity
             weapons.ShootAction();
         }
 
-		MoneyLabel.Text = "MONEY IN THE BANK : " + currentMoneyCount;
+		MoneyLabel.Text = "MONEY IN THE BANK : " + _currentMoneyCount;
 		
 	}
 	private Camera3D GetCamera()
@@ -255,12 +246,12 @@ public partial class Shooter : Entity
         }
 
         Global.LocalShooter = this;
-        health.setMaxHealth(10);
-		health.setCurrentHealth(10);
+        _health.SetMaxHealth(10);
+		_health.SetCurrentHealth(10);
 		Area3D moneyCollector = GetNode<Area3D>("MoneyCollector");
 		moneyCollector.BodyEntered += OnMoneyCollectorCollision;
 		//var deathMethod = new Callable(this, nameof(HandleDeath));
-		health.onDeath += HandleDeath;
+		_health.onDeath += HandleDeath;
 		//health.Connect("onDeath",deathMethod);
 
 
@@ -285,9 +276,10 @@ public partial class Shooter : Entity
 
 	public void OnMoneyCollectorCollision(Node3D other){
 		if(other is Money m){
-			currentMoneyCount += m.getMoneyAmount();
-			m.QueueFree();
-		}
+			_currentMoneyCount += m.GetMoneyAmount();
+            m.Rpc(nameof(m.RPCRemove));
+            // m.QueueFree();
+        }
 
 	}
 

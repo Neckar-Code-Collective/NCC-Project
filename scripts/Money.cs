@@ -1,14 +1,19 @@
 using Godot;
 using System;
 
+/// <summary>
+/// Represents a money object in the world
+/// </summary>
 public partial class Money: RigidBody3D {
 
-    int moneyAmount = 0;
+    /// <summary>
+    /// The amount this money object adds to the player who picks it up
+    /// </summary>
+    int _moneyAmount = 0;
 
-    Vector3 lerpTarget = Vector3.Zero;
-
-    float lerpSpeed = 0.5f;
-
+    /// <summary>
+    /// Adds a random force to the money object so that it flies funny
+    /// </summary>
     public override void _Ready()
 	{
         Vector3 force = new Vector3();
@@ -23,27 +28,15 @@ public partial class Money: RigidBody3D {
         ApplyTorque(torque);
     }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
 
-	}
 
-    public void setLerpTarget(Vector3 target){
-        lerpTarget = target;
-    }
-
-	public void setLerpSpeed(float s){
-        lerpSpeed = s;
-    }
-
-    public void setMoneyAmount(int _moneyAmount){
-        moneyAmount = _moneyAmount;
+    public void SetMoneyAmount(int _moneyAmount){
+        this._moneyAmount = _moneyAmount;
 
     }
 
-    public int getMoneyAmount(){
-        return moneyAmount;
+    public int GetMoneyAmount(){
+        return _moneyAmount;
 
     }
 
@@ -52,8 +45,34 @@ public partial class Money: RigidBody3D {
         //GlobalPosition = GlobalPosition.Lerp(lerpTarget, lerpSpeed);
     }
 
+    /// <summary>
+    /// RPC. Sets the position of this money object on the clients. Only gets called on spawn.
+    /// </summary>
+    /// <param name="pos"></param>
+    [Rpc(CallLocal = true)]
+    public void RPCSetPosition(Vector3 pos){
+        GlobalPosition = pos;
+    }
 
+    /// <summary>
+    /// RPC. Sets the amount of money this money object grants to players who pick it up
+    /// </summary>
+    /// <param name="amount"></param>
+    [Rpc(CallLocal = true)]
+    public void RPCSetAmount(int amount){
+        _moneyAmount = amount;
+    }
 
+    /// <summary>
+    /// RPC. Gets called by shooters who pick this money object up. Removes it from the simulation
+    /// </summary>
+    [Rpc(MultiplayerApi.RpcMode.AnyPeer,CallLocal = true)]
+    public void RPCRemove(){
+        if( !IsMultiplayerAuthority()){
+            return;
+        }
+        QueueFree();
+    }
 
 
 

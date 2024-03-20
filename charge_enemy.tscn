@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://dum81xlrbqj6o"]
+[gd_scene load_steps=6 format=3 uid="uid://dum81xlrbqj6o"]
 
 [ext_resource type="Script" path="res://scripts/ChargeEnemy.cs" id="1_news6"]
-[ext_resource type="PackedScene" uid="uid://bn5yq3gg0rh2r" path="res://MoneyPrefab.tscn" id="2_ktx4u"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3a345"]
 
@@ -17,7 +16,6 @@ radius = 79.004
 [node name="ChargeEnemy" type="CharacterBody3D"]
 collision_layer = 4
 script = ExtResource("1_news6")
-MoneyPrefab = ExtResource("2_ktx4u")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

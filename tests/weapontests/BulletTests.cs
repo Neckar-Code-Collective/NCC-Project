@@ -54,7 +54,7 @@ public partial class BulletTests
         bool gotCalled = false;
         runner.Scene().AddChild(enemy);
         enemy.GlobalPosition = new Vector3(5, 0, 0);
-        enemy.getHealth().onDamage += () =>
+        enemy.GetHealth().onDamage += () =>
         {
             gotCalled = true;
         };
@@ -63,7 +63,7 @@ public partial class BulletTests
 
         await runner.SimulateFrames(25, 100);
         Assertions.AssertBool(gotCalled).IsTrue();
-        Assertions.AssertFloat(enemy.getHealth().getCurrentHealth()).IsEqual(90);
+        Assertions.AssertFloat(enemy.GetHealth().GetCurrentHealth()).IsEqual(90);
         Assertions.AssertBool(GodotObject.IsInstanceValid(bullet)).IsFalse();
     }
 
