@@ -9,13 +9,10 @@ public partial class Shooter : Entity
 	WeaponComponent weapons;
 	//TODO MoneyManager money;
 
-	int currentMoneyCount = 0;
-	bool isLocalPlayer = false;
+	int _currentMoneyCount = 0;
+
 	/// <summary>Speed of the shooter's movement.</summary>
 	public const float SPEED = 5.0f;
-
-	/// <summary>Velocity of the shooter's jump.</summary>
-	public const float JUMPVELOCITY = 4.5f;
 
 	/// <summary>Deadzone value for joystick input.</summary>
 	private const float JOYSTICKDEADZONE = 0.1f;   //DeadZone-Value
@@ -23,19 +20,24 @@ public partial class Shooter : Entity
 	/// <summary>Raylenght value for mouse intersection.</summary>
 	private const float RAYLENGHT = 2000f;
 
-	/// <summary>Gravity value affecting the character.</summary>
-	public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
 
 	private float _simulatedJoystickX = 0;
 	private float _simulatedJoystickZ = 0;
 	private Vector2 _simulatedJoystickRotation = Vector2.Zero;
 	public Label MoneyLabel;
 
+    [Export]
+    AnimationPlayer _animPlayer;
+
+	/// <summary>
+    /// shows whether we are currently walking. Is used to start and stop the animation.
+    /// </summary>
+    bool _isWalking = false;
 	private Camera3D camera;
 
 
 
-	 public void SetSimulatedJoystickInput(float x, float z)
+    public void SetSimulatedJoystickInput(float x, float z)
 	{
 		_simulatedJoystickX = x;
 		_simulatedJoystickZ = z;
@@ -60,11 +62,8 @@ public partial class Shooter : Entity
 
 		Vector3 velocity = Velocity;
 		
-		// Handle Jump.
-		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
-			velocity.Y = JUMPVELOCITY;
-		
 		Vector3 direction = GetKeyboardInputDirection() + GetJoystickInputDirection();
+
 
 		// normalizing vector
 		direction = direction.Normalized();
@@ -78,6 +77,18 @@ public partial class Shooter : Entity
 			velocity.X = Mathf.Lerp(Velocity.X, 0, SPEED * (float)delta);
 			velocity.Z = Mathf.Lerp(Velocity.Z, 0, SPEED * (float)delta);
 		}
+
+		if (direction.Length() > 0.1 && !_isWalking){
+            //This means we started walking, we should also start the animation player
+            _isWalking = true;
+            Rpc(nameof(_RPCPlayWalkAnimation), true);
+        }
+
+		else if(direction.Length() < 0.1 && _isWalking){
+            //this means we were walking, but the player has stopped pressing the button
+            _isWalking = false;
+            Rpc(nameof(_RPCPlayWalkAnimation), false);
+        }
 
 		Velocity = velocity;
 		MoveAndSlide();
@@ -93,9 +104,9 @@ public partial class Shooter : Entity
             weapons.ShootAction();
         }
 
-		MoneyLabel.Text = "MONEY IN THE BANK : " + currentMoneyCount;
+		MoneyLabel.Text = "MONEY IN THE BANK : " + _currentMoneyCount;
 
-		healthbar.SetHealth(health.getCurrentHealth(), health.getMaxHealth());
+		healthbar.SetHealth(_health.GetCurrentHealth(), _health.GetMaxHealth());
 		UpdateHealthBarPosition();
 		
 	}
@@ -228,28 +239,30 @@ public partial class Shooter : Entity
 
 		MoneyLabel = GetTree().Root.GetNode<Label>("Level/CanvasLayer/Control/MoneyLabel");
 		InitializeLabels();
-		
 
-        
 
+
+        _animPlayer.Play("ArmatureAction_001");
+        _animPlayer.Pause();
+        _animPlayer.Seek(0.5f, true);
 
         if (!IsMultiplayerAuthority()){
 			return;
         }
 
         Global.LocalShooter = this;
-        health.setMaxHealth(10);
-		health.setCurrentHealth(10);
+        _health.SetMaxHealth(10);
+		_health.SetCurrentHealth(10);
 		Area3D moneyCollector = GetNode<Area3D>("MoneyCollector");
 		moneyCollector.BodyEntered += OnMoneyCollectorCollision;
 		//var deathMethod = new Callable(this, nameof(HandleDeath));
-		health.onDeath += HandleDeath;
+		_health.onDeath += HandleDeath;
 		//health.Connect("onDeath",deathMethod);
 
 		var healthBarScene = (PackedScene)GD.Load("res://Healthbar.tscn");
 		healthbar = healthBarScene.Instantiate() as ProgressBar;
 		GetTree().Root.GetNode<CanvasLayer>("Level/CanvasLayer2").AddChild(healthbar);
-		healthbar.SetHealth(health.getCurrentHealth(), health.getMaxHealth());
+		healthbar.SetHealth(_health.GetCurrentHealth(), _health.GetMaxHealth());
 
 		camera = GetViewport().GetCamera3D() as Camera3D;
 		
@@ -275,9 +288,10 @@ public partial class Shooter : Entity
 
 	public void OnMoneyCollectorCollision(Node3D other){
 		if(other is Money m){
-			currentMoneyCount += m.getMoneyAmount();
-			m.QueueFree();
-		}
+			_currentMoneyCount += m.GetMoneyAmount();
+            m.Rpc(nameof(m.RPCRemove));
+            // m.QueueFree();
+        }
 
 	}
 
@@ -285,6 +299,22 @@ public partial class Shooter : Entity
 	{
         Rpc(nameof(RpcDie));
     }
+
+	/// <summary>
+    /// gets called by the owning player to set the animation state on all peers
+    /// </summary>
+    /// <param name="shouldPlay">whether the animation should start or stop</param>
+	[Rpc(CallLocal = true)]
+	void _RPCPlayWalkAnimation(bool shouldPlay){
+		if(shouldPlay){
+            _animPlayer.Play();
+        }
+		else{
+            _animPlayer.Pause();
+            _animPlayer.Seek(0.5f);
+        }
+	}
+    
 
 	private void UpdateHealthBarPosition()
 	{

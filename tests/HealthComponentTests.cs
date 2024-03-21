@@ -18,30 +18,30 @@ public class HealthComponentTests {
 	[TestCase]
 	public void TestCheckIfDeadNegative(){
 		HealthComponent healthComponent = new HealthComponent();
-		healthComponent.setMaxHealth(100);
+		healthComponent.SetMaxHealth(100);
 
-		healthComponent.setCurrentHealth(-5);
-		Assertions.AssertBool(healthComponent.isDead()).IsTrue();
+		healthComponent.SetCurrentHealth(-5);
+		Assertions.AssertBool(healthComponent.IsDead()).IsTrue();
 		healthComponent.Free();
 	}
 
 	[TestCase]
 	public void TestCheckIfDeadZeroHealth(){
 		HealthComponent healthComponent = new HealthComponent();
-		healthComponent.setMaxHealth(100);
+		healthComponent.SetMaxHealth(100);
 
-		healthComponent.setCurrentHealth(0);
-		Assertions.AssertBool(healthComponent.isDead()).IsTrue();
+		healthComponent.SetCurrentHealth(0);
+		Assertions.AssertBool(healthComponent.IsDead()).IsTrue();
 		healthComponent.Free();
 	}
 
 	[TestCase]
 	public void TestCheckIfDeadAlive(){
 		HealthComponent healthComponent = new HealthComponent();
-		healthComponent.setMaxHealth(100);
+		healthComponent.SetMaxHealth(100);
 
-		healthComponent.setCurrentHealth(1);
-		Assertions.AssertBool(healthComponent.isDead()).IsFalse();
+		healthComponent.SetCurrentHealth(1);
+		Assertions.AssertBool(healthComponent.IsDead()).IsFalse();
 		healthComponent.Free();
 	}
 
@@ -50,12 +50,12 @@ public class HealthComponentTests {
 	[TestCase]
 	public void TestApplyDamageNormal(){
 		HealthComponent healthComponent = new HealthComponent();
-		healthComponent.setMaxHealth(100);
-		float maxH = healthComponent.getMaxHealth(); // unnötig kompliziert aber ich wollte mal irgendwas mit maxHealth machen
-		healthComponent.setCurrentHealth(maxH);
+		healthComponent.SetMaxHealth(100);
+		float maxH = healthComponent.GetMaxHealth(); // unnötig kompliziert aber ich wollte mal irgendwas mit maxHealth machen
+		healthComponent.SetCurrentHealth(maxH);
 
-		healthComponent.applyDamage(50);
-		Assertions.AssertFloat(healthComponent.getCurrentHealth()).IsEqual(50);
+		healthComponent.ApplyDamage(50);
+		Assertions.AssertFloat(healthComponent.GetCurrentHealth()).IsEqual(50);
 		healthComponent.Free();
 
 	}
@@ -64,12 +64,12 @@ public class HealthComponentTests {
 	[TestCase]
 	public void TestApplyDamageNegative(){
 		HealthComponent healthComponent = new HealthComponent();
-		healthComponent.setMaxHealth(100);
-		float maxH = healthComponent.getMaxHealth(); // unnötig kompliziert aber ich wollte mal irgendwas mit maxHealth machen
-		healthComponent.setCurrentHealth(maxH);
+		healthComponent.SetMaxHealth(100);
+		float maxH = healthComponent.GetMaxHealth(); // unnötig kompliziert aber ich wollte mal irgendwas mit maxHealth machen
+		healthComponent.SetCurrentHealth(maxH);
 
-		healthComponent.applyDamage(-50);
-		Assertions.AssertFloat(healthComponent.getCurrentHealth()).IsEqual(100);
+		healthComponent.ApplyDamage(-50);
+		Assertions.AssertFloat(healthComponent.GetCurrentHealth()).IsEqual(100);
 		healthComponent.Free();
 
 	}
@@ -80,11 +80,11 @@ public class HealthComponentTests {
 	public void TestHealNormal(){
 
 		 HealthComponent healthComponent = new HealthComponent();
-		healthComponent.setMaxHealth(100);
-		healthComponent.setCurrentHealth(1);
+		healthComponent.SetMaxHealth(100);
+		healthComponent.SetCurrentHealth(1);
 
-		healthComponent.heal(50);
-		Assertions.AssertFloat(healthComponent.getCurrentHealth()).IsEqual(51);
+		healthComponent.Heal(50);
+		Assertions.AssertFloat(healthComponent.GetCurrentHealth()).IsEqual(51);
 		healthComponent.Free();
 
 	}
@@ -93,11 +93,11 @@ public class HealthComponentTests {
 	 public void TestHealNegative(){
 
 		 HealthComponent healthComponent = new HealthComponent();
-		healthComponent.setMaxHealth(100);
-		healthComponent.setCurrentHealth(1);
+		healthComponent.SetMaxHealth(100);
+		healthComponent.SetCurrentHealth(1);
 
-		healthComponent.heal(-50);
-		Assertions.AssertFloat(healthComponent.getCurrentHealth()).IsEqual(1);
+		healthComponent.Heal(-50);
+		Assertions.AssertFloat(healthComponent.GetCurrentHealth()).IsEqual(1);
 		healthComponent.Free();
 
 	}
@@ -106,11 +106,11 @@ public class HealthComponentTests {
 	 public void TestHealToMuch(){
 
 		HealthComponent healthComponent = new HealthComponent();
-		healthComponent.setMaxHealth(100);
-		healthComponent.setCurrentHealth(1);
+		healthComponent.SetMaxHealth(100);
+		healthComponent.SetCurrentHealth(1);
 
-		healthComponent.heal(100);
-		Assertions.AssertFloat(healthComponent.getCurrentHealth()).IsEqual(100);
+		healthComponent.Heal(100);
+		Assertions.AssertFloat(healthComponent.GetCurrentHealth()).IsEqual(100);
 		healthComponent.Free();
 
 	}
@@ -122,8 +122,8 @@ public class HealthComponentTests {
 	public void TestDie(){
 		
 		HealthComponent healthComponent = new HealthComponent();
-		healthComponent.setMaxHealth(100);
-		healthComponent.setCurrentHealth(-1);
+		healthComponent.SetMaxHealth(100);
+		healthComponent.SetCurrentHealth(-1);
 
 		bool hasFired = false;
 		healthComponent.onDeath += () => hasFired = true;

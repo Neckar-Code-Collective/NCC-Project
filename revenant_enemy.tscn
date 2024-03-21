@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://c5joc54q5pfa0"]
+[gd_scene load_steps=6 format=3 uid="uid://c5joc54q5pfa0"]
 
 [ext_resource type="Script" path="res://scripts/RevenantEnemy.cs" id="1_2t2w0"]
-[ext_resource type="PackedScene" uid="uid://bn5yq3gg0rh2r" path="res://MoneyPrefab.tscn" id="2_313yw"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_i5rlv"]
 
@@ -15,8 +14,8 @@ material = SubResource("StandardMaterial3D_3kj4p")
 radius = 100.0
 
 [node name="RevenantEnemy" type="CharacterBody3D"]
+collision_layer = 4
 script = ExtResource("1_2t2w0")
-MoneyPrefab = ExtResource("2_313yw")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_i5rlv")

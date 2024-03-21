@@ -1,11 +1,24 @@
 using Godot;
 using System;
 
-
+/// <summary>
+/// WeaponComponent handles the weapon selection for the shooter
+/// </summary>
 public partial class WeaponComponent : Node
 {
+	/// <summary>
+    /// Prefab of the starter weapon
+    /// </summary>
 	[Export] public PackedScene StartingWeapon;
+
+	/// <summary>
+    /// Hand position. Basically just the position where the gun model gets spawned
+    /// </summary>
 	private Marker3D hand;
+
+	/// <summary>
+    /// The currently equipped weapon
+    /// </summary>
 	private Node3D equippedWeapon;
 
 	// Called when the node enters the scene tree for the first time.
