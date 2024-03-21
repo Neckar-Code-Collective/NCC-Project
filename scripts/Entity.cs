@@ -53,7 +53,7 @@ public partial class Entity : CharacterBody3D
         if (!IsMultiplayerAuthority()){
             return;
         }
-        GD.Print("AUA!");
+        GD.Print("Im getting damaged from peer ",Multiplayer.GetRemoteSenderId());
         health.applyDamage(amount);
     }
 
@@ -62,7 +62,16 @@ public partial class Entity : CharacterBody3D
 
 	[Rpc(MultiplayerApi.RpcMode.Authority,CallLocal = true)]
 	public void RpcDie(){
+        if (!IsMultiplayerAuthority()){
+            return;
+        }
+        // GD.Print("Entity ",Name," ")
         EntityManager.removeEntity(this);
+        // netTrans.QueueFree();
+        health.QueueFree();
+        netTrans.QueueFree();
         QueueFree();
+        // GetParent().RemoveChild(this);
+        // SetProcess(false);
     }
 }

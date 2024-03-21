@@ -21,6 +21,8 @@ public partial class BeginScene : Control
 
         ServerButton.Pressed += () =>
         {
+            GD.PushWarning("SERVER");
+
             int port = int.Parse(ServerPort.Text);
             Global.Is_Shooter = false;
             Global.Is_Mage = true;
@@ -44,6 +46,8 @@ public partial class BeginScene : Control
 
         ClientButton.Pressed += () =>
         {
+
+            GD.PushWarning("CLIENT");
             string address = ClientAddress.Text;
             int port = int.Parse(ClientPort.Text);
 

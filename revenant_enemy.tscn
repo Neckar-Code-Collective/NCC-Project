@@ -15,6 +15,7 @@ material = SubResource("StandardMaterial3D_3kj4p")
 radius = 100.0
 
 [node name="RevenantEnemy" type="CharacterBody3D"]
+collision_layer = 4
 script = ExtResource("1_2t2w0")
 MoneyPrefab = ExtResource("2_313yw")
 

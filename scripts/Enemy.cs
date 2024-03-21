@@ -39,8 +39,8 @@ public partial class Enemy : Entity{
 		};
 
 		health.onDeath += () =>{
-            Rpc(nameof(RpcDie));
 			Rpc(nameof(RpcSpawnMoney), this.GlobalPosition);
+            Rpc(nameof(RpcDie));
 		};
 	}
 
