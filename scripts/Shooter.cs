@@ -72,8 +72,8 @@ public partial class Shooter : Entity
 		}
 		else
 		{
-			velocity.X = Mathf.Lerp(Velocity.X, 0, SPEED * (float)delta);
-			velocity.Z = Mathf.Lerp(Velocity.Z, 0, SPEED * (float)delta);
+			velocity.X = Mathf.Lerp(Velocity.X, 0, SPEED * (float)delta * 4);
+			velocity.Z = Mathf.Lerp(Velocity.Z, 0, SPEED * (float)delta * 4);
 		}
 
 		if (direction.Length() > 0.1 && !_isWalking){
