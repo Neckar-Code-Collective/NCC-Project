@@ -3,16 +3,22 @@ using System;
 
 /// <summary>
 /// BasicEnemy has the overall pathfinding functions targettet at the shooter
-/// Missing Functions: Health, Damage, OnCollision, MovementSpeed 
 /// </summary>
 public partial class Enemy : Entity{
 
-	float damage;
-    float movementSpeed = 3.0f;
+	/// <summary>
+    /// The damage this enemy inflicts
+    /// </summary>
+	float _damage;
 
-	 [Export]
-    protected PackedScene MoneyPrefab;
+	/// <summary>
+    /// The movement speed of this enemy
+    /// </summary>
+    float _movementSpeed = 3.0f;
 
+	/// <summary>
+    /// The amount of money this enemy drops on death
+    /// </summary>
     protected int NetWorth = 5;
 
 
@@ -24,8 +30,14 @@ public partial class Enemy : Entity{
     /// </summary>
     NavigationAgent3D nav_agent;
 
+	/// <summary>
+    /// The shooter this enemy is currently targeting
+    /// </summary>
 	Shooter target;
 
+	/// <summary>
+    /// Setup references and death handler
+    /// </summary>
 	public override void _Ready(){
 		base._Ready();
 		nav_agent = GetNode<NavigationAgent3D>("NavigationAgent3D");
@@ -38,8 +50,9 @@ public partial class Enemy : Entity{
 
 		};
 
-		health.onDeath += () =>{
-			Rpc(nameof(RpcSpawnMoney), this.GlobalPosition);
+		//basic logic for dying
+		_health.onDeath += () =>{
+            Global.NetworkManager.SpawnMoney(GlobalPosition, NetWorth);
             Rpc(nameof(RpcDie));
 		};
 	}
@@ -55,17 +68,20 @@ public partial class Enemy : Entity{
 	public override void _PhysicsProcess(double delta){ //Update Funktion
 		base._PhysicsProcess(delta);
 
+		//if we arent the server, we dont want to update the enemies
 		if(!IsMultiplayerAuthority()){
             return;
         }
 
+		//finds the next location to go to and moves there
 		var current_location = GlobalTransform.Origin;
 		var next_location = nav_agent.GetNextPathPosition();
-		var new_velocity = (next_location - current_location).Normalized() * movementSpeed;
+		var new_velocity = (next_location - current_location).Normalized() * _movementSpeed;
 
 		Velocity = new_velocity;
 		MoveAndSlide();
 
+		//if we dont have a target we dont want to move at all
 		if(target != null){
 
 			if(!IsInstanceValid(target)){
@@ -80,20 +96,10 @@ public partial class Enemy : Entity{
 		}
 
 	}
-	
-	[Rpc]
-	public void RpcSpawnMoney(Vector3 spawnPosition)
-	{
-		for (int i = 0; i < NetWorth; i++)
-		{
-			var money = MoneyPrefab.Instantiate<Money>();
-			money.setMoneyAmount(1);
-			GetTree().Root.AddChild(money);
-			money.GlobalPosition = spawnPosition;
-		}
-	}
 
-
+	/// <summary>
+    /// Check if we are in range of the shooter to attack him
+    /// </summary>
 	public void Attack(){
 		var distance = target.GlobalPosition - this.GlobalPosition;
 		if(distance.Length() < 1 ){
@@ -106,28 +112,28 @@ public partial class Enemy : Entity{
    
 
 
-	public float getDamage(){
-		return this.damage;
+	public float GetDamage(){
+		return this._damage;
 	}
 
-	public void setDamge(float _dmg){
-		this.damage = _dmg;
+	public void SetDamage(float _dmg){
+		this._damage = _dmg;
 	}
 
-    public float getMovementSpeed(){
-        return this.movementSpeed;
+    public float GetMovementSpeed(){
+        return this._movementSpeed;
     }
 
-    public void setMovementSpeed(float _ms){
-        this.movementSpeed = _ms;
+    public void SetMovementSpeed(float _ms){
+        this._movementSpeed = _ms;
 
     }
 
-	public int getNetWorth(){
+	public int GetNetWorth(){
         return this.NetWorth;
     }
 
-	public void setNetWorth(int _nw){
+	public void SetNetWorth(int _nw){
         this.NetWorth = _nw;
     }
 	

@@ -8,41 +8,48 @@ using System;
 
 public partial class ManaManager : Node
 {
-    float currentMana = 0;
-    float maxMana = 10;
-    float manaRegen = 1;
+	/// <summary>
+    /// The amount of mana the mage currently has
+    /// </summary>
+    float _currentMana = 0;
 
-    // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
-    {
-    }
+	/// <summary>
+    /// The maximum amount of mana the mage can hold
+    /// </summary>
+    float _maxMana = 10;
+
+	/// <summary>
+    /// The rate at which mana regenrates
+    /// </summary>
+    float _manaRegen = 1;
 
 
 
-	public float getCurrentMana(){
-		return currentMana;
+
+	public float GetCurrentMana(){
+		return _currentMana;
 	}
 
-	public float getMaxMana(){
-		return maxMana;
+	public float GetMaxMana(){
+		return _maxMana;
 	}
 
-	public float getManaRegen(){
-		return manaRegen;
+	public float GetManaRegen(){
+		return _manaRegen;
 	}
 
-	public void setMaxMana(float max){
-		maxMana = max;
-		currentMana = Math.Min(currentMana,maxMana);
+	public void SetMaxMana(float max){
+		_maxMana = max;
+		_currentMana = Math.Min(_currentMana,_maxMana);
 	}
 
-	public void setManaRegen(float regen){
-		manaRegen = regen;
+	public void SetManaRegen(float regen){
+		_manaRegen = regen;
 	}
 
-	public void setCurrentMana(float mana){
-		currentMana = mana;
-		currentMana = Math.Min(currentMana,maxMana);
+	public void SetCurrentMana(float mana){
+		_currentMana = mana;
+		_currentMana = Math.Min(_currentMana,_maxMana);
 	}
 
 
@@ -50,8 +57,8 @@ public partial class ManaManager : Node
 	/// Removes a amount of mana from currentMana
 	/// </summary>
 	/// <param name="amount">The amount to remove</param>
-	public void removeMana(float amount){
-		currentMana -= amount;
+	public void RemoveMana(float amount){
+		_currentMana -= amount;
 	}
 
     public override void _PhysicsProcess(double delta)
@@ -66,9 +73,9 @@ public partial class ManaManager : Node
 	/// </summary>
 	/// <param name="delta">the amount of time that has passed</param>
 	public void Update(double delta){
-		currentMana += manaRegen*(float)delta;
+		_currentMana += _manaRegen*(float)delta;
 
-		currentMana = Math.Min(currentMana,maxMana);
+		_currentMana = Math.Min(_currentMana,_maxMana);
 	}
 
 }
