@@ -15,6 +15,8 @@ public partial class Entity : CharacterBody3D
     /// </summary>
 	protected NetworkedTransform _netTrans;
 
+    protected HealthBar _healthBar;
+
 
 	
 	// Setup references and create health component and networked transform
