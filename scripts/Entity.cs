@@ -1,40 +1,32 @@
 using Godot;
 using System;
 
-/// <summary>
-/// The parent class of all entities (enemies and shooters)
-/// </summary>
 public partial class Entity : CharacterBody3D
 {
-	/// <summary>
-    /// This entities health component
-    /// </summary>
-	protected HealthComponent _health;
-    /// <summary>
-    /// This entities networked transform;
-    /// </summary>
-	protected NetworkedTransform _netTrans;
+	
+	protected HealthComponent health;
+	NetworkedTransform netTrans;
 
     protected ProgressBar healthbar;
 
 
 	
-	// Setup references and create health component and networked transform
+	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
         EntityManager.registerEntity(this);
 
-        _health = new HealthComponent();
-        _health.Name = "Health";
-        _health.SetMultiplayerAuthority(GetMultiplayerAuthority());
-        AddChild(_health);
+        health = new HealthComponent();
+        health.Name = "Health";
+        health.SetMultiplayerAuthority(GetMultiplayerAuthority());
+        AddChild(health);
 
 
-        _netTrans = new NetworkedTransform();
-        _netTrans.Name = "NetworkTransform";
-        _netTrans.SetMultiplayerAuthority(GetMultiplayerAuthority());
-        _netTrans.SetTarget(this);
-        AddChild(_netTrans);
+        netTrans = new NetworkedTransform();
+        netTrans.Name = "NetworkTransform";
+        netTrans.SetMultiplayerAuthority(GetMultiplayerAuthority());
+        netTrans.SetTarget(this);
+        AddChild(netTrans);
 
 		if (int.TryParse(Name, System.Globalization.NumberStyles.Any, null, out int id) )
         {
@@ -43,38 +35,43 @@ public partial class Entity : CharacterBody3D
 			
         }
 
-        GD.Print("NETTRANS AUTH IS " + _netTrans.GetMultiplayerAuthority());
+        GD.Print("NETTRANS AUTH IS " + netTrans.GetMultiplayerAuthority());
 
     }
 
-	public HealthComponent GetHealth(){
-        return _health;
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta)
+	{
+	}
+
+	public HealthComponent getHealth(){
+        return health;
     }
 
-    /// <summary>
-    /// RPC. Gets called by other peers when they damage the entity this peer owns
-    /// </summary>
-    /// <param name="amount"></param>
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer,CallLocal = true)]
 	public void RpcDealDamage(float amount){
         if (!IsMultiplayerAuthority()){
             return;
         }
         GD.Print("Im getting damaged from peer ",Multiplayer.GetRemoteSenderId());
-        _health.ApplyDamage(amount);
+        health.applyDamage(amount);
     }
 
-    /// <summary>
-    /// Gets called by the owning peer to destroy an entity. doesnt actually have to be a rpc 😅
-    /// </summary>
+	[Rpc]
+	public void RpcPlayAnimation(string anim,float speed){}
+
 	[Rpc(MultiplayerApi.RpcMode.Authority,CallLocal = true)]
 	public void RpcDie(){
         if (!IsMultiplayerAuthority()){
             return;
         }
+        // GD.Print("Entity ",Name," ")
         EntityManager.removeEntity(this);
-        _health.QueueFree();
-        _netTrans.QueueFree();
+        // netTrans.QueueFree();
+        health.QueueFree();
+        netTrans.QueueFree();
         QueueFree();
+        // GetParent().RemoveChild(this);
+        // SetProcess(false);
     }
 }

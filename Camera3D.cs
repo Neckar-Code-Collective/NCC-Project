@@ -2,9 +2,6 @@ using Godot;
 using System;
 using System.Reflection.Metadata;
 
-/// <summary>
-/// Helperscript for the camera to only focus the local player
-/// </summary>
 public partial class Camera3D : Godot.Camera3D
 {
     private float _zoom = 7;

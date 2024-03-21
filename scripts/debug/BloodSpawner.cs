@@ -31,9 +31,9 @@ public partial class BloodSpawner : Node3D
 
                 //Spawn Blood
                 var blood = BloodPrefab.Instantiate<Blood>();
-                blood.SetLerpSpeed(0.01f);
-                blood.SetLerpTarget(getRandomPosInRange(emitRange));
-                blood.SetAmount(Random.Shared.Next(0, 11));
+                blood.setLerpSpeed(0.01f);
+                blood.setLerpTarget(getRandomPosInRange(emitRange));
+                blood.setAmount(Random.Shared.Next(0, 11));
                 GetTree().Root.AddChild(blood);
 
             }

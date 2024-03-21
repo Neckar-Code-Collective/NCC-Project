@@ -3,51 +3,39 @@ using System;
 
 public partial class Blood : Area3D
 {
-    /// <summary>
-    /// The amount of blood point this blood unit gives to the mage
-    /// </summary>
-    int _amount = 0;
+    int amount = 0;
+    Vector3 lerpTarget = Vector3.Zero;
+    float lerpSpeed = 0.2f;
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
+	{
 
-    /// <summary>
-    /// The location this blood orb is traveling
-    /// </summary>
-    Vector3 _lerpTarget = Vector3.Zero;
+	}
 
-    /// <summary>
-    /// The speed with which this blood orb is traveling to its location
-    /// </summary>
-    float _lerpSpeed = 0.2f;
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta)
+	{
 
-    /// <summary>
-    /// Sets the location this orb is traveling to
-    /// </summary>
-    /// <param name="target">the target position</param>
-	public void SetLerpTarget(Vector3 target)
-    {
-        _lerpTarget = target;
+	}
+
+	public void setLerpTarget(Vector3 target){
+        lerpTarget = target;
     }
 
-    public void SetLerpSpeed(float s)
-    {
-        _lerpSpeed = s;
+	public void setLerpSpeed(float s){
+        lerpSpeed = s;
     }
 
-    public void SetAmount(int a)
-    {
-        _amount = a;
+	public void setAmount(int a){
+        amount = a;
     }
 
-    public int GetAmount()
-    {
-        return _amount;
+	public int getAmount(){
+        return amount;
     }
 
-    /// <summary>
-    /// Moves this orb to its _lerpTarget location
-    /// </summary>
-    /// <param name="delta"></param>
     public override void _PhysicsProcess(double delta)
     {
-        GlobalPosition = GlobalPosition.Lerp(_lerpTarget, _lerpSpeed);
+        GlobalPosition = GlobalPosition.Lerp(lerpTarget, lerpSpeed);
     }
 }
