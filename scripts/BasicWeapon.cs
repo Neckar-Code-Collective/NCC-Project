@@ -46,7 +46,6 @@ public partial class BasicWeapon : AbstractWeapon
 
 		GetTree().Root.AddChild(newBullet);
 		newBullet.Setup(Muzzle.GlobalPosition, Muzzle.GlobalBasis.Z*30, DamagePerBullet,true);
-        newBullet.SetCollisionMaskForPlayerBullet();
         Rpc(nameof(RpcShoot),Muzzle.GlobalPosition,Muzzle.GlobalBasis.Z*30,0);
 
 
@@ -59,7 +58,7 @@ public partial class BasicWeapon : AbstractWeapon
     public override void RpcShoot(Vector3 pos, Vector3 vel, int data)
     {
         Bullet newBullet = BulletPrefab.Instantiate<Bullet>();
-        newBullet.SetCollisionMaskForPlayerBullet();
+
         GetTree().Root.AddChild(newBullet);
 
         newBullet.Setup(pos, vel, 0, false);

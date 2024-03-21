@@ -27,10 +27,6 @@ project/assembly_name="NCC-Project"
 
 enabled=PackedStringArray("res://addons/MagicaVoxel_Importer_with_Extensions/plugin.cfg", "res://addons/gdUnit4/plugin.cfg")
 
-[filesystem]
-
-import/fbx/enabled=false
-
 [gdunit4]
 
 settings/test/test_lookup_folder="tests"
