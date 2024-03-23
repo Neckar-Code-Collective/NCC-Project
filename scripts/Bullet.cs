@@ -152,4 +152,5 @@ public partial class Bullet : Area3D
     {
         return aliveTime;
     }
+
 }

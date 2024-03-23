@@ -67,12 +67,10 @@ public partial class Entity : CharacterBody3D
     /// <param name="amount"></param>
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer,CallLocal = true)]
 	public void RpcDealDamage(float amount){
-        if (!IsMultiplayerAuthority()){
-            return;
-        }
         GD.Print("Im getting damaged from peer ",Multiplayer.GetRemoteSenderId());
         _health.ApplyDamage(amount);
-        Rpc(nameof(RpcUpdateHealthBar));
+        // Rpc(nameof(RpcUpdateHealthBar));
+       
     }
 
     /// <summary>
@@ -80,9 +78,6 @@ public partial class Entity : CharacterBody3D
     /// </summary>
 	[Rpc(MultiplayerApi.RpcMode.Authority,CallLocal = true)]
 	public void RpcDie(){
-        if (!IsMultiplayerAuthority()){
-            return;
-        }
         EntityManager.removeEntity(this);
         _health.QueueFree();
         _healthBar.QueueFree();
