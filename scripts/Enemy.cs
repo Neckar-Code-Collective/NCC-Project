@@ -55,6 +55,11 @@ public partial class Enemy : Entity{
             Global.NetworkManager.SpawnMoney(GlobalPosition, NetWorth);
             Rpc(nameof(RpcDie));
 		};
+
+		_health.onDamage += () =>
+        {
+            Rpc(nameof(RpcDealDamage));
+        };
 	}
 
 
@@ -93,6 +98,7 @@ public partial class Enemy : Entity{
 
 			LookAt(target.GlobalPosition, Vector3.Up);
 			Attack();
+			Rpc(nameof(RpcUpdateHealthBar));
 		}
 
 	}
@@ -136,5 +142,6 @@ public partial class Enemy : Entity{
 	public void SetNetWorth(int _nw){
         this.NetWorth = _nw;
     }
+	
 	
 }

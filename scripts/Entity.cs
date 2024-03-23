@@ -16,6 +16,7 @@ public partial class Entity : CharacterBody3D
 	protected NetworkedTransform _netTrans;
 
     protected HealthBar _healthBar;
+    protected Camera3D camera;
 
 
 	
@@ -45,6 +46,15 @@ public partial class Entity : CharacterBody3D
 
         GD.Print("NETTRANS AUTH IS " + _netTrans.GetMultiplayerAuthority());
 
+        camera = GetViewport().GetCamera3D() as Camera3D;
+
+    
+
+        var healthBarScene = (PackedScene)GD.Load("res://HealthBar.tscn");
+		_healthBar = healthBarScene.Instantiate() as HealthBar;
+		GetTree().Root.GetNode<CanvasLayer>("Level/CanvasLayer2").AddChild(_healthBar);
+		_healthBar.SetHealth(_health.GetCurrentHealth(), _health.GetMaxHealth());
+
     }
 
 	public HealthComponent GetHealth(){
@@ -62,6 +72,7 @@ public partial class Entity : CharacterBody3D
         }
         GD.Print("Im getting damaged from peer ",Multiplayer.GetRemoteSenderId());
         _health.ApplyDamage(amount);
+        Rpc(nameof(RpcUpdateHealthBar));
     }
 
     /// <summary>
@@ -74,7 +85,17 @@ public partial class Entity : CharacterBody3D
         }
         EntityManager.removeEntity(this);
         _health.QueueFree();
+        _healthBar.QueueFree();
         _netTrans.QueueFree();
         QueueFree();
     }
+
+    [Rpc(MultiplayerApi.RpcMode.Authority,CallLocal = true)]
+    public void RpcUpdateHealthBar()
+	{
+			_healthBar.SetHealth(_health.GetCurrentHealth(), _health.GetMaxHealth());
+			var screenPosition = camera.UnprojectPosition(GlobalTransform.Origin);
+			_healthBar.Position = screenPosition + new Vector2(-_healthBar.Size.X / 2, -100);
+		
+	}
 }

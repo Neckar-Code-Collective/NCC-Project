@@ -63,6 +63,7 @@ public partial class HealthComponent : Node
         {
             this._currentHealth -= damage;
             EmitSignal(SignalName.onDamage);
+
         }
 
     }
@@ -111,6 +112,7 @@ public partial class HealthComponent : Node
         {
             Die();
         }
+        
 
     }
 
