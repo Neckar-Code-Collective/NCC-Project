@@ -6,10 +6,10 @@ using System;
 /// </summary>
 public partial class Entity : CharacterBody3D
 {
-	/// <summary>
+    /// <summary>
     /// This entities health component
     /// </summary>
-	protected HealthComponent _health;
+    protected HealthComponent _health;
     /// <summary>
     /// This entities networked transform;
     /// </summary>
@@ -19,10 +19,10 @@ public partial class Entity : CharacterBody3D
     protected Camera3D camera;
 
 
-	
-	// Setup references and create health component and networked transform
-	public override void _Ready()
-	{
+
+    // Setup references and create health component and networked transform
+    public override void _Ready()
+    {
         EntityManager.registerEntity(this);
 
         _health = new HealthComponent();
@@ -37,27 +37,28 @@ public partial class Entity : CharacterBody3D
         _netTrans.SetTarget(this);
         AddChild(_netTrans);
 
-		if (int.TryParse(Name, System.Globalization.NumberStyles.Any, null, out int id) )
+        if (int.TryParse(Name, System.Globalization.NumberStyles.Any, null, out int id))
         {
             // GD.Print("Setting Auhtority "+id);
             SetMultiplayerAuthority(id, true);
-			
+
         }
 
         GD.Print("NETTRANS AUTH IS " + _netTrans.GetMultiplayerAuthority());
 
         camera = GetViewport().GetCamera3D() as Camera3D;
 
-    
+
 
         var healthBarScene = (PackedScene)GD.Load("res://HealthBar.tscn");
-		_healthBar = healthBarScene.Instantiate() as HealthBar;
-		GetTree().Root.GetNode<CanvasLayer>("Level/CanvasLayer2").AddChild(_healthBar);
-		_healthBar.SetHealth(_health.GetCurrentHealth(), _health.GetMaxHealth());
+        _healthBar = healthBarScene.Instantiate() as HealthBar;
+        GetTree().Root.GetNode<CanvasLayer>("Level/CanvasLayer2").AddChild(_healthBar);
+        _healthBar.SetHealth(_health.GetCurrentHealth(), _health.GetMaxHealth());
 
     }
 
-	public HealthComponent GetHealth(){
+    public HealthComponent GetHealth()
+    {
         return _health;
     }
 
@@ -65,32 +66,38 @@ public partial class Entity : CharacterBody3D
     /// RPC. Gets called by other peers when they damage the entity this peer owns
     /// </summary>
     /// <param name="amount"></param>
-	[Rpc(MultiplayerApi.RpcMode.AnyPeer,CallLocal = true)]
-	public void RpcDealDamage(float amount){
-        GD.Print("Im getting damaged from peer ",Multiplayer.GetRemoteSenderId());
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true)]
+    public void RpcDealDamage(float amount)
+    {
+        GD.Print("Im getting damaged from peer ", Multiplayer.GetRemoteSenderId());
         _health.ApplyDamage(amount);
         // Rpc(nameof(RpcUpdateHealthBar));
-       
+
     }
 
     /// <summary>
     /// Gets called by the owning peer to destroy an entity. doesnt actually have to be a rpc 😅
     /// </summary>
-	[Rpc(MultiplayerApi.RpcMode.Authority,CallLocal = true)]
-	public void RpcDie(){
+	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = true)]
+    public void RpcDie()
+    {
         EntityManager.removeEntity(this);
-        _health.QueueFree();
         _healthBar.QueueFree();
-        _netTrans.QueueFree();
-        QueueFree();
+        if (IsMultiplayerAuthority())
+        {
+            _health.QueueFree();
+            _netTrans.QueueFree();
+            QueueFree();
+
+        }
     }
 
-    [Rpc(MultiplayerApi.RpcMode.Authority,CallLocal = true)]
+    [Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = true)]
     public void RpcUpdateHealthBar()
-	{
-			_healthBar.SetHealth(_health.GetCurrentHealth(), _health.GetMaxHealth());
-			var screenPosition = camera.UnprojectPosition(GlobalTransform.Origin);
-			_healthBar.Position = screenPosition + new Vector2(-_healthBar.Size.X / 2, -100);
-		
-	}
+    {
+        _healthBar.SetHealth(_health.GetCurrentHealth(), _health.GetMaxHealth());
+        var screenPosition = camera.UnprojectPosition(GlobalTransform.Origin);
+        _healthBar.Position = screenPosition + new Vector2(-_healthBar.Size.X / 2, -100);
+
+    }
 }
