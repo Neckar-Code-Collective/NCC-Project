@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cm0oo3g3hrblj"]
+[gd_scene load_steps=19 format=3 uid="uid://cm0oo3g3hrblj"]
 
 [ext_resource type="PackedScene" uid="uid://dhcvs3jv6hkgk" path="res://Shooter.tscn" id="2_i3ihx"]
 [ext_resource type="PackedScene" uid="uid://bn5yq3gg0rh2r" path="res://MoneyPrefab.tscn" id="2_kp24w"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://scripts/NetworkManager.cs" id="8_cefut"]
 [ext_resource type="PackedScene" uid="uid://hos0rmwwl317" path="res://BloodPrefab.tscn" id="8_gbddo"]
 [ext_resource type="PackedScene" uid="uid://c5joc54q5pfa0" path="res://revenant_enemy.tscn" id="9_i3b40"]
+[ext_resource type="PackedScene" uid="uid://cq843f3326ueq" path="res://map.tscn" id="11_mw1pq"]
 
 [sub_resource type="Shader" id="Shader_fu1mt"]
 code = "shader_type spatial;
@@ -326,6 +327,7 @@ _moneyPrefab = ExtResource("2_kp24w")
 ShooterPrefab = ExtResource("2_i3ihx")
 
 [node name="Shooters" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.11281, 9.85762)
 
 [node name="ShooterSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://Shooter.tscn", "res://BasicEnemy.tscn", "res://charge_enemy.tscn", "res://revenant_enemy.tscn")
@@ -347,7 +349,7 @@ transform = Transform3D(-0.12941, -0.866025, 0.482963, -0.224144, 0.5, 0.836516,
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 7, 7)
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 21.3069, 10.5948)
 script = ExtResource("3_hr2hw")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
@@ -482,3 +484,6 @@ offset_bottom = 594.0
 theme_override_font_sizes/font_size = 28
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="Map" parent="." instance=ExtResource("11_mw1pq")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -1.59406, 0)
