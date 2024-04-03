@@ -61,7 +61,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_8ph3q")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("ConvexPolygonShape3D_jye2n")
 
-[node name="SpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.0506975, 0.998714, 0, -0.998714, 0.0506975, -0.000759125, 0.785623, 0.235395)
-light_color = Color(0.533736, 0.0293224, 0, 1)
-light_energy = 11.057
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.841774, 0.223101)
+light_color = Color(0.533333, 0.027451, 0, 1)
+light_energy = 16.0

@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 EntityManager="*res://scripts/EntityManager.cs"
+SimpleGrass="*res://addons/simplegrasstextured/singleton.tscn"
 
 [display]
 
@@ -29,7 +30,7 @@ project/assembly_name="NCC-Project"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/MagicaVoxel_Importer_with_Extensions/plugin.cfg", "res://addons/gdUnit4/plugin.cfg")
+enabled=PackedStringArray("res://addons/MagicaVoxel_Importer_with_Extensions/plugin.cfg", "res://addons/gdUnit4/plugin.cfg", "res://addons/simplegrasstextured/plugin.cfg")
 
 [filesystem]
 
@@ -52,3 +53,42 @@ settings/common/update_notification_enabled=false
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+
+[shader_globals]
+
+sgt_player_position={
+"type": "vec3",
+"value": Vector3(1e+06, 1e+06, 1e+06)
+}
+sgt_player_mov={
+"type": "vec3",
+"value": Vector3(0, 0, 0)
+}
+sgt_normal_displacement={
+"type": "sampler2D",
+"value": "res://addons/simplegrasstextured/images/normal.png"
+}
+sgt_motion_texture={
+"type": "sampler2D",
+"value": "res://addons/simplegrasstextured/images/motion.png"
+}
+sgt_wind_direction={
+"type": "vec3",
+"value": Vector3(1, 0, 0)
+}
+sgt_wind_movement={
+"type": "vec3",
+"value": Vector2(0, 0)
+}
+sgt_wind_strength={
+"type": "float",
+"value": 0.15
+}
+sgt_wind_turbulence={
+"type": "float",
+"value": 1.0
+}
+sgt_wind_pattern={
+"type": "sampler2D",
+"value": "res://addons/simplegrasstextured/images/wind_pattern.png"
+}
