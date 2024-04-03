@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cr8pivtwauxms"]
+
+[ext_resource type="PackedScene" uid="uid://d3df24tglwb7n" path="res://Grafik/Models/Pine/pine.glb" id="1_vs3lo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h13gp"]
+albedo_color = Color(0.00581789, 0.182738, 0.0885672, 1)
+
+[node name="pine2" instance=ExtResource("1_vs3lo")]
+
+[node name="pine" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_h13gp")
