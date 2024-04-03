@@ -7,10 +7,11 @@ using System.Runtime.CompilerServices;
 /// <summary>
 /// The Revenant is a special enemy that revives itself for a short time after dying and sprints really fast
 /// </summary>
-public partial class RevenantEnemy : Enemy{
+public partial class RevenantEnemy : Enemy
+{
 
     enum RevenantEnemyState
-    { 
+    {
         ALIVE, REVENANT
     }
     /// <summary>
@@ -42,6 +43,9 @@ public partial class RevenantEnemy : Enemy{
         //add new on death handler
         _health.onDeath += () =>
         {
+
+
+
             switch (state)
             {
                 case RevenantEnemyState.ALIVE:
@@ -60,13 +64,17 @@ public partial class RevenantEnemy : Enemy{
                     timer.Start(2);
                     break;
                 case RevenantEnemyState.REVENANT:
+                    if (!IsMultiplayerAuthority())
+                    {
+                        return;
+                    }
                     //when we die in the REVENANT state, we die for real
                     Rpc(nameof(RpcDie));
                     //Spawn Money
                     Global.NetworkManager.SpawnMoney(GlobalPosition, NetWorth);
                     break;
-            
-                }
+
+            }
         };
 
 
@@ -75,7 +83,8 @@ public partial class RevenantEnemy : Enemy{
     /// <summary>
     /// Callback for the ticker, which reduces the health and increases movespeed until death
     /// </summary>
-    public void Ticker (){
+    public void Ticker()
+    {
         //health.setCurrentHealth(health.getCurrentHealth() - 60);
         RpcDealDamage(20);
         SetMovementSpeed(GetMovementSpeed() * 1.2f);

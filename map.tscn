@@ -30,6 +30,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.517254, 0)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0358982, -0.0243154, -0.00260925)
+use_collision = true
 size = Vector3(100, 1, 100)
 material = SubResource("StandardMaterial3D_cbqqw")
 

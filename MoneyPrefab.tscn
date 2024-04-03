@@ -11,9 +11,10 @@ size = Vector3(0.25238, 0.0800171, 0.464325)
 
 [node name="MoneyPrefab" type="RigidBody3D"]
 collision_layer = 16
-collision_mask = 16
+collision_mask = 17
 mass = 0.1
 physics_material_override = SubResource("PhysicsMaterial_np27p")
+continuous_cd = true
 script = ExtResource("1_8psjd")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

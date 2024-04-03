@@ -44,6 +44,7 @@ albedo_color = Color(0.329412, 0.372549, 0.403922, 1)
 points = PackedVector3Array(-0.0225, 0.663858, -0.0225, -0.0225, 0.663858, 0.0225, -4.40516e-06, 0.7339, -4.40516e-06, 0.0225, 0.663858, -0.0225, -0.0150029, 0, -0.0150029, 0.0225, 0.663858, 0.0225, -0.0150029, 0, 0.0149985, 0.0149985, 0, -0.0150029, 0.0149985, 0, 0.0149985)
 
 [node name="iron-fence-bar2" type="StaticBody3D"]
+collision_layer = 33
 
 [node name="iron-fence-bar" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_bydel")

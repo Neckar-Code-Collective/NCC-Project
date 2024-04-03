@@ -19,12 +19,16 @@ public partial class WeaponComponent : Node
 	/// <summary>
     /// The currently equipped weapon
     /// </summary>
-	private Node3D equippedWeapon;
+	private AbstractWeapon _equippedWeapon;
 
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
+    private AbstractWeapon[] _weapons;
+    int _currentIndex = 0;
+
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
 	{
-		hand = GetParent().FindChild("Hand", true, false) as Marker3D;
+        _weapons = new AbstractWeapon[3];
+        hand = GetParent().FindChild("Hand", true, false) as Marker3D;
 
 		if (StartingWeapon != null)
 			EquipWeapon(StartingWeapon);
@@ -32,16 +36,16 @@ public partial class WeaponComponent : Node
 
 	private void EquipWeapon(PackedScene weaponToEquip)
 	{
-		if (equippedWeapon != null)
+		if (_equippedWeapon != null)
 		{
 			GD.Print("Deleting current weapon");
-			equippedWeapon.QueueFree();
+			_equippedWeapon.QueueFree();
 		}
 		else
 		{
 			GD.Print("No weapon equipped ");
-			equippedWeapon = weaponToEquip.Instantiate() as Node3D;
-			hand.AddChild(equippedWeapon);
+			_equippedWeapon = weaponToEquip.Instantiate<AbstractWeapon>();
+			hand.AddChild(_equippedWeapon);
 		}
 	}
 
@@ -50,9 +54,49 @@ public partial class WeaponComponent : Node
 	{
 	}
 
+    public override void _UnhandledInput(InputEvent @event)
+    {
+        if(@event is InputEventMouseButton mbe){
+			if(Input.IsPhysicalKeyPressed(Key.Ctrl)){
+                return;
+            }
+
+			if(mbe.ButtonIndex == MouseButton.WheelUp){
+
+			}
+
+			if(mbe.ButtonIndex == MouseButton.WheelDown){
+
+			}
+		}
+    }
+
+	public void ScrollUp(){
+        _currentIndex++;
+		if(_currentIndex >= 2){
+            _currentIndex = 0;
+        }
+
+        SwitchWeaponTo(_currentIndex);
+    }
+
+	public void ScrollDown(){
+        _currentIndex--;
+		if(_currentIndex < 0){
+            _currentIndex = 2;
+        }
+
+        SwitchWeaponTo(_currentIndex);
+    }
+
+	public void SwitchWeaponTo(int index){
+		
+	}
+    
+
 	public void ShootAction(){
-		if(equippedWeapon != null){
-            (equippedWeapon as BasicWeapon).ShootInput(Vector3.Zero);
+		if(_equippedWeapon != null){
+            _equippedWeapon.ShootInput(Vector3.Zero);
         }
 	}
 

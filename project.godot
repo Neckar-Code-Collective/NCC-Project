@@ -47,6 +47,7 @@ settings/common/update_notification_enabled=false
 3d_physics/layer_3="Enemy"
 3d_physics/layer_4="Blood/Mage Collectible"
 3d_physics/layer_5="Money"
+3d_physics/layer_6="BlockSpawn"
 
 [rendering]
 

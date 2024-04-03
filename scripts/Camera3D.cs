@@ -22,6 +22,10 @@ public partial class Camera3D : Godot.Camera3D
     {
         if(@event is InputEventMouseButton e)
         {
+            if(!Input.IsPhysicalKeyPressed(Key.Ctrl)){
+                return;
+            }
+
             if(e.ButtonIndex == MouseButton.WheelUp)
             {
                 _zoom -= 0.5f;
