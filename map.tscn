@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cq843f3326ueq"]
+[gd_scene load_steps=20 format=3 uid="uid://cq843f3326ueq"]
 
 [ext_resource type="Texture2D" uid="uid://cr2tljlwvkcwq" path="res://Grafik/ground.jpg" id="1_6xrh7"]
 [ext_resource type="PackedScene" uid="uid://8oaljd7udeph" path="res://LightPost.tscn" id="1_uaova"]
@@ -22,6 +22,18 @@ albedo_texture = ExtResource("1_6xrh7")
 uv1_scale = Vector3(3, 3, 3)
 uv1_triplanar = true
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7fia1"]
+albedo_color = Color(0.960784, 0.498039, 0.427451, 1)
+emission_enabled = true
+emission = Color(1, 0.462745, 0.34902, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="Environment" id="Environment_3jonc"]
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.06
+volumetric_fog_albedo = Color(0.580392, 0.294118, 0.231373, 1)
+volumetric_fog_emission = Color(0.529412, 0.239216, 0.2, 1)
+
 [node name="Map" type="Node3D"]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 
@@ -30,7 +42,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.517254, 0)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0358982, -0.0243154, -0.00260925)
-size = Vector3(100, 1, 100)
+size = Vector3(50, 1, 50)
 material = SubResource("StandardMaterial3D_cbqqw")
 
 [node name="Road" type="Node3D" parent="."]
@@ -1260,3 +1272,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.09727, 0.470046, 9.40966)
 
 [node name="lightpost-single13" parent="LightPost" instance=ExtResource("1_uaova")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.6529, 0.470046, 9.40966)
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 155.535, 122.124, -113.145)
+material_override = SubResource("StandardMaterial3D_7fia1")
+cast_shadow = 0
+radius = 20.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-1.61271e-08, -0.33746, 0.368945, -1.47509e-08, 0.368945, 0.33746, -0.5, -2.41861e-16, -2.18557e-08, 155, 122, -112)
+light_color = Color(0.470588, 0.635294, 0.964706, 1)
+light_energy = 11.442
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3jonc")
