@@ -29,6 +29,8 @@ public partial class Mage : Node
     /// </summary>
     public Label BloodLabel;
 
+    const int SPAWNCOST = 1;
+
     /// <summary>
     /// Reference to the ManaManager
     /// </summary>
@@ -135,6 +137,8 @@ public partial class Mage : Node
 
         //update ui text
         BloodLabel.Text = "BLOOD IN THE BANK: " + CurrentBloodCount;
+
+        UpdateButtonStates();
 
     }
 
@@ -255,19 +259,31 @@ public partial class Mage : Node
         switch (_selectionState)
         {
             case SelectionState.BASIC_ENEMY:
-                var e = _basicEnemyPrefab.Instantiate<BasicEnemy>();
-                _entityHolder.AddChild(e, true);
-                e.GlobalPosition = pos;
+                if(_manaManager.GetCurrentMana() >= SPAWNCOST)
+                {
+                    var e = _basicEnemyPrefab.Instantiate<BasicEnemy>();
+                    _entityHolder.AddChild(e, true);
+                    e.GlobalPosition = pos;
+                    _manaManager.RemoveMana(SPAWNCOST);
+                }
                 break;
             case SelectionState.CHARGER_ENEMY:
-                var ch = _chargerEnemyPrefab.Instantiate<ChargeEnemy>();
-                _entityHolder.AddChild(ch, true);
-                ch.GlobalPosition = pos;
+                if(_manaManager.GetCurrentMana() >= SPAWNCOST * 2)
+                {
+                    var ch = _chargerEnemyPrefab.Instantiate<ChargeEnemy>();
+                    _entityHolder.AddChild(ch, true);
+                    ch.GlobalPosition = pos;
+                    _manaManager.RemoveMana(SPAWNCOST * 2);
+                }
                 break;
             case SelectionState.REVENANT_ENEMY:
-                var r = _revenantEnemyPrefab.Instantiate<RevenantEnemy>();
-                _entityHolder.AddChild(r, true);
-                r.GlobalPosition = pos;
+                if(_manaManager.GetCurrentMana() >= SPAWNCOST * 2)
+                {
+                    var r = _revenantEnemyPrefab.Instantiate<RevenantEnemy>();
+                    _entityHolder.AddChild(r, true);
+                    r.GlobalPosition = pos;
+                    _manaManager.RemoveMana(SPAWNCOST * 2);
+                }
                 break;
         }
     }
@@ -337,8 +353,26 @@ public partial class Mage : Node
         }
     }
 
+    public void UpdateButtonStates()
+{
+    float currentMana = _manaManager.GetCurrentMana();
+
+    UpdateButtonState(_basicEnemyButton, currentMana >= SPAWNCOST, SPAWNCOST);
+    UpdateButtonState(_chargerEnemyButton, currentMana >= SPAWNCOST * 2, SPAWNCOST * 2);
+    UpdateButtonState(_revenantButton, currentMana >= SPAWNCOST * 2, SPAWNCOST * 2);
 
 }
+
+    public void UpdateButtonState(Button button, bool canAfford, float cost)
+    {
+        button.Disabled = !canAfford;
+        button.Modulate = canAfford ? Colors.White : new Color(0.5f, 0.5f, 0.5f, 1);
+        button.TooltipText = canAfford ? "" : $"Need {cost} Mana";
+    }
+
+}
+
+
 
 public enum SelectionState
 {

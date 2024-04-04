@@ -23,10 +23,23 @@ public partial class ManaManager : Node
     /// </summary>
     float _manaRegen = 1;
 
+	ProgressBar _manaBar;
+
+	Label _manaLabel;
+
+    public override void _Ready()
+    {
+		_manaBar = GetTree().Root.GetNode<ProgressBar>("Level/Mage/CanvasLayer/MageUI/ManaBar");
+		_manaBar.MaxValue = _maxMana;
+		_manaBar.Value = _currentMana;
+
+		_manaLabel = GetTree().Root.GetNode<Label>("Level/Mage/CanvasLayer/MageUI/ManaBar/ManaLabel");
+    }
 
 
 
-	public float GetCurrentMana(){
+
+    public float GetCurrentMana(){
 		return _currentMana;
 	}
 
@@ -76,6 +89,10 @@ public partial class ManaManager : Node
 		_currentMana += _manaRegen*(float)delta;
 
 		_currentMana = Math.Min(_currentMana,_maxMana);
+		_manaBar.Value = _currentMana;
+
+		_manaLabel.Text = $"{(int)_currentMana}";
+		
 	}
 
 }

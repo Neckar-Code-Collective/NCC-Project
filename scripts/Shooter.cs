@@ -256,6 +256,7 @@ public partial class Shooter : Entity
         //var deathMethod = new Callable(this, nameof(HandleDeath));
         _health.onDeath += HandleDeath;
 		//health.Connect("onDeath",deathMethod);
+		_healthBar.Modulate = Colors.Green;
 	}
 
 	private void InitializeLabels()
