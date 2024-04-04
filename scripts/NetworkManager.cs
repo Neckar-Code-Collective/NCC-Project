@@ -39,6 +39,8 @@ public partial class NetworkManager : Node
         Multiplayer.ServerDisconnected += ServerDisconnected;
 
         GD.PushWarning("Ich bin : " + Multiplayer.GetUniqueId());
+
+        
     }
 
     #region Server Callbacks
@@ -62,6 +64,8 @@ public partial class NetworkManager : Node
         shooter.SetMultiplayerAuthority((int)id, true);
         GD.Print(shooter.GetMultiplayerAuthority());
         GetNode("../Shooters").AddChild(shooter);
+
+        SpawnWeapon("weapon_start_weapon", new Vector3(5, 0.2f, 10));
     }
 
     /// <summary>
@@ -120,5 +124,26 @@ public partial class NetworkManager : Node
             money.Rpc(nameof(money.RPCSetAmount), 1);
             money.SetMoneyAmount(1);
         }
+    }
+
+    public void SpawnWeapon(string name,Vector3 pos){
+
+        if(!IsMultiplayerAuthority()){
+            GD.PushError("Tried to spawn world item on client, please call this function from server!");
+            return;
+        }
+
+        var w = WeaponReg.GetWorldWeapon(name).Instantiate<WorldItem>();
+        _moneySpawnPath.AddChild(w,true);
+        w.Rpc(nameof(w.RpcSetPosition), pos);
+
+    }
+
+    [Rpc(MultiplayerApi.RpcMode.AnyPeer)]
+    public void RpcSpawnWeapon(string name, Vector3 pos){
+        if(!IsMultiplayerAuthority()){
+            return;
+        }
+        SpawnWeapon(name, pos);
     }
 }

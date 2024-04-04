@@ -15,6 +15,7 @@ BulletPrefab = ExtResource("2_2q80j")
 ShootDelay = 0.1
 ClipSize = 9999
 Muzzle = NodePath("Muzzle")
+_name = "weapon_start_weapon"
 
 [node name="Visual" type="Node3D" parent="."]
 

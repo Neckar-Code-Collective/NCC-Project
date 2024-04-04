@@ -319,7 +319,7 @@ _moneyPrefab = ExtResource("2_kp24w")
 ShooterPrefab = ExtResource("2_i3ihx")
 
 [node name="Shooters" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.11281, 9.85762)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.113, 9)
 
 [node name="ShooterSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://Shooter.tscn", "res://BasicEnemy.tscn", "res://charge_enemy.tscn", "res://revenant_enemy.tscn")
@@ -328,7 +328,7 @@ spawn_path = NodePath("../Shooters")
 [node name="MoneyHolder" type="Node3D" parent="."]
 
 [node name="MoneySpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://MoneyPrefab.tscn")
+_spawnable_scenes = PackedStringArray("res://MoneyPrefab.tscn", "res://worldweaponprefabs/BasicWeaponWorldItem.tscn")
 spawn_path = NodePath("../MoneyHolder")
 
 [node name="PostProcess" type="MeshInstance3D" parent="."]

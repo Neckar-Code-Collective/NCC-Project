@@ -30,8 +30,8 @@ public partial class WeaponComponent : Node
         _weapons = new AbstractWeapon[3];
         hand = GetParent().FindChild("Hand", true, false) as Marker3D;
 
-        if (StartingWeapon != null)
-            EquipWeapon(StartingWeapon);
+        // if (StartingWeapon != null)
+            // EquipWeapon(StartingWeapon);
     }
 
 	private int _findEmptySlot(){
@@ -42,8 +42,13 @@ public partial class WeaponComponent : Node
         return -1;
     }
 
-    private void EquipWeapon(PackedScene weaponToEquip)
+    public void EquipWeapon(string name)
     {
+        if(!IsMultiplayerAuthority()){
+            GD.PushWarning("Tried to equip weapon on not local player");
+            return;
+        }
+
         int index = _findEmptySlot();
 
 		if(index == -1){
@@ -51,11 +56,12 @@ public partial class WeaponComponent : Node
             return;
         }
 
-        var w = weaponToEquip.Instantiate<AbstractWeapon>();
+        var w = WeaponReg.GetEquipedWeapon(name).Instantiate<AbstractWeapon>();
         _weapons[index] = w;
         hand.AddChild(w);
-        // SwitchWeaponTo(index);
+        Rpc(nameof(RpcSetRemoteWeaponCache), index, name);
 
+        SwitchWeaponTo(index);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -85,6 +91,31 @@ public partial class WeaponComponent : Node
                 ScrollDown();
             }
         }
+
+        if(@event is InputEventKey ik && ik.Pressed){
+            if(ik.Keycode == Key.G){
+                DropCurrentWeapon();
+            }
+        }
+    }
+
+    private void DropCurrentWeapon()
+    {
+        if(_equippedWeapon == null){
+            return;
+        }
+
+        var name = _equippedWeapon.GetWeaponName();
+        _equippedWeapon.QueueFree();
+        _equippedWeapon = null;
+        _weapons[_currentIndex] = null;
+
+        Rpc(nameof(RpcSetRemoteWeaponCache), _currentIndex, "null");
+        Rpc(nameof(RpcEquipWeapon), _currentIndex);
+
+        var s = GetParent<Node3D>();
+        Global.NetworkManager.Rpc(nameof(Global.NetworkManager.RpcSpawnWeapon),name,s.GlobalPosition+-s.GlobalBasis.Z*2.5f);
+
     }
 
     public void ScrollUp()
@@ -141,14 +172,28 @@ public partial class WeaponComponent : Node
 
 	[Rpc(MultiplayerApi.RpcMode.Authority,CallLocal = false)]
 	public void RpcEquipWeapon(int index){
-        _equippedWeapon?.onDisable();
+        if(_equippedWeapon != null && IsInstanceValid(_equippedWeapon)){
+            _equippedWeapon.onDisable();
+        }
 		_equippedWeapon = _weapons[index];
-        _equippedWeapon?.onEnable();
+
+        if(_equippedWeapon != null && IsInstanceValid(_equippedWeapon)){
+            _equippedWeapon.onEnable();
+        }
+        
     }
 
 	[Rpc(MultiplayerApi.RpcMode.Authority,CallLocal = false)]
 	public void RpcSetRemoteWeaponCache(int index,string weapon_name){
-		
-	}
+        if(weapon_name == "null"){
+            _weapons[index]?.QueueFree();
+            _weapons[index] = null;
+            return;
+        }
+
+        _weapons[index] = WeaponReg.GetEquipedWeapon(weapon_name).Instantiate<AbstractWeapon>();
+        hand.AddChild(_weapons[index]);
+        _weapons[index].SetMultiplayerAuthority(GetMultiplayerAuthority());
+    }
 
 }

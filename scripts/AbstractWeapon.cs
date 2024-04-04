@@ -6,6 +6,8 @@ using System;
 /// </summary>
 public abstract partial class AbstractWeapon : Node3D
 {
+    [Export]
+    string _name = "untitled";
 
     [Rpc]
     public void RpcPlayReloadAnimation()
@@ -48,4 +50,8 @@ public abstract partial class AbstractWeapon : Node3D
     /// Gets called when the weapon gets selected. In this function, all weapon parts should be enabled (e.g. the visuals).
     /// </summary>
     public abstract void onEnable();
+
+    public string GetWeaponName(){
+        return _name;
+    }
 }

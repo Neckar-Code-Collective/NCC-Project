@@ -1078,18 +1078,18 @@ transform = Transform3D(-4.37114e-08, 3.48787e-16, 1, 3.48787e-16, 1, -3.48787e-
 
 [node name="iron-fence-damaged12" parent="GraveRight/Fence" instance=ExtResource("10_5ocm0")]
 transform = Transform3D(-0.391631, 0.919768, 0.0255468, 4.36945e-08, 0.0277646, -0.999614, -0.920123, -0.39148, -0.0108735, 15.4318, 0.0154145, 1.82826)
-collision_layer = 2
-collision_mask = 2
+collision_layer = 0
+collision_mask = 0
 
 [node name="iron-fence-damaged13" parent="GraveRight/Fence" instance=ExtResource("10_5ocm0")]
 transform = Transform3D(-0.0458337, 0.998564, 0.0277354, 4.49534e-08, 0.0277646, -0.999614, -0.998949, -0.045816, -0.0012726, 15.734, 0.0137786, 3.21621)
-collision_layer = 2
-collision_mask = 2
+collision_layer = 0
+collision_mask = 0
 
 [node name="iron-fence-damaged14" parent="GraveRight/Fence" instance=ExtResource("10_5ocm0")]
 transform = Transform3D(0.408187, 0.912546, 0.0253463, 4.50322e-08, 0.0277646, -0.999614, -0.912898, 0.40803, 0.0113331, 15.4041, 0.00929414, 4.69211)
-collision_layer = 2
-collision_mask = 2
+collision_layer = 0
+collision_mask = 0
 
 [node name="iron-fence-bar5" parent="GraveRight/Fence" instance=ExtResource("11_mot87")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.6429, 0.486342, 5.4747)
@@ -1269,18 +1269,18 @@ transform = Transform3D(-4.37114e-08, 3.48787e-16, 1, 3.48787e-16, 1, -3.48787e-
 
 [node name="iron-fence-damaged12" parent="GraveLeft/Fence" instance=ExtResource("10_5ocm0")]
 transform = Transform3D(-0.391631, 0.919768, 0.0255468, 4.36945e-08, 0.0277646, -0.999614, -0.920123, -0.39148, -0.0108735, 15.4318, 0.0154145, 1.82826)
-collision_layer = 2
-collision_mask = 2
+collision_layer = 0
+collision_mask = 0
 
 [node name="iron-fence-damaged13" parent="GraveLeft/Fence" instance=ExtResource("10_5ocm0")]
 transform = Transform3D(-0.0458337, 0.998564, 0.0277354, 4.49534e-08, 0.0277646, -0.999614, -0.998949, -0.045816, -0.0012726, 15.734, 0.0137786, 3.21621)
-collision_layer = 2
-collision_mask = 2
+collision_layer = 0
+collision_mask = 0
 
 [node name="iron-fence-damaged14" parent="GraveLeft/Fence" instance=ExtResource("10_5ocm0")]
 transform = Transform3D(0.408187, 0.912546, 0.0253463, 4.50322e-08, 0.0277646, -0.999614, -0.912898, 0.40803, 0.0113331, 15.4041, 0.00929414, 4.69211)
-collision_layer = 2
-collision_mask = 2
+collision_layer = 0
+collision_mask = 0
 
 [node name="iron-fence-bar5" parent="GraveLeft/Fence" instance=ExtResource("11_mot87")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.6429, 0.486342, 5.4747)

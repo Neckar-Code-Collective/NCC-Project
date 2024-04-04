@@ -106,10 +106,11 @@ public partial class Shooter : Entity
 
 		MoneyLabel.Text = "MONEY IN THE BANK : " + _currentMoneyCount;
 		Rpc(nameof(RpcUpdateHealthBar));
-		
-		
-		
-	}
+
+
+        Position = new Vector3(Position.X, 0.229f, Position.Z);
+
+    }
 	private Camera3D GetCamera()
 	{
 		return GetTree().Root.FindChild("Camera3D", true, false) as Camera3D;
@@ -223,11 +224,7 @@ public partial class Shooter : Entity
 		return -GlobalTransform.Basis.Z.Normalized();
 	}
 
-	[Rpc]
-	public void RpcSetActiveWeapon(int weaponIndex)
-	{
 
-	}
 
 
 	// Warum wurde das hier auskommentiert? Brauche ich für das Geldeinsammeln
@@ -255,8 +252,9 @@ public partial class Shooter : Entity
 		_health.SetCurrentHealth(10);
 		Area3D moneyCollector = GetNode<Area3D>("MoneyCollector");
 		moneyCollector.BodyEntered += OnMoneyCollectorCollision;
-		//var deathMethod = new Callable(this, nameof(HandleDeath));
-		_health.onDeath += HandleDeath;
+        moneyCollector.AreaEntered += OnMoneyCollectorCollision;
+        //var deathMethod = new Callable(this, nameof(HandleDeath));
+        _health.onDeath += HandleDeath;
 		//health.Connect("onDeath",deathMethod);
 	}
 
@@ -277,11 +275,24 @@ public partial class Shooter : Entity
 	}
 
 	public void OnMoneyCollectorCollision(Node3D other){
+		if(!IsMultiplayerAuthority()){
+            return;
+        }
+
 		if(other is Money m){
 			_currentMoneyCount += m.GetMoneyAmount();
             m.Rpc(nameof(m.RPCRemove));
             // m.QueueFree();
         }
+
+		if(other is WorldItem wi){
+            GD.Print("collision with worldItem");
+            //we try to pick up an item
+            if(weapons.HasSpace()){
+                weapons.EquipWeapon(wi.GetWeaponName());
+                wi.Rpc(nameof(wi.RpcKill));
+            }
+		}
 
 	}
 

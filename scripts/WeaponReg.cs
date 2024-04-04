@@ -11,6 +11,8 @@ public partial class WeaponReg : Node
     public override void _Ready()
 	{
         _equipedWeapons.Add("weapon_start_weapon", GD.Load<PackedScene>("res://weapon.tscn"));
+
+        _worldWeapons.Add("weapon_start_weapon", GD.Load<PackedScene>("res://worldweaponprefabs/BasicWeaponWorldItem.tscn"));
     }
 
 	public static PackedScene GetEquipedWeapon(string name){
