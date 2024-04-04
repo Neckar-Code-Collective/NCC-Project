@@ -39,7 +39,14 @@ public partial class EntityManager : Node
 		if (e is Shooter s){
             shooters.Remove(s);
         }
+    }
 
-
+    public static Shooter GetShooterForPeerID(int id){
+        foreach(var s in shooters){
+            if(s.Name.Equals(id.ToString())){
+                return s;
+            }
+        }
+        return null;
     }
 }

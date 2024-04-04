@@ -89,7 +89,7 @@ process_material = SubResource("ParticleProcessMaterial_tfxyy")
 draw_pass_1 = SubResource("BoxMesh_u1gct")
 
 [node name="OnLight" type="SpotLight3D" parent="Visual"]
-transform = Transform3D(-4.18028e-08, 0.293477, -0.956336, 1.28283e-08, 0.956336, 0.293477, 1.00035, 0, -4.37268e-08, 1.39651, 0, 0)
+transform = Transform3D(-3.97761e-08, 0.293373, -0.955998, 1.28238e-08, 0.955998, 0.293373, 1, -5.90305e-10, -4.1788e-08, 1.39651, 0, 0)
 light_color = Color(1, 0.372549, 0, 1)
 light_energy = 5.0
 spot_range = 11.6577

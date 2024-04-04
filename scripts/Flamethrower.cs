@@ -124,11 +124,15 @@ public partial class Flamethrower : AbstractWeapon
     public override void onDisable()
     {
         _visual.Visible = false;
+        
     }
 
     public override void onEnable()
     {
         _visual.Visible = true;
+        _onParticles.Restart();
+        _onParticles.Emitting = false;
+        _offParticles.Restart();
     }
 
     public override void RpcShoot(Vector3 pos, Vector3 vel, int data)

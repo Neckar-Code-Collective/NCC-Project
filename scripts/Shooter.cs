@@ -26,7 +26,9 @@ public partial class Shooter : Entity
 	private Vector2 _simulatedJoystickRotation = Vector2.Zero;
 	public Label MoneyLabel;
 
-	//private Camera3D camera;
+    private TextureRect _interactionPrompt;
+
+    //private Camera3D camera;
 
     [Export]
     AnimationPlayer _animPlayer;
@@ -138,6 +140,20 @@ public partial class Shooter : Entity
 			direction.X += 1;
 		return direction;
 	}
+
+    public override void _UnhandledInput(InputEvent @event)
+    {
+        
+        if(@event is InputEventKey k && k.Keycode == Key.E && k.Pressed && _currentInteractable != null){
+            _currentInteractable.RpcId(1, nameof(_currentInteractable.RpcInteract), Multiplayer.GetUniqueId());
+        }
+    }
+
+    /// <summary>
+    /// Calculates and returns the direction of joystick input.
+    /// </summary>
+    /// <returns>Direction vector based on joystick input.</returns>
+   
 
 	/// <summary>
 	/// Calculates and returns the direction of joystick input.
@@ -253,6 +269,7 @@ public partial class Shooter : Entity
 		Area3D moneyCollector = GetNode<Area3D>("MoneyCollector");
 		moneyCollector.BodyEntered += OnMoneyCollectorCollision;
         moneyCollector.AreaEntered += OnMoneyCollectorCollision;
+        moneyCollector.AreaExited += OnMoneyCollectorAreaLeave;
         //var deathMethod = new Callable(this, nameof(HandleDeath));
         _health.onDeath += HandleDeath;
 		//health.Connect("onDeath",deathMethod);
@@ -273,7 +290,20 @@ public partial class Shooter : Entity
 			MoneyLabel.Visible = false;
 			green.Visible = false;
 		}
-	}
+
+        _interactionPrompt = GetTree().Root.GetNode<TextureRect>("Level/CanvasLayer/ShooterInteractionPrompt");
+    }
+
+	public int GetMoney(){
+        return _currentMoneyCount;
+    }
+
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer,CallLocal = true)]
+	public void RpcDeductMoney(int amount){
+        _currentMoneyCount -= amount;
+		if(IsMultiplayerAuthority())
+        	Rpc(nameof(RpcUpdateMoneyOnOtherPeers), _currentMoneyCount);
+    }
 
 	public void OnMoneyCollectorCollision(Node3D other){
 		if(!IsMultiplayerAuthority()){
@@ -282,7 +312,8 @@ public partial class Shooter : Entity
 
 		if(other is Money m){
 			_currentMoneyCount += m.GetMoneyAmount();
-            m.Rpc(nameof(m.RPCRemove));
+            m.RpcId(1,nameof(m.RPCRemove));
+            Rpc(nameof(RpcUpdateMoneyOnOtherPeers), _currentMoneyCount);
             // m.QueueFree();
         }
 
@@ -294,6 +325,20 @@ public partial class Shooter : Entity
                 wi.RpcId(1,nameof(wi.RpcKill));
             }
 		}
+
+		if(other is Interactable i){
+            _currentInteractable = i;
+            _interactionPrompt.Visible = true;
+        }
+
+	}
+    Interactable _currentInteractable;
+
+    private void OnMoneyCollectorAreaLeave(Node3D other){
+		if(other is Interactable i){
+            _interactionPrompt.Visible = false;
+            _currentInteractable = null;
+        }
 
 	}
 
@@ -316,6 +361,11 @@ public partial class Shooter : Entity
             _animPlayer.Seek(0.5f);
         }
 	}
+
+	[Rpc()]
+	public void RpcUpdateMoneyOnOtherPeers(int amount){
+        _currentMoneyCount = amount;
+    }
 
 
 	

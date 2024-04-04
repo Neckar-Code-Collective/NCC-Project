@@ -66,7 +66,7 @@ public partial class NetworkManager : Node
         GetNode("../Shooters").AddChild(shooter);
 
 
-        if (first)
+        if (true)
         {
             SpawnWeapon("weapon_start_weapon", new Vector3(-5, 0.2f, 10));
             SpawnWeapon("weapon_flamethrower", new Vector3(5, 0.2f, 10));

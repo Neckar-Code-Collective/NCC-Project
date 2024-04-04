@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://djwvxymsmq5h5"]
+
+[ext_resource type="Script" path="res://scripts/PrintInteractable.cs" id="1_d0val"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_77by3"]
+size = Vector3(1.39185, 3.05615, 1.21289)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ndeiq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p1kee"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_c2l46"]
+
+[node name="PrintButton" type="Area3D"]
+collision_layer = 16
+monitoring = false
+script = ExtResource("1_d0val")
+msg = "lolololhgu"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0340576, 1.02808, 0.73457)
+shape = SubResource("BoxShape3D_77by3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.150563)
+mesh = SubResource("CylinderMesh_ndeiq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.898701, 0)
+material_override = SubResource("StandardMaterial3D_p1kee")
+mesh = SubResource("CylinderMesh_c2l46")
