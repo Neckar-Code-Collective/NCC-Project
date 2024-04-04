@@ -42,6 +42,7 @@ public partial class Enemy : Entity
     public override void _Ready()
     {
         base._Ready();
+        _healthBar.Modulate = Colors.Red;
         nav_agent = GetNode<NavigationAgent3D>("NavigationAgent3D");
         var aggroRange = GetNode<Area3D>("Area3D");
         aggroRange.BodyEntered += (Node3D body) =>

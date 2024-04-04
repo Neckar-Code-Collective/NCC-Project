@@ -112,7 +112,6 @@ public partial class Bullet : Area3D
 
         if (other is not Entity)
         {
-            GD.Print("Weird, i hit something, which is not an entity, i will just die");
             QueueFree();
             return;
         }
@@ -123,7 +122,6 @@ public partial class Bullet : Area3D
     {
         if (body is not Entity)
         {
-            GD.Print("Weird, i hit something, which is not an entity, i will just die");
             QueueFree();
             return;
         }
