@@ -291,7 +291,7 @@ public partial class Shooter : Entity
             //we try to pick up an item
             if(weapons.HasSpace()){
                 weapons.EquipWeapon(wi.GetWeaponName());
-                wi.Rpc(nameof(wi.RpcKill));
+                wi.RpcId(1,nameof(wi.RpcKill));
             }
 		}
 

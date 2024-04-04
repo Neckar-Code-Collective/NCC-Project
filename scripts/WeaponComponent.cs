@@ -58,8 +58,8 @@ public partial class WeaponComponent : Node
 
         var w = WeaponReg.GetEquipedWeapon(name).Instantiate<AbstractWeapon>();
         _weapons[index] = w;
-        hand.AddChild(w);
-        Rpc(nameof(RpcSetRemoteWeaponCache), index, name);
+        hand.AddChild(w,true);
+        Rpc(nameof(RpcSetRemoteWeaponCache), index, name,w.Name);
 
         SwitchWeaponTo(index);
     }
@@ -110,7 +110,7 @@ public partial class WeaponComponent : Node
         _equippedWeapon = null;
         _weapons[_currentIndex] = null;
 
-        Rpc(nameof(RpcSetRemoteWeaponCache), _currentIndex, "null");
+        Rpc(nameof(RpcSetRemoteWeaponCache), _currentIndex, "null","irrelevant");
         Rpc(nameof(RpcEquipWeapon), _currentIndex);
 
         var s = GetParent<Node3D>();
@@ -184,7 +184,7 @@ public partial class WeaponComponent : Node
     }
 
 	[Rpc(MultiplayerApi.RpcMode.Authority,CallLocal = false)]
-	public void RpcSetRemoteWeaponCache(int index,string weapon_name){
+	public void RpcSetRemoteWeaponCache(int index,string weapon_name,string nodeName){
         if(weapon_name == "null"){
             _weapons[index]?.QueueFree();
             _weapons[index] = null;
@@ -193,6 +193,7 @@ public partial class WeaponComponent : Node
 
         _weapons[index] = WeaponReg.GetEquipedWeapon(weapon_name).Instantiate<AbstractWeapon>();
         hand.AddChild(_weapons[index]);
+        _weapons[index].Name = nodeName;
         _weapons[index].SetMultiplayerAuthority(GetMultiplayerAuthority());
     }
 

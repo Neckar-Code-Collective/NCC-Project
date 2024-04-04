@@ -40,7 +40,7 @@ public partial class NetworkManager : Node
 
         GD.PushWarning("Ich bin : " + Multiplayer.GetUniqueId());
 
-        
+
     }
 
     #region Server Callbacks
@@ -57,7 +57,7 @@ public partial class NetworkManager : Node
         }
 
         GD.Print("New Client connected: " + id);
-        
+
         //Instantiate player prefab
         var shooter = ShooterPrefab.Instantiate<Shooter>();
         shooter.Name = id.ToString();
@@ -65,8 +65,17 @@ public partial class NetworkManager : Node
         GD.Print(shooter.GetMultiplayerAuthority());
         GetNode("../Shooters").AddChild(shooter);
 
-        SpawnWeapon("weapon_start_weapon", new Vector3(5, 0.2f, 10));
+
+        if (first)
+        {
+            SpawnWeapon("weapon_start_weapon", new Vector3(-5, 0.2f, 10));
+            SpawnWeapon("weapon_flamethrower", new Vector3(5, 0.2f, 10));
+            first = false;
+        }
+
     }
+
+    bool first = true;
 
     /// <summary>
     /// Called when a peer disconnects
@@ -110,7 +119,8 @@ public partial class NetworkManager : Node
     public void SpawnMoney(Vector3 pos, int amount)
     {
         //we can only spawn money on the server
-		if(!IsMultiplayerAuthority()){
+        if (!IsMultiplayerAuthority())
+        {
             GD.PushError("Tried to spawn money on client, please call this function from server!");
             return;
         }
@@ -119,29 +129,33 @@ public partial class NetworkManager : Node
         {
             //Instantiate money node and add it to the simulation
             var money = _moneyPrefab.Instantiate<Money>();
-            _moneySpawnPath.AddChild(money,true);
+            _moneySpawnPath.AddChild(money, true);
             money.Rpc(nameof(money.RPCSetPosition), pos);
             money.Rpc(nameof(money.RPCSetAmount), 1);
             money.SetMoneyAmount(1);
         }
     }
 
-    public void SpawnWeapon(string name,Vector3 pos){
+    public void SpawnWeapon(string name, Vector3 pos)
+    {
 
-        if(!IsMultiplayerAuthority()){
+        if (!IsMultiplayerAuthority())
+        {
             GD.PushError("Tried to spawn world item on client, please call this function from server!");
             return;
         }
 
         var w = WeaponReg.GetWorldWeapon(name).Instantiate<WorldItem>();
-        _moneySpawnPath.AddChild(w,true);
+        _moneySpawnPath.AddChild(w, true);
         w.Rpc(nameof(w.RpcSetPosition), pos);
 
     }
 
     [Rpc(MultiplayerApi.RpcMode.AnyPeer)]
-    public void RpcSpawnWeapon(string name, Vector3 pos){
-        if(!IsMultiplayerAuthority()){
+    public void RpcSpawnWeapon(string name, Vector3 pos)
+    {
+        if (!IsMultiplayerAuthority())
+        {
             return;
         }
         SpawnWeapon(name, pos);

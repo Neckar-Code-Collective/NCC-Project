@@ -328,7 +328,7 @@ spawn_path = NodePath("../Shooters")
 [node name="MoneyHolder" type="Node3D" parent="."]
 
 [node name="MoneySpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://MoneyPrefab.tscn", "res://worldweaponprefabs/BasicWeaponWorldItem.tscn")
+_spawnable_scenes = PackedStringArray("res://MoneyPrefab.tscn", "res://worldweaponprefabs/BasicWeaponWorldItem.tscn", "res://worldweaponprefabs/FlamethrowerWorldItem.tscn")
 spawn_path = NodePath("../MoneyHolder")
 
 [node name="PostProcess" type="MeshInstance3D" parent="."]
