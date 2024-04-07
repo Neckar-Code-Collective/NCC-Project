@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://dq1ek7ac7h6tm"]
+
+[ext_resource type="Script" path="res://scripts/ak47.cs" id="1_bgdbv"]
+[ext_resource type="PackedScene" uid="uid://bbxq2ht3xo342" path="res://ak47Bullet.tscn" id="2_02q34"]
+[ext_resource type="ArrayMesh" uid="uid://ck5hevmvim156" path="res://Grafik/ak47.vox" id="3_tpatw"]
+
+[node name="Weapon" type="Node3D" node_paths=PackedStringArray("Muzzle")]
+script = ExtResource("1_bgdbv")
+BulletPrefab = ExtResource("2_02q34")
+ShootDelay = 0.05
+ClipSize = 9999
+DamagePerBullet = 5.0
+Muzzle = NodePath("Muzzle")
+_name = "weapon_ak47"
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(-0.25, -2.62268e-08, 7.64274e-16, 0, -1.31134e-08, -0.2, 2.18557e-08, -0.3, 8.74228e-09, 0, 0, 0)
+mesh = ExtResource("3_tpatw")
+
+[node name="Muzzle" type="Marker3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.287, 0.715, -0.048)
+
+[node name="Timer" type="Timer" parent="."]
