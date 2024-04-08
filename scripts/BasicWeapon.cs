@@ -39,17 +39,17 @@ public partial class BasicWeapon : AbstractWeapon
     /// <summary>
     /// The timer which is used for the shootdelay
     /// </summary>
-    private Timer _rofTimer;
+    protected Timer _rofTimer;
 
     /// <summary>
     /// Whether this gun can currently shoot
     /// </summary>
-    private bool _canShoot = true;
+    protected bool _canShoot = true;
 
     /// <summary>
     /// The amount of bullets currently loaded
     /// </summary>
-    private int _currentClipsSize;
+    protected int _currentClipsSize;
 
     /// <summary>
     /// Sets up the timer and ammunition
@@ -76,7 +76,7 @@ public partial class BasicWeapon : AbstractWeapon
     /// <summary>
     /// Summons the actual bullet and notifies the other peers, that they should spawn a bullet as well
     /// </summary>
-    private void Shoot()
+    protected virtual void Shoot()
     {
         //Instantiate a new bullet
         Bullet newBullet = BulletPrefab.Instantiate<Bullet>();
