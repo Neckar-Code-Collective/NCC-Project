@@ -36,6 +36,11 @@ public partial class Enemy : Entity
     /// </summary>
     Shooter target;
 
+    [Export]
+    protected float _attackCooldown = 0.5f;
+
+    bool _canAttack = true;
+
     /// <summary>
     /// Setup references and death handler
     /// </summary>
@@ -67,6 +72,12 @@ public partial class Enemy : Entity
         };
 
 
+        var timer = new Timer();
+        AddChild(timer);
+        timer.Timeout += () => _canAttack = true;
+        timer.OneShot = false;
+        timer.WaitTime = _attackCooldown;
+        timer.Start(_attackCooldown);
     }
 
 
@@ -98,6 +109,11 @@ public partial class Enemy : Entity
         //if we dont have a target we dont want to move at all
         if (target != null)
         {
+            //We dont want to target dead players anymore
+            if(target.GetShooterState() == Shooter.ShooterState.DEAD){
+                target = null;
+                return;
+            }
 
             if (!IsInstanceValid(target))
             {
@@ -107,9 +123,15 @@ public partial class Enemy : Entity
 
             nav_agent.TargetPosition = target.GlobalPosition;
 
-            LookAt(target.GlobalPosition, Vector3.Up);
+            if(GlobalPosition.DistanceSquaredTo(target.GlobalPosition) > 1){
+
+                LookAt(target.GlobalPosition, Vector3.Up);
+            }
             Attack();
-            Rpc(nameof(RpcUpdateHealthBar));
+            Rpc(nameof(RpcUpdateHealthBar),_health.GetCurrentHealth(),_health.GetMaxHealth());
+        }
+        else{
+            target = ChooseNewTarget();
         }
 
     }
@@ -120,12 +142,32 @@ public partial class Enemy : Entity
     public void Attack()
     {
         var distance = target.GlobalPosition - this.GlobalPosition;
-        if (distance.Length() < 1)
+        if (distance.Length() < 1 && _canAttack)
         {
             target.Rpc(nameof(RpcDealDamage), 2);
-            target.RpcDealDamage(2);
+            // target.RpcDealDamage(2);
+            _canAttack = false;
         }
 
+    }
+
+    public Shooter ChooseNewTarget(){
+        Shooter nearest = null;
+        float distance = 9999999;
+
+        foreach(Shooter s in EntityManager.GetShooters()){
+            if(s.GetShooterState() != Shooter.ShooterState.ALIVE){
+                continue;
+            }
+
+            float d = GlobalPosition.DistanceSquaredTo(s.GlobalPosition);
+            if(d < distance){
+                nearest = s;
+                distance = d;
+            }
+        }
+
+        return nearest;
     }
 
 

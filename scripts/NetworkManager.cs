@@ -19,6 +19,9 @@ public partial class NetworkManager : Node
     [Export]
     PackedScene _moneyPrefab;
 
+    [Export]
+    PackedScene _bloodPrefab;
+
     /// <summary>
     /// Prefab for shooter
     /// </summary>
@@ -159,5 +162,17 @@ public partial class NetworkManager : Node
             return;
         }
         SpawnWeapon(name, pos);
+    }
+
+    [Rpc(MultiplayerApi.RpcMode.AnyPeer,CallLocal = true)]
+    public void RpcSpawnBlood(Vector3 pos,float amount){
+        var b = _bloodPrefab.Instantiate<Blood>();
+
+        for (int i = 0; i < amount;i++){
+            b.GlobalPosition = pos;
+            b.SetLerpSpeed(0.1f);
+            b.SetLerpTarget(pos + new Vector3(Random.Shared.NextSingle(), Random.Shared.NextSingle(), Random.Shared.NextSingle()) * 4);
+            GetTree().Root.AddChild(b);
+        }
     }
 }

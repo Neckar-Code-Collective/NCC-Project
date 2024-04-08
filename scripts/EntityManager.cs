@@ -49,4 +49,8 @@ public partial class EntityManager : Node
         }
         return null;
     }
+
+    public static List<Shooter> GetShooters(){
+        return shooters;
+    }
 }

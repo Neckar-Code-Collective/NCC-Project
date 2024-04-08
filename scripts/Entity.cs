@@ -93,9 +93,9 @@ public partial class Entity : CharacterBody3D
     }
 
     [Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = true)]
-    public void RpcUpdateHealthBar()
+    public void RpcUpdateHealthBar(float h,float maxh)
     {
-        _healthBar.SetHealth(_health.GetCurrentHealth(), _health.GetMaxHealth());
+        _healthBar.SetHealth(h, maxh);
         var screenPosition = camera.UnprojectPosition(GlobalTransform.Origin);
         _healthBar.Position = screenPosition + new Vector2(-_healthBar.Size.X / 2, -100);
 

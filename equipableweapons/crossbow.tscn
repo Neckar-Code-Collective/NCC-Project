@@ -13,7 +13,7 @@ ShootDelay = 2.0
 ClipSize = 9999
 DamagePerBullet = 50.0
 Muzzle = NodePath("Muzzle")
-_name = "crossbow_weapon"
+_name = "weapon_crossbow"
 
 [node name="Visual" type="Node3D" parent="."]
 

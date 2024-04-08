@@ -30,7 +30,7 @@ public partial class NetworkedTransform : Node
     /// <summary>
     /// Used on the client. Is the current target rotation that we are lerping to.
     /// </summary>
-    float _targetRotation;
+    Vector3 _targetRotation;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -65,7 +65,7 @@ public partial class NetworkedTransform : Node
         }
 
         //replicates _targets position and rotation to all other peers
-        Rpc(nameof(RPCUpdatePosition), _target.GlobalPosition,_target.GlobalRotationDegrees.Y);
+        Rpc(nameof(RPCUpdatePosition), _target.GlobalPosition,_target.GlobalRotationDegrees);
 
     }
 
@@ -75,14 +75,15 @@ public partial class NetworkedTransform : Node
     /// <param name="pos"></param>
     /// <param name="rotY"></param>
 	[Rpc(MultiplayerApi.RpcMode.Authority)]
-	public void RPCUpdatePosition(Vector3 pos,float rotY){
+	public void RPCUpdatePosition(Vector3 pos,Vector3 rot){
         _targetPosition = pos;
-        _targetRotation = rotY;
+        _targetRotation = rot;
     }
 
 	// In case we arent the authority, we lerp to the current target position and rotation
 	public override void _PhysicsProcess(double delta)
 	{
+
         
 		if(IsMultiplayerAuthority()){
             // GD.Print(Multiplayer.GetUniqueId());
@@ -94,6 +95,6 @@ public partial class NetworkedTransform : Node
         }
 
         _target.GlobalPosition = _target.GlobalPosition.Lerp(_targetPosition, 0.6f);
-        _target.GlobalRotationDegrees = _target.GlobalRotationDegrees.Lerp(new Vector3(0, _targetRotation, 0),0.8f);
+        _target.GlobalRotationDegrees = _target.GlobalRotationDegrees.Lerp(_targetRotation,0.6f);
     }
 }
