@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://1cxf7e45ya1j"]
+
+[ext_resource type="Script" path="res://scripts/CrossbowBullet.cs" id="1_xmeh5"]
+[ext_resource type="ArrayMesh" uid="uid://b4mset47tue87" path="res://Grafik/crossbowBullet.vox" id="3_58l3y"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pl0o5"]
+height = 1.60477
+
+[node name="Bullet" type="Area3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+script = ExtResource("1_xmeh5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(2.96157e-16, 6.95011e-09, 0.15, 0.155, -6.95011e-09, -7.70894e-22, 6.77527e-09, 0.159, -6.55671e-09, 0.002, 1.68973e-09, -0.120657)
+shape = SubResource("CapsuleShape3D_pl0o5")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, -8.74228e-09, 0.2, 0, -0.2, -8.74228e-09, -0.03, -0.15, 0)
+mesh = ExtResource("3_58l3y")

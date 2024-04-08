@@ -325,7 +325,7 @@ albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_o5ilp"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wm8li"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6uvay"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("15_7akjy")
@@ -360,7 +360,7 @@ _surfaces = [{
 "format": 34359742495,
 "index_count": 12,
 "index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 3, 0, 1, 0, 0, 0, 4, 0, 5, 0, 6, 0, 7, 0, 5, 0, 4, 0),
-"material": SubResource("ShaderMaterial_wm8li"),
+"material": SubResource("ShaderMaterial_6uvay"),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 8,
@@ -392,7 +392,7 @@ spawn_path = NodePath("../Shooters")
 [node name="MoneyHolder" type="Node3D" parent="."]
 
 [node name="MoneySpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://MoneyPrefab.tscn", "res://worldweaponprefabs/BasicWeaponWorldItem.tscn", "res://worldweaponprefabs/FlamethrowerWorldItem.tscn", "res://worldweaponprefabs/ak47WorldItem.tscn")
+_spawnable_scenes = PackedStringArray("res://MoneyPrefab.tscn", "res://worldweaponprefabs/BasicWeaponWorldItem.tscn", "res://worldweaponprefabs/FlamethrowerWorldItem.tscn", "res://worldweaponprefabs/ak47WorldItem.tscn", "res://worldweaponprefabs/SniperWorldItem.tscn", "res://worldweaponprefabs/CrossbowWorldItem.tscn")
 spawn_path = NodePath("../MoneyHolder")
 
 [node name="PostProcess" type="MeshInstance3D" parent="."]

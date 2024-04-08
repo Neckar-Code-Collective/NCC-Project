@@ -10,7 +10,7 @@ public partial class Bullet : Area3D
     /// <summary>
     /// Shows whether this bullet is simulated locally
     /// </summary>
-    bool locally_owned = true;
+    protected bool locally_owned = true;
 
     /// <summary>
     /// After being alive for this many seconds, the bullet kills itself.
@@ -27,7 +27,7 @@ public partial class Bullet : Area3D
     /// The amount of damage this bullet will inflict on the entity it hits
     /// </summary>
     [Export]
-    float damage = 0;
+    protected float damage = 0;
 
     /// <summary>
     /// The velocity that gets applied to this bullet, in units per second (e.g. vel = (1,0,0) moves the bullet by 1 unit on the x-axis every second)
@@ -81,6 +81,8 @@ public partial class Bullet : Area3D
         GlobalPosition = pos;
         velocity = vel;
         this.locally_owned = locally_owned;
+        LookAt(Position + vel);
+
     }
 
     /// <summary>
@@ -129,7 +131,7 @@ public partial class Bullet : Area3D
 
     }
 
-    void OnHit(Entity e)
+    protected virtual void OnHit(Entity e)
     {
         // Emit the onhit signal
         EmitSignal(SignalName.Hit, e);

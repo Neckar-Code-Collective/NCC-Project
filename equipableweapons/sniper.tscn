@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://8t2kd75fxom0"]
+
+[ext_resource type="Script" path="res://scripts/BasicWeapon.cs" id="1_01ft7"]
+[ext_resource type="PackedScene" uid="uid://bbxq2ht3xo342" path="res://ak47Bullet.tscn" id="2_x7dpl"]
+[ext_resource type="ArrayMesh" uid="uid://mbvm2l7lloym" path="res://Grafik/Weapons/sniper.obj" id="3_3mphx"]
+
+[node name="Weapon" type="Node3D" node_paths=PackedStringArray("Muzzle")]
+transform = Transform3D(0.999647, 0, 0, 0, 0.999647, 0, 0, 0, 0.999647, -0.0209712, 0, 0)
+script = ExtResource("1_01ft7")
+BulletPrefab = ExtResource("2_x7dpl")
+MuzzleSpeed = 100.0
+ShootDelay = 1.0
+ClipSize = 9999
+DamagePerBullet = 75.0
+Muzzle = NodePath("Muzzle")
+_name = "weapon_sniper"
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(-6.55671e-07, 0, 15, 0, 15, 0, -15, 0, -6.55671e-07, 0.054, 0, 0)
+mesh = ExtResource("3_3mphx")
+
+[node name="Muzzle" type="Marker3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.304, 0.065, -0.015)
+
+[node name="Timer" type="Timer" parent="."]

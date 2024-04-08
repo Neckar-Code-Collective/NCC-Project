@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://bgkerf4uxepee"]
+
+[ext_resource type="Script" path="res://scripts/BasicWeapon.cs" id="1_11gaf"]
+[ext_resource type="PackedScene" uid="uid://1cxf7e45ya1j" path="res://crossbowBullet.tscn" id="2_wttgg"]
+[ext_resource type="ArrayMesh" uid="uid://bv36227koegls" path="res://Grafik/Weapons/crossbow.vox" id="3_yxndc"]
+
+[node name="Weapon" type="Node3D" node_paths=PackedStringArray("Muzzle")]
+transform = Transform3D(0.999647, 0, 0, 0, 0.999647, 0, 0, 0, 0.999647, -0.0209712, 0, 0)
+script = ExtResource("1_11gaf")
+BulletPrefab = ExtResource("2_wttgg")
+MuzzleSpeed = 40.0
+ShootDelay = 2.0
+ClipSize = 9999
+DamagePerBullet = 50.0
+Muzzle = NodePath("Muzzle")
+_name = "crossbow_weapon"
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(-0.848528, 0, -0.848528, 0, 1.2, 0, 0.848528, 0, -0.848528, 0, -0.289, -0.68)
+mesh = ExtResource("3_yxndc")
+
+[node name="Muzzle" type="Marker3D" parent="."]
+transform = Transform3D(-0.0025831, 0, 0.999997, 0, 1, 0, -0.999997, 0, -0.00258311, 1.09224, -0.194618, 0)
+
+[node name="Timer" type="Timer" parent="."]

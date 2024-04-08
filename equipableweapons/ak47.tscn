@@ -5,6 +5,7 @@
 [ext_resource type="ArrayMesh" uid="uid://ck5hevmvim156" path="res://Grafik/ak47.vox" id="3_tpatw"]
 
 [node name="Weapon" type="Node3D" node_paths=PackedStringArray("Muzzle")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.41269, 0)
 script = ExtResource("1_bgdbv")
 BulletPrefab = ExtResource("2_02q34")
 ShootDelay = 0.05
