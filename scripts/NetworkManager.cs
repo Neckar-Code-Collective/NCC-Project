@@ -69,7 +69,7 @@ public partial class NetworkManager : Node
         if (true)
         {
             SpawnWeapon("weapon_start_weapon", new Vector3(-5, 0.2f, 10));
-            SpawnWeapon("weapon_sniper", new Vector3(5, 0.2f, 10));
+            SpawnWeapon("weapon_crossbow", new Vector3(5, 0.2f, 10));
             first = false;
         }
 
