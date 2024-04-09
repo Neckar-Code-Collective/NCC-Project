@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cq843f3326ueq"]
+[gd_scene load_steps=25 format=3 uid="uid://cq843f3326ueq"]
 
 [ext_resource type="Texture2D" uid="uid://cr2tljlwvkcwq" path="res://Grafik/ground.jpg" id="1_6xrh7"]
 [ext_resource type="PackedScene" uid="uid://8oaljd7udeph" path="res://LightPost.tscn" id="1_uaova"]
@@ -14,7 +14,6 @@
 [ext_resource type="PackedScene" uid="uid://b6hpm2qru46v" path="res://IronfenceBar.tscn" id="11_mot87"]
 [ext_resource type="PackedScene" uid="uid://wvq4lsfi5pke" path="res://GravestoneCross.tscn" id="12_a2fok"]
 [ext_resource type="PackedScene" uid="uid://by06a6osweq4a" path="res://Coffin.tscn" id="13_qr3ft"]
-[ext_resource type="PackedScene" uid="uid://bf1qrniiphmix" path="res://CoffinOld.tscn" id="14_1tlqd"]
 [ext_resource type="PackedScene" uid="uid://bcuwdjcg8yhau" path="res://GraveStoneCrossStone.tscn" id="15_v8ltg"]
 [ext_resource type="PackedScene" uid="uid://cr8pivtwauxms" path="res://Pine.tscn" id="17_lew1n"]
 [ext_resource type="PackedScene" uid="uid://bxt2p0v5davo0" path="res://Bench.tscn" id="18_gbywe"]
@@ -1600,9 +1599,6 @@ transform = Transform3D(1, -3.48787e-16, 3.48787e-16, 3.48787e-16, 1, -3.48787e-
 
 [node name="coffin2" parent="GraveBack" instance=ExtResource("13_qr3ft")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.82048, 0.532281, -7.57646)
-
-[node name="coffin-old2" parent="GraveBack" instance=ExtResource("14_1tlqd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.504747, -7.57438)
 
 [node name="coffin3" parent="GraveBack" instance=ExtResource("13_qr3ft")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.48623, 0.532281, -7.57646)
