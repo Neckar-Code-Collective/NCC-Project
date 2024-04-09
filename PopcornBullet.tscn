@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://6mlvdqta0kq7"]
+
+[ext_resource type="Script" path="res://scripts/Bullet.cs" id="1_jsks3"]
+[ext_resource type="ArrayMesh" uid="uid://cvti2f6wtr0h5" path="res://Grafik/Weapons/popcorn.vox" id="2_wjijv"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_kglr5"]
+
+[node name="DebugBullet" type="Area3D"]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+script = ExtResource("1_jsks3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_wjijv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_kglr5")
