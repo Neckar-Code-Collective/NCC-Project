@@ -57,6 +57,8 @@ public partial class Mage : Node
     /// </summary>
     Button _revenantButton;
 
+    Button _hydraButton;
+
     /// <summary>
     /// Reference to the node that holds all entities for replication
     /// </summary>
@@ -81,9 +83,14 @@ public partial class Mage : Node
     [Export]
     PackedScene _revenantEnemyPrefab;
 
+    [Export]
+    PackedScene _hydraEnemyPrefab;
+
     TextureRect _chargerLockIcon;
 
     TextureRect _revenantLockIcon;
+
+    TextureRect _hydraLockIcon;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -112,6 +119,8 @@ public partial class Mage : Node
         _chargerEnemyButton.Pressed += _onChargerEnemyPress;
         _revenantButton = GetNode<Button>("CanvasLayer/MageUI/Panel/RevenantEnemy");
         _revenantButton.Pressed += _onRevenantEnemyPress;
+        _hydraButton = GetNode<Button>("CanvasLayer/MageUI/Panel/HydraEnemy");
+        _hydraButton.Pressed += _onHydraEnemyPress; 
 
 
         BloodLabel = GetTree().Root.GetNode<Label>("Level/CanvasLayer/Control2/BloodLabel");
@@ -123,6 +132,9 @@ public partial class Mage : Node
         _revenantLockIcon = _revenantButton.GetNode<TextureRect>("RevenantLock");
         _revenantLockIcon.Visible = true;
         _revenantButton.Disabled = true;
+        _hydraLockIcon = _hydraButton.GetNode<TextureRect>("HydraLock");
+        _hydraLockIcon.Visible = true;
+        _hydraButton.Disabled = true;
 
     }
 
@@ -297,25 +309,36 @@ public partial class Mage : Node
                     _manaManager.RemoveMana(SPAWNCOST * 2);
                 }
                 break;
+            case SelectionState.HYDRA_ENEMY:
+                if(_manaManager.GetCurrentMana() >= SPAWNCOST * 8)
+                {
+                    var h = _hydraEnemyPrefab.Instantiate<HydraEnemy>();
+                    _entityHolder.AddChild(h, true);
+                    h.GlobalPosition = pos;
+                    _manaManager.RemoveMana(SPAWNCOST * 8);
+                }
+                break;
         }
     }
 
     private void _onBasicEnemyPress()
     {
         _selectionState = SelectionState.BASIC_ENEMY;
-        GD.Print("Selecting");
     }
 
     private void _onChargerEnemyPress()
     {
         _selectionState = SelectionState.CHARGER_ENEMY;
-        GD.Print("Selecting");
     }
 
     private void _onRevenantEnemyPress()
     {
         _selectionState = SelectionState.REVENANT_ENEMY;
-        GD.Print("Selecting");
+    }
+
+    private void _onHydraEnemyPress()
+    {
+        _selectionState = SelectionState.HYDRA_ENEMY;
     }
 
     /// <summary>
@@ -371,10 +394,13 @@ public partial class Mage : Node
 
         _chargerLockIcon.TooltipText = !_chargerLockIcon.Visible ? "" : "Can be unlocked at OPEN GRAVE!";
         _revenantLockIcon.TooltipText = !_revenantLockIcon.Visible ? "" : "Can be unlocked at OPEN GRAVE!";
+        _hydraLockIcon.TooltipText = !_hydraLockIcon.Visible ? "" : "Can be unlocked at OPEN GRAVE!";
+
 
         UpdateButtonState(_basicEnemyButton, currentMana >= SPAWNCOST, SPAWNCOST, false);
         UpdateButtonState(_chargerEnemyButton, currentMana >= SPAWNCOST * 2, SPAWNCOST * 2, _chargerLockIcon.Visible);
         UpdateButtonState(_revenantButton, currentMana >= SPAWNCOST * 2, SPAWNCOST * 2, _revenantLockIcon.Visible);
+        UpdateButtonState(_hydraButton, currentMana >= SPAWNCOST * 8, SPAWNCOST * 8, _hydraLockIcon.Visible);
 
     }
 
@@ -411,6 +437,7 @@ public partial class Mage : Node
     {
         {"ChargerEnemy", 10}, 
         {"Revenant", 20}, 
+        {"Hydra", 40}
     
     };
     public bool HasUnlockedEnemy(string Enemy)
@@ -422,6 +449,10 @@ public partial class Mage : Node
         else if (Enemy == "Revenant")
         {
             return !_revenantLockIcon.Visible;
+        }
+        else if (Enemy == "Hydra")
+        {
+            return !_hydraLockIcon.Visible;
         }
         else
         {
@@ -440,6 +471,10 @@ public partial class Mage : Node
         {
             _revenantLockIcon.Visible = false;
         }
+        else if (Enemy == "Hydra")
+        {
+            _hydraLockIcon.Visible = false;
+        }
         else
         {
             GD.Print("ungültiger Enemy");
@@ -457,6 +492,6 @@ public partial class Mage : Node
 
 public enum SelectionState
 {
-    NONE, BASIC_ENEMY, CHARGER_ENEMY, REVENANT_ENEMY
+    NONE, BASIC_ENEMY, CHARGER_ENEMY, REVENANT_ENEMY, HYDRA_ENEMY
 }
 

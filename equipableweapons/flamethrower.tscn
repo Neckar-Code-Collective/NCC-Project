@@ -10,14 +10,14 @@ vertex_color_use_as_albedo = true
 offsets = PackedFloat32Array(0.00909091, 0.472727, 0.827273, 1)
 colors = PackedColorArray(1, 0.67451, 0.0588235, 1, 1, 0.0784314, 0.0352941, 1, 0.737255, 0, 0, 1, 0, 0, 0, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_2rsa5"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_x7qwv"]
 gradient = SubResource("Gradient_apom5")
 
 [sub_resource type="Curve" id="Curve_3hkfj"]
 _data = [Vector2(0.0724638, 0.131868), 0.0, 0.0, 0, 0, Vector2(0.492754, 0.516483), 0.0, 0.0, 0, 0, Vector2(0.775362, 0.318681), -1.46909, -1.46909, 0, 0, Vector2(1, 0.010989), 0.0, 0.0, 0, 0]
 point_count = 4
 
-[sub_resource type="CurveTexture" id="CurveTexture_qwlun"]
+[sub_resource type="CurveTexture" id="CurveTexture_ibopn"]
 curve = SubResource("Curve_3hkfj")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tfxyy"]
@@ -26,8 +26,8 @@ flatness = 0.5
 initial_velocity_min = 5.0
 initial_velocity_max = 10.0
 gravity = Vector3(0, 0.5, 0)
-scale_curve = SubResource("CurveTexture_qwlun")
-color_ramp = SubResource("GradientTexture1D_2rsa5")
+scale_curve = SubResource("CurveTexture_ibopn")
+color_ramp = SubResource("GradientTexture1D_x7qwv")
 
 [sub_resource type="BoxMesh" id="BoxMesh_u1gct"]
 
@@ -37,22 +37,22 @@ vertex_color_use_as_albedo = true
 [sub_resource type="Gradient" id="Gradient_05xgn"]
 colors = PackedColorArray(1, 0.113725, 0, 1, 0, 0, 0, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_ehe3w"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_4fq6s"]
 gradient = SubResource("Gradient_05xgn")
 
 [sub_resource type="Curve" id="Curve_f10fo"]
 _data = [Vector2(0, 0.230769), 0.0, 0.0, 0, 0, Vector2(0.811594, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_04u3h"]
+[sub_resource type="CurveTexture" id="CurveTexture_xcd5c"]
 curve = SubResource("Curve_f10fo")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pw1va"]
 initial_velocity_min = 1.0
 initial_velocity_max = 1.0
 gravity = Vector3(0, 1, 0)
-scale_curve = SubResource("CurveTexture_04u3h")
-color_ramp = SubResource("GradientTexture1D_ehe3w")
+scale_curve = SubResource("CurveTexture_xcd5c")
+color_ramp = SubResource("GradientTexture1D_4fq6s")
 
 [sub_resource type="BoxMesh" id="BoxMesh_4315v"]
 

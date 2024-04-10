@@ -1,0 +1,148 @@
+[gd_scene load_steps=23 format=3 uid="uid://20ui8fieuvxj"]
+
+[ext_resource type="Script" path="res://scripts/HydraEnemy.cs" id="1_2icj0"]
+[ext_resource type="Texture2D" uid="uid://md41ywfmbvm7" path="res://Grafik/HydraHead/hydra_t.png" id="2_yhhpw"]
+[ext_resource type="ArrayMesh" uid="uid://vmgsyuyx1w6l" path="res://Grafik/HydraHead/hydrahead.geo.obj" id="3_00qgd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g2drq"]
+size = Vector3(6.71338, 5, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_546n3"]
+size = Vector3(2, 3, 3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uyn5l"]
+vertex_color_use_as_albedo = true
+
+[sub_resource type="Gradient" id="Gradient_vj8qv"]
+offsets = PackedFloat32Array(0.00909091, 0.472727, 0.827273, 1)
+colors = PackedColorArray(1, 0.67451, 0.0588235, 1, 1, 0.0784314, 0.0352941, 1, 0.737255, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2rsa5"]
+gradient = SubResource("Gradient_vj8qv")
+
+[sub_resource type="Curve" id="Curve_cush3"]
+_data = [Vector2(0.0724638, 0.131868), 0.0, 0.0, 0, 0, Vector2(0.492754, 0.516483), 0.0, 0.0, 0, 0, Vector2(0.775362, 0.318681), -1.46909, -1.46909, 0, 0, Vector2(1, 0.010989), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_qwlun"]
+curve = SubResource("Curve_cush3")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_no7pc"]
+spread = 15.0
+flatness = 0.5
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, 0.5, 0)
+scale_curve = SubResource("CurveTexture_qwlun")
+color_ramp = SubResource("GradientTexture1D_2rsa5")
+
+[sub_resource type="BoxMesh" id="BoxMesh_tispj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d5m8h"]
+vertex_color_use_as_albedo = true
+
+[sub_resource type="Gradient" id="Gradient_f1y6d"]
+colors = PackedColorArray(1, 0.113725, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ehe3w"]
+gradient = SubResource("Gradient_f1y6d")
+
+[sub_resource type="Curve" id="Curve_b02jj"]
+_data = [Vector2(0, 0.230769), 0.0, 0.0, 0, 0, Vector2(0.811594, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_04u3h"]
+curve = SubResource("Curve_b02jj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ymusa"]
+initial_velocity_min = 1.0
+initial_velocity_max = 1.0
+gravity = Vector3(0, 1, 0)
+scale_curve = SubResource("CurveTexture_04u3h")
+color_ramp = SubResource("GradientTexture1D_ehe3w")
+
+[sub_resource type="BoxMesh" id="BoxMesh_ecsct"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kcvwu"]
+albedo_texture = ExtResource("2_yhhpw")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_g45ge"]
+points = PackedVector3Array(0.492657, 0.726158, 1.16954, 0.406803, 0.726158, 1.20507, 0.492657, 0.586903, 1.16954, 0.0308092, 0.447648, -0.194811, 0.137363, 0.726158, 0.312123, -0.0852466, 0.789495, -0.0581978, -0.577183, 0.726158, 1.20521, 0.406803, 0.586903, 1.20507, 0.387234, 0.35492, 1.01236, -0.0155678, -0.12922, -0.0695945, 0.0308092, 0.169246, -0.194811, -0.0155678, 0.430295, -0.306854, -0.0155678, 0.610763, -0.12643, -0.154812, 0.430295, -0.306854, -0.154812, 0.610763, -0.12643, -0.307857, 0.726158, 0.312123, -0.662924, 0.726158, 1.16954, -0.577183, 0.586903, 1.20521, -0.0852466, 0.0534171, 0.838002, 0.193242, 0.169029, 0.916891, 0.191206, 0.0532002, 0.670603, -0.0852466, -0.318472, -0.0414726, 0.0155387, 0.122502, -0.184894, -0.0852466, 0.0244599, -0.183562, -0.184448, 0.122502, -0.184894, -0.201189, 0.169246, -0.194811, -0.201189, 0.447648, -0.194811, -0.662924, 0.586903, 1.16954, -0.557614, 0.35492, 1.01236, -0.363622, 0.169029, 0.916891, -0.361586, 0.0532002, 0.670603, -0.0852466, -0.21197, 0.215769, -0.154812, -0.12922, -0.0695945)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_0c7xb"]
+radius = 100.0
+
+[node name="HydraEnemy" type="CharacterBody3D" node_paths=PackedStringArray("_onParticles", "_onLight", "_offParticles", "_offLight", "_visual", "DamageArea")]
+transform = Transform3D(1, -3.48787e-16, 3.48787e-16, 3.48787e-16, 1, -3.48787e-16, -3.48787e-16, 3.48787e-16, 1, 0, 0, 0)
+motion_mode = 1
+wall_min_slide_angle = 0.230383
+script = ExtResource("1_2icj0")
+_onParticles = NodePath("Visual/OnParticles")
+_onLight = NodePath("Visual/OnLight")
+_offParticles = NodePath("Visual/OffParticles")
+_offLight = NodePath("Visual/OnLight")
+_visual = NodePath("Visual")
+DamageArea = NodePath("DamageArea")
+
+[node name="DamageArea" type="Area3D" parent="."]
+transform = Transform3D(-4.37114e-08, 3.48787e-16, 1, 3.48787e-16, 1, -3.48787e-16, -1, 3.48787e-16, -4.37114e-08, 0, 0, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamageArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.04924, 0, 0)
+shape = SubResource("BoxShape3D_g2drq")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="DamageArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.51376, 0, 0)
+shape = SubResource("BoxShape3D_546n3")
+
+[node name="Visual" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 3.48787e-16, 1, 3.48787e-16, 1, -3.48787e-16, -1, 3.48787e-16, -4.37114e-08, -0.114882, 0.286821, 0.740316)
+
+[node name="OnParticles" type="GPUParticles3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.18097, 0, -0.0673802)
+material_override = SubResource("StandardMaterial3D_uyn5l")
+amount = 400
+lifetime = 1.5
+trail_lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_no7pc")
+draw_pass_1 = SubResource("BoxMesh_tispj")
+
+[node name="OnLight" type="SpotLight3D" parent="Visual"]
+transform = Transform3D(-3.97761e-08, 0.293373, -0.955998, 1.28238e-08, 0.955998, 0.293373, 1, -5.90305e-10, -4.1788e-08, 1.39651, 0, 0)
+light_color = Color(1, 0.372549, 0, 1)
+light_energy = 5.0
+spot_range = 11.6577
+spot_angle = 54.9134
+
+[node name="OffParticles" type="GPUParticles3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35761, 0, 0)
+material_override = SubResource("StandardMaterial3D_d5m8h")
+amount = 40
+process_material = SubResource("ParticleProcessMaterial_ymusa")
+draw_pass_1 = SubResource("BoxMesh_ecsct")
+
+[node name="OffLight" type="SpotLight3D" parent="Visual"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.23296, 0, 0)
+light_color = Color(1, 0.301961, 0, 1)
+spot_range = 1.47215
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(2, -6.97574e-16, 6.97574e-16, 6.97574e-16, 2, -6.97574e-16, -6.97574e-16, 6.97574e-16, 2, -2.24554e-32, 0.184586, 0)
+material_override = SubResource("StandardMaterial3D_kcvwu")
+mesh = ExtResource("3_00qgd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(2, -6.97574e-16, 6.97574e-16, 6.97574e-16, 2, -6.97574e-16, -6.97574e-16, 6.97574e-16, 2, 0, 0.184586, 0)
+shape = SubResource("ConvexPolygonShape3D_g45ge")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_0c7xb")

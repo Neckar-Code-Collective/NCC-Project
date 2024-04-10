@@ -129,6 +129,8 @@ public partial class EnemyShop : Interactable
             if(hovered)
             {
                 EmitSignal(nameof(OnInteractMage));
+                HideUnlockCost();
+                ShowUnlockCost();
             }
         }
     }

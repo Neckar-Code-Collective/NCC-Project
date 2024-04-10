@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://cm0oo3g3hrblj"]
+[gd_scene load_steps=38 format=3 uid="uid://cm0oo3g3hrblj"]
 
 [ext_resource type="PackedScene" uid="uid://dhcvs3jv6hkgk" path="res://Shooter.tscn" id="2_i3ihx"]
 [ext_resource type="PackedScene" uid="uid://bn5yq3gg0rh2r" path="res://MoneyPrefab.tscn" id="2_kp24w"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://hos0rmwwl317" path="res://BloodPrefab.tscn" id="8_gbddo"]
 [ext_resource type="PackedScene" uid="uid://c5joc54q5pfa0" path="res://revenant_enemy.tscn" id="9_i3b40"]
 [ext_resource type="Texture2D" uid="uid://b36jratnk7bd6" path="res://Grafik/Lock_transparent.png" id="10_158w0"]
+[ext_resource type="PackedScene" uid="uid://20ui8fieuvxj" path="res://HydraEnemy.tscn" id="10_af3tn"]
 [ext_resource type="PackedScene" uid="uid://cq843f3326ueq" path="res://map.tscn" id="11_mw1pq"]
 [ext_resource type="Texture2D" uid="uid://cx4dst8yjpdc8" path="res://Grafik/e.png" id="12_webtq"]
 [ext_resource type="PackedScene" uid="uid://djwvxymsmq5h5" path="res://PrintButton.tscn" id="13_l7itt"]
@@ -371,7 +372,7 @@ albedo_color = Color(0.388235, 0.27451, 0.164706, 1)
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_cf0uc"]
 points = PackedVector3Array(0.296342, 0.2052, -0.250098, 0.296342, 0, -0.250098, 0.128239, 0.2052, -0.5, 0.212319, 0.2052, 0.124902, 0.194911, 0.14462, 0.202623, 0.128239, 0, -0.5, 0.128239, 0, 0.5, -0.128297, 0.2052, -0.5, 0.128239, 0.2052, 0.5, -0.128297, 0, -0.5, -0.128297, 0, 0.5, -0.188761, 0.2052, -0.410141, -0.226594, 0.183547, -0.353955, -0.128297, 0.2052, 0.5, -0.2964, 0, -0.250098, -0.231178, 0.2052, 0.041112, -0.2964, 0.2052, -0.250098)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6w3iq"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kcqnh"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("15_7akjy")
@@ -406,7 +407,7 @@ _surfaces = [{
 "format": 34359742495,
 "index_count": 12,
 "index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 3, 0, 1, 0, 0, 0, 4, 0, 5, 0, 6, 0, 7, 0, 5, 0, 4, 0),
-"material": SubResource("ShaderMaterial_6w3iq"),
+"material": SubResource("ShaderMaterial_kcqnh"),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 8,
@@ -432,7 +433,7 @@ ShooterPrefab = ExtResource("2_i3ihx")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.113, 9)
 
 [node name="ShooterSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://Shooter.tscn", "res://BasicEnemy.tscn", "res://charge_enemy.tscn", "res://revenant_enemy.tscn")
+_spawnable_scenes = PackedStringArray("res://Shooter.tscn", "res://BasicEnemy.tscn", "res://charge_enemy.tscn", "res://revenant_enemy.tscn", "res://HydraEnemy.tscn")
 spawn_path = NodePath("../Shooters")
 
 [node name="MoneyHolder" type="Node3D" parent="."]
@@ -461,6 +462,7 @@ _entityHolder = NodePath("../Shooters")
 _basicEnemyPrefab = ExtResource("4_jy5dv")
 _chargerEnemyPrefab = ExtResource("8_5b1aa")
 _revenantEnemyPrefab = ExtResource("9_i3b40")
+_hydraEnemyPrefab = ExtResource("10_af3tn")
 MouseSensitivity = 0.1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Mage"]
@@ -530,6 +532,24 @@ text = "Revenant"
 
 [node name="RevenantLock" type="TextureRect" parent="Mage/CanvasLayer/MageUI/Panel/RevenantEnemy"]
 layout_mode = 0
+offset_right = 117.0
+offset_bottom = 93.0
+texture = ExtResource("10_158w0")
+expand_mode = 1
+
+[node name="HydraEnemy" type="Button" parent="Mage/CanvasLayer/MageUI/Panel"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 408.0
+offset_top = 5.0
+offset_right = 513.0
+offset_bottom = -5.0
+grow_vertical = 2
+text = "Hydra
+"
+
+[node name="HydraLock" type="TextureRect" parent="Mage/CanvasLayer/MageUI/Panel/HydraEnemy"]
 offset_right = 117.0
 offset_bottom = 93.0
 texture = ExtResource("10_158w0")
@@ -626,7 +646,7 @@ texture = ExtResource("12_webtq")
 [node name="PrintButton" parent="." instance=ExtResource("13_l7itt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.0226, -0.642691, 11.2955)
 
-[node name="TestShop" type="Area3D" parent="." node_paths=PackedStringArray("_weaponSpawnPos")]
+[node name="WeaponShop" type="Area3D" parent="." node_paths=PackedStringArray("_weaponSpawnPos")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.1155, 0, 8.28217)
 collision_layer = 16
 collision_mask = 0
@@ -635,20 +655,20 @@ script = ExtResource("14_3oob3")
 _weaponSpawnPos = NodePath("WeaponSpawnPos")
 _price = 5
 
-[node name="Interactionzone" type="CollisionShape3D" parent="TestShop"]
+[node name="Interactionzone" type="CollisionShape3D" parent="WeaponShop"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00915527, 0.461487, 0.941199)
 shape = SubResource("BoxShape3D_0l3eu")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="TestShop"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WeaponShop"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.150563)
 mesh = SubResource("CylinderMesh_fq7sv")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="TestShop/MeshInstance3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WeaponShop/MeshInstance3D"]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.898701, 0)
 material_override = SubResource("StandardMaterial3D_io2th")
 mesh = SubResource("CylinderMesh_o5ilp")
 
-[node name="WeaponSpawnPos" type="Node3D" parent="TestShop"]
+[node name="WeaponSpawnPos" type="Node3D" parent="WeaponShop"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.246, 5.395)
 
 [node name="EnemyShop" parent="." instance=ExtResource("16_xuxhp")]
@@ -662,6 +682,7 @@ offset_right = 456.0
 offset_bottom = 101.0
 
 [node name="CostLabel" type="Label" parent="EnemyShop/Control"]
+layout_mode = 0
 offset_left = 496.0
 offset_top = 97.0
 offset_right = 706.0

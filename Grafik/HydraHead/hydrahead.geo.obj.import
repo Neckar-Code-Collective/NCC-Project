@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://vmgsyuyx1w6l"
+path="res://.godot/imported/hydrahead.geo.obj-ddbb8e6e34d684a527e50c5d3f03bcab.mesh"
+
+[deps]
+
+files=["res://.godot/imported/hydrahead.geo.obj-ddbb8e6e34d684a527e50c5d3f03bcab.mesh"]
+
+source_file="res://Grafik/HydraHead/hydrahead.geo.obj"
+dest_files=["res://.godot/imported/hydrahead.geo.obj-ddbb8e6e34d684a527e50c5d3f03bcab.mesh", "res://.godot/imported/hydrahead.geo.obj-ddbb8e6e34d684a527e50c5d3f03bcab.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
