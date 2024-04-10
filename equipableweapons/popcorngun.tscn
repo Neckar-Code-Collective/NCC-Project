@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://b04kgh8tlfc6o"]
+
+[ext_resource type="Script" path="res://scripts/BasicWeapon.cs" id="1_o4bg4"]
+[ext_resource type="PackedScene" uid="uid://6mlvdqta0kq7" path="res://PopcornBullet.tscn" id="2_78n4j"]
+[ext_resource type="ArrayMesh" uid="uid://ca2gajbleq6vt" path="res://Grafik/Weapons/popcorngun.vox" id="3_d0ttc"]
+
+[node name="Weapon" type="Node3D" node_paths=PackedStringArray("Muzzle")]
+transform = Transform3D(0.999647, 0, 0, 0, 0.998392, 0.0500698, 0, -0.0500698, 0.998392, 0, 0, 0)
+script = ExtResource("1_o4bg4")
+BulletPrefab = ExtResource("2_78n4j")
+MuzzleSpeed = 10.0
+ShootDelay = 0.1
+ClipSize = 9999
+DamagePerBullet = 5.0
+Muzzle = NodePath("Muzzle")
+_name = "weapon_popcorngun"
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.5, -1.2, -0.56)
+mesh = ExtResource("3_d0ttc")
+skeleton = NodePath("../..")
+
+[node name="Muzzle" type="Marker3D" parent="."]
+transform = Transform3D(-0.00258307, 0, 0.999997, 0, 1, 0, -0.999997, 0, -0.00258307, 0.839, 0.155, 0)
+
+[node name="Timer" type="Timer" parent="."]

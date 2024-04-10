@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://ddghkg6g2de81"]
+
+[ext_resource type="Script" path="res://scripts/WorldItem.cs" id="1_7okwh"]
+[ext_resource type="Texture2D" uid="uid://orrxnonfspda" path="res://bloom.png" id="2_dq1yi"]
+[ext_resource type="ArrayMesh" uid="uid://ca2gajbleq6vt" path="res://Grafik/Weapons/popcorngun.vox" id="2_uwcd1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_axqdb"]
+size = Vector3(2, 4, 2)
+
+[node name="BasicWeaponWorldItem" type="Area3D" node_paths=PackedStringArray("Visual")]
+collision_layer = 16
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_7okwh")
+_name = "weapon_popcorngun"
+Visual = NodePath("Visual")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_axqdb")
+
+[node name="Visual" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.138081, 1.00759, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.5, -1.2, -0.56)
+mesh = ExtResource("2_uwcd1")
+skeleton = NodePath("../..")
+
+[node name="Decal" type="Decal" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0701383, 0)
+size = Vector3(2, 1.94214, 2)
+texture_albedo = ExtResource("2_dq1yi")
+emission_energy = 0.25
+albedo_mix = 0.2

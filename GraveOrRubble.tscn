@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1g3k44686reg"]
+
+[ext_resource type="ArrayMesh" uid="uid://thca8clh744k" path="res://Grafik/Models/MapRight/Graves/GraveOrRubble.vox" id="1_phex6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dqy1g"]
+size = Vector3(1.43811, 1.4198, 1.33887)
+
+[node name="GraveOrRubble" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.30104, 0, 12.7433)
+mesh = ExtResource("1_phex6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0515747, 0.2099, 0.027832)
+shape = SubResource("BoxShape3D_dqy1g")

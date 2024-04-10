@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dg5svofrsjg3h"]
+
+[ext_resource type="ArrayMesh" uid="uid://ccrudj76cjx7i" path="res://Grafik/Models/MapRight/Nature/Pond.vox" id="1_i56af"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jsjpb"]
+size = Vector3(11.4649, 3.83496, 14.7557)
+
+[node name="Pond" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_i56af")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.03525, 1.41748, -1.94168)
+shape = SubResource("BoxShape3D_jsjpb")

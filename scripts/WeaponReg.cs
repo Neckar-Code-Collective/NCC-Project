@@ -15,12 +15,14 @@ public partial class WeaponReg : Node
         _equipedWeapons.Add("weapon_ak47", GD.Load<PackedScene>("res://equipableweapons/ak47.tscn"));
         _equipedWeapons.Add("weapon_sniper", GD.Load<PackedScene>("res://equipableweapons/sniper.tscn"));
         _equipedWeapons.Add("weapon_crossbow", GD.Load<PackedScene>("res://equipableweapons/crossbow.tscn"));
+        _equipedWeapons.Add("weapon_popcorngun", GD.Load<PackedScene>("res://equipableweapons/popcorngun.tscn"));
 
         _worldWeapons.Add("weapon_start_weapon", GD.Load<PackedScene>("res://worldweaponprefabs/BasicWeaponWorldItem.tscn"));
         _worldWeapons.Add("weapon_flamethrower", GD.Load<PackedScene>("res://worldweaponprefabs/FlamethrowerWorldItem.tscn"));
         _worldWeapons.Add("weapon_ak47", GD.Load<PackedScene>("res://worldweaponprefabs/ak47WorldItem.tscn"));
         _worldWeapons.Add("weapon_sniper", GD.Load<PackedScene>("res://worldweaponprefabs/SniperWorldItem.tscn"));
         _worldWeapons.Add("weapon_crossbow", GD.Load<PackedScene>("res://worldweaponprefabs/CrossbowWorldItem.tscn"));
+        _worldWeapons.Add("weapon_popcorngun", GD.Load<PackedScene>("res://worldweaponprefabs/PopcorngunWorldItem.tscn"));
     }
 
 	public static PackedScene GetEquipedWeapon(string name){

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0m6y7hnch1l7"]
+
+[ext_resource type="ArrayMesh" uid="uid://dntervk84nedc" path="res://Grafik/Models/Road/MuddyPath.vox" id="1_mgbyx"]
+
+[node name="MuddyPath" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_mgbyx")
