@@ -5,7 +5,7 @@
 [ext_resource type="ArrayMesh" uid="uid://ca2gajbleq6vt" path="res://Grafik/Weapons/popcorngun.vox" id="3_d0ttc"]
 
 [node name="Weapon" type="Node3D" node_paths=PackedStringArray("Muzzle")]
-transform = Transform3D(0.999647, 0, 0, 0, 0.999647, 0, 0, 0, 0.999647, 0, 0, 0)
+transform = Transform3D(0.999647, 0, 0, 0, 0.998392, 0.0500698, 0, -0.0500698, 0.998392, 0, 0, 0)
 script = ExtResource("1_o4bg4")
 BulletPrefab = ExtResource("2_78n4j")
 MuzzleSpeed = 10.0

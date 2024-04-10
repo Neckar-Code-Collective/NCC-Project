@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dlmdlxreghd3a"]
+
+[ext_resource type="ArrayMesh" uid="uid://cnsb51gfygiki" path="res://Grafik/Models/MapRight/WoodenFences/fence_corner.obj" id="1_ek5un"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lfakp"]
+albedo_color = Color(0.305882, 0.207843, 0.141176, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_slhrt"]
+size = Vector3(2.60254, 2.43262, 2.36774)
+
+[node name="FenceCorner" type="StaticBody3D"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.47, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.91142, 0, 1.84322)
+material_override = SubResource("StandardMaterial3D_lfakp")
+mesh = ExtResource("1_ek5un")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.80127, 0.716309, 0.683868)
+shape = SubResource("BoxShape3D_slhrt")

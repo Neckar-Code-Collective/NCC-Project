@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://851jbr5820e0"]
+
+[ext_resource type="Texture2D" uid="uid://bybeq0j5buww3" path="res://Grafik/Models/MapRight/Tree/trunk_6.png" id="1_rxdd4"]
+[ext_resource type="ArrayMesh" uid="uid://dtgr231r54alo" path="res://Grafik/Models/MapRight/Tree/trunk_6.obj" id="2_xikgn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_660m2"]
+albedo_texture = ExtResource("1_rxdd4")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uwhfp"]
+size = Vector3(2.31961, 9.55939, 2.62549)
+
+[node name="Trunk3_" type="StaticBody3D"]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.06585, 0, 0.629864)
+material_override = SubResource("StandardMaterial3D_660m2")
+mesh = ExtResource("2_xikgn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.178635, 4.30283, -0.369083)
+shape = SubResource("BoxShape3D_uwhfp")

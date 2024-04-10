@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3udqw5x3v4oo"]
+
+[ext_resource type="ArrayMesh" uid="uid://c18dv30tyyvd4" path="res://Grafik/Models/MapRight/Fence/FenceType1.vox" id="1_m6gft"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r0v1r"]
+size = Vector3(4.04639, 3.02002, 0.773438)
+
+[node name="FenceType1" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 12.5)
+mesh = ExtResource("1_m6gft")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.52319, 1.01001, 0.113281)
+shape = SubResource("BoxShape3D_r0v1r")

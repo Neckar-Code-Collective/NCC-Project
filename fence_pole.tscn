@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dcj4fubufuld7"]
+
+[ext_resource type="ArrayMesh" uid="uid://bwkt78h1jy3yv" path="res://Grafik/Models/MapRight/WoodenFences/fence_pole.obj" id="1_oyya0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ygtud"]
+albedo_color = Color(0.305882, 0.207843, 0.141176, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ewyqr"]
+size = Vector3(0.624512, 2.47961, 0.621277)
+
+[node name="FencePole" type="StaticBody3D"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.47, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_ygtud")
+mesh = ExtResource("1_oyya0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00756836, 0.739807, 0.00448608)
+shape = SubResource("BoxShape3D_ewyqr")

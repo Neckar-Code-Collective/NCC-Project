@@ -371,7 +371,7 @@ albedo_color = Color(0.388235, 0.27451, 0.164706, 1)
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_cf0uc"]
 points = PackedVector3Array(0.296342, 0.2052, -0.250098, 0.296342, 0, -0.250098, 0.128239, 0.2052, -0.5, 0.212319, 0.2052, 0.124902, 0.194911, 0.14462, 0.202623, 0.128239, 0, -0.5, 0.128239, 0, 0.5, -0.128297, 0.2052, -0.5, 0.128239, 0.2052, 0.5, -0.128297, 0, -0.5, -0.128297, 0, 0.5, -0.188761, 0.2052, -0.410141, -0.226594, 0.183547, -0.353955, -0.128297, 0.2052, 0.5, -0.2964, 0, -0.250098, -0.231178, 0.2052, 0.041112, -0.2964, 0.2052, -0.250098)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6w3iq"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dvde6"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("15_7akjy")
@@ -406,7 +406,7 @@ _surfaces = [{
 "format": 34359742495,
 "index_count": 12,
 "index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 3, 0, 1, 0, 0, 0, 4, 0, 5, 0, 6, 0, 7, 0, 5, 0, 4, 0),
-"material": SubResource("ShaderMaterial_6w3iq"),
+"material": SubResource("ShaderMaterial_dvde6"),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 8,
@@ -662,6 +662,7 @@ offset_right = 456.0
 offset_bottom = 101.0
 
 [node name="CostLabel" type="Label" parent="EnemyShop/Control"]
+layout_mode = 0
 offset_left = 496.0
 offset_top = 97.0
 offset_right = 706.0

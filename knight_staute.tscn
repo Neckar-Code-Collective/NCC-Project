@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://br25owphf6nhy"]
+
+[ext_resource type="Texture2D" uid="uid://cshpqlg65wbom" path="res://Grafik/Models/MapRight/KnightStatue/SoulGothic_FreeSample_001-0.png" id="1_cyvi7"]
+[ext_resource type="ArrayMesh" uid="uid://dyo056ii4rcb8" path="res://Grafik/Models/MapRight/KnightStatue/KnightStatue.obj" id="2_w3sa1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ojvve"]
+albedo_texture = ExtResource("1_cyvi7")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jk3kt"]
+size = Vector3(0.391113, 0.795166, 0.471191)
+
+[node name="KnightStaute" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.67233, 0, -2.50551)
+material_override = SubResource("StandardMaterial3D_ojvve")
+mesh = ExtResource("2_w3sa1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0368652, 0.338257, 0.0583496)
+shape = SubResource("BoxShape3D_jk3kt")
