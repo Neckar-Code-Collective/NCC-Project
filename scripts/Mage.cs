@@ -22,7 +22,7 @@ public partial class Mage : Node
     /// <summary>
     /// The amount of blood points the mage currently has
     /// </summary>
-    public int CurrentBloodCount = 0;
+    public int _currentBloodCount = 0;
 
     /// <summary>
     /// Reference to the label that displays the current amount of blood
@@ -81,6 +81,10 @@ public partial class Mage : Node
     [Export]
     PackedScene _revenantEnemyPrefab;
 
+    TextureRect _chargerLockIcon;
+
+    TextureRect _revenantLockIcon;
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
@@ -112,6 +116,14 @@ public partial class Mage : Node
 
         BloodLabel = GetTree().Root.GetNode<Label>("Level/CanvasLayer/Control2/BloodLabel");
         InitializeLabels();
+
+        _chargerLockIcon = _chargerEnemyButton.GetNode<TextureRect>("ChargerLock");
+        _chargerLockIcon.Visible = true;
+        _chargerEnemyButton.Disabled = true;
+        _revenantLockIcon = _revenantButton.GetNode<TextureRect>("RevenantLock");
+        _revenantLockIcon.Visible = true;
+        _revenantButton.Disabled = true;
+
     }
 
     /// <summary>
@@ -136,7 +148,7 @@ public partial class Mage : Node
         _attractor.GlobalPosition = target_position;
 
         //update ui text
-        BloodLabel.Text = "BLOOD IN THE BANK: " + CurrentBloodCount;
+        BloodLabel.Text = "BLOOD IN THE BANK: " + _currentBloodCount;
 
         UpdateButtonStates();
 
@@ -268,7 +280,7 @@ public partial class Mage : Node
                 }
                 break;
             case SelectionState.CHARGER_ENEMY:
-                if(_manaManager.GetCurrentMana() >= SPAWNCOST * 2)
+                if(_manaManager.GetCurrentMana() >= SPAWNCOST * 2 && _chargerLockIcon.Visible == false)
                 {
                     var ch = _chargerEnemyPrefab.Instantiate<ChargeEnemy>();
                     _entityHolder.AddChild(ch, true);
@@ -277,7 +289,7 @@ public partial class Mage : Node
                 }
                 break;
             case SelectionState.REVENANT_ENEMY:
-                if(_manaManager.GetCurrentMana() >= SPAWNCOST * 2)
+                if(_manaManager.GetCurrentMana() >= SPAWNCOST * 2 && _revenantLockIcon.Visible == false)
                 {
                     var r = _revenantEnemyPrefab.Instantiate<RevenantEnemy>();
                     _entityHolder.AddChild(r, true);
@@ -334,7 +346,7 @@ public partial class Mage : Node
 
         if (other is Blood b)
         {
-            CurrentBloodCount += b.GetAmount();
+            _currentBloodCount += b.GetAmount();
             b.QueueFree();
         }
     }
@@ -354,20 +366,89 @@ public partial class Mage : Node
     }
 
     public void UpdateButtonStates()
-{
-    float currentMana = _manaManager.GetCurrentMana();
-
-    UpdateButtonState(_basicEnemyButton, currentMana >= SPAWNCOST, SPAWNCOST);
-    UpdateButtonState(_chargerEnemyButton, currentMana >= SPAWNCOST * 2, SPAWNCOST * 2);
-    UpdateButtonState(_revenantButton, currentMana >= SPAWNCOST * 2, SPAWNCOST * 2);
-
-}
-
-    public void UpdateButtonState(Button button, bool canAfford, float cost)
     {
-        button.Disabled = !canAfford;
-        button.Modulate = canAfford ? Colors.White : new Color(0.5f, 0.5f, 0.5f, 1);
-        button.TooltipText = canAfford ? "" : $"Need {cost} Mana";
+        float currentMana = _manaManager.GetCurrentMana();
+
+        _chargerLockIcon.TooltipText = !_chargerLockIcon.Visible ? "" : "Can be unlocked at OPEN GRAVE!";
+        _revenantLockIcon.TooltipText = !_revenantLockIcon.Visible ? "" : "Can be unlocked at OPEN GRAVE!";
+
+        UpdateButtonState(_basicEnemyButton, currentMana >= SPAWNCOST, SPAWNCOST, false);
+        UpdateButtonState(_chargerEnemyButton, currentMana >= SPAWNCOST * 2, SPAWNCOST * 2, _chargerLockIcon.Visible);
+        UpdateButtonState(_revenantButton, currentMana >= SPAWNCOST * 2, SPAWNCOST * 2, _revenantLockIcon.Visible);
+
+    }
+
+    public void UpdateButtonState(Button button, bool canAfford, float cost, bool lockvisibility)
+    {
+        if (!lockvisibility)
+        {
+            button.Disabled = !canAfford;
+            button.Modulate = canAfford ? Colors.White : new Color(0.5f, 0.5f, 0.5f, 1);
+            button.TooltipText = canAfford ? "" : $"Need {cost} Mana";
+        }
+        else
+        {
+            button.Disabled = true;
+            button.Modulate = new Color(0.5f, 0.5f, 0.5f, 1);
+        }
+    }
+
+    
+    public void DeductBlood(int amount)
+    {
+         _currentBloodCount -= amount;
+        //if (IsMultiplayerAuthority())
+        //    Rpc(nameof(RpcUpdateBloodOnOtherPeers), _currentBloodCount);
+    }
+
+     [Rpc()]
+    public void RpcUpdateBloodOnOtherPeers(int amount)
+    {
+        _currentBloodCount = amount;
+    }
+
+    public Dictionary<string, int> enemyUnlockCosts = new Dictionary<string, int>
+    {
+        {"ChargerEnemy", 10}, 
+        {"Revenant", 20}, 
+    
+    };
+    public bool HasUnlockedEnemy(string Enemy)
+    {
+        if(Enemy == "ChargerEnemy")
+        {
+            return !_chargerLockIcon.Visible;
+        }
+        else if (Enemy == "Revenant")
+        {
+            return !_revenantLockIcon.Visible;
+        }
+        else
+        {
+            GD.Print("ungültiger Enemy");
+            return false;
+        }
+    }
+
+    public void UnlockEnemy(String Enemy)
+    {
+        if(Enemy == "ChargerEnemy")
+        {
+            _chargerLockIcon.Visible = false;
+        }
+        else if (Enemy == "Revenant")
+        {
+            _revenantLockIcon.Visible = false;
+        }
+        else
+        {
+            GD.Print("ungültiger Enemy");
+        }
+    }
+
+    public int GetCurrentBlood()
+    {
+        return _currentBloodCount;
     }
 
 }
@@ -378,3 +459,4 @@ public enum SelectionState
 {
     NONE, BASIC_ENEMY, CHARGER_ENEMY, REVENANT_ENEMY
 }
+

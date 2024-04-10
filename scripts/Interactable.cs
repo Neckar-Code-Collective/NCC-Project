@@ -5,6 +5,8 @@ public partial class Interactable : Area3D
 {
     [Signal]
     public delegate void OnInteractEventHandler(Shooter shooter);
+    [Signal]
+    public delegate void OnInteractMageEventHandler();
 
     [Rpc(MultiplayerApi.RpcMode.AnyPeer)]
 	public void RpcInteract(int peer){
