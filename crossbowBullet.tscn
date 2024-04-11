@@ -7,7 +7,7 @@
 height = 1.60477
 
 [node name="Bullet" type="Area3D"]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
 script = ExtResource("1_xmeh5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
