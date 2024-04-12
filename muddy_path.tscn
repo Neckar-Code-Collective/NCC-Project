@@ -1,8 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://c0m6y7hnch1l7"]
+[gd_scene load_steps=4 format=3 uid="uid://c0m6y7hnch1l7"]
 
-[ext_resource type="ArrayMesh" uid="uid://dntervk84nedc" path="res://Grafik/Models/Road/MuddyPath.vox" id="1_mgbyx"]
+[ext_resource type="Texture2D" uid="uid://c0hxmqx8iqhm7" path="res://MapRight/Nature/MuddyPath.png" id="1_hk0d5"]
+[ext_resource type="ArrayMesh" uid="uid://dy1ek7ntjjp1d" path="res://MapRight/Nature/MuddyPath.obj" id="2_yh2g5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s8jc2"]
+albedo_texture = ExtResource("1_hk0d5")
 
 [node name="MuddyPath" type="Node3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_mgbyx")
+material_override = SubResource("StandardMaterial3D_s8jc2")
+mesh = ExtResource("2_yh2g5")
