@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://b1thjrjvnivew"
+path="res://.godot/imported/trunk_5.obj-fee2cf114cd865528351a067d76d90f7.mesh"
+
+[deps]
+
+files=["res://.godot/imported/trunk_5.obj-fee2cf114cd865528351a067d76d90f7.mesh"]
+
+source_file="res://MapRight/Tree/trunk_5.obj"
+dest_files=["res://.godot/imported/trunk_5.obj-fee2cf114cd865528351a067d76d90f7.mesh", "res://.godot/imported/trunk_5.obj-fee2cf114cd865528351a067d76d90f7.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
