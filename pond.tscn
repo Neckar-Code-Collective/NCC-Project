@@ -1,6 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://dg5svofrsjg3h"]
+[gd_scene load_steps=5 format=3 uid="uid://dg5svofrsjg3h"]
 
-[ext_resource type="ArrayMesh" uid="uid://ccrudj76cjx7i" path="res://Grafik/Models/MapRight/Nature/Pond.vox" id="1_i56af"]
+[ext_resource type="Texture2D" uid="uid://cmhnc4nx82bsc" path="res://MapRight/Nature/Pond.png" id="1_8snd8"]
+[ext_resource type="ArrayMesh" uid="uid://lwarmgccfuk5" path="res://MapRight/Nature/Pond.obj" id="2_ssjef"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kmdgc"]
+albedo_texture = ExtResource("1_8snd8")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jsjpb"]
 size = Vector3(11.4649, 3.83496, 14.7557)
@@ -8,7 +12,8 @@ size = Vector3(11.4649, 3.83496, 14.7557)
 [node name="Pond" type="StaticBody3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_i56af")
+material_override = SubResource("StandardMaterial3D_kmdgc")
+mesh = ExtResource("2_ssjef")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.03525, 1.41748, -1.94168)
