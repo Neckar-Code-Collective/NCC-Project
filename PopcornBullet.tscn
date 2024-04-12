@@ -1,7 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://6mlvdqta0kq7"]
+[gd_scene load_steps=6 format=3 uid="uid://6mlvdqta0kq7"]
 
 [ext_resource type="Script" path="res://scripts/Bullet.cs" id="1_jsks3"]
-[ext_resource type="ArrayMesh" uid="uid://cvti2f6wtr0h5" path="res://Grafik/Weapons/popcorn.vox" id="2_wjijv"]
+[ext_resource type="Texture2D" uid="uid://bavxdqpej1vwh" path="res://Grafik/Weapons/popcorn.png" id="2_vale0"]
+[ext_resource type="ArrayMesh" uid="uid://y3byg1emesxm" path="res://Grafik/Weapons/popcorn.obj" id="3_hl4mc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x7r13"]
+albedo_texture = ExtResource("2_vale0")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_kglr5"]
 
@@ -11,7 +15,8 @@ script = ExtResource("1_jsks3")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
-mesh = ExtResource("2_wjijv")
+material_override = SubResource("StandardMaterial3D_x7r13")
+mesh = ExtResource("3_hl4mc")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_kglr5")

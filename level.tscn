@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cm0oo3g3hrblj"]
+[gd_scene load_steps=31 format=3 uid="uid://cm0oo3g3hrblj"]
 
 [ext_resource type="PackedScene" uid="uid://dhcvs3jv6hkgk" path="res://Shooter.tscn" id="2_i3ihx"]
 [ext_resource type="PackedScene" uid="uid://bn5yq3gg0rh2r" path="res://MoneyPrefab.tscn" id="2_kp24w"]
@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://hos0rmwwl317" path="res://BloodPrefab.tscn" id="8_gbddo"]
 [ext_resource type="PackedScene" uid="uid://c5joc54q5pfa0" path="res://revenant_enemy.tscn" id="9_i3b40"]
 [ext_resource type="Texture2D" uid="uid://b36jratnk7bd6" path="res://Grafik/Lock_transparent.png" id="10_158w0"]
-[ext_resource type="PackedScene" uid="uid://20ui8fieuvxj" path="res://HydraEnemy.tscn" id="10_af3tn"]
 [ext_resource type="PackedScene" uid="uid://cq843f3326ueq" path="res://map.tscn" id="11_mw1pq"]
 [ext_resource type="Texture2D" uid="uid://cx4dst8yjpdc8" path="res://Grafik/e.png" id="12_webtq"]
 [ext_resource type="PackedScene" uid="uid://djwvxymsmq5h5" path="res://PrintButton.tscn" id="13_l7itt"]
@@ -411,7 +410,6 @@ _entityHolder = NodePath("../Shooters")
 _basicEnemyPrefab = ExtResource("4_jy5dv")
 _chargerEnemyPrefab = ExtResource("8_5b1aa")
 _revenantEnemyPrefab = ExtResource("9_i3b40")
-_hydraEnemyPrefab = ExtResource("10_af3tn")
 MouseSensitivity = 0.1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Mage"]
@@ -644,4 +642,29 @@ skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_742st")
 
 [node name="EnemyShopCollision" type="CollisionShape3D" parent="EnemyShop"]
+shape = SubResource("ConvexPolygonShape3D_cf0uc")
+
+[node name="EnemyShop2" parent="." instance=ExtResource("16_xuxhp")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 102.672, -0.424659, -12.233)
+script = ExtResource("17_xnbqk")
+
+[node name="Control" type="Control" parent="EnemyShop2"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 456.0
+offset_bottom = 101.0
+
+[node name="CostLabel" type="Label" parent="EnemyShop2/Control"]
+layout_mode = 0
+offset_left = 496.0
+offset_top = 97.0
+offset_right = 706.0
+offset_bottom = 136.0
+
+[node name="EnemyShopMesh" type="MeshInstance3D" parent="EnemyShop2"]
+mesh = SubResource("ArrayMesh_jexc2")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_742st")
+
+[node name="EnemyShopCollision" type="CollisionShape3D" parent="EnemyShop2"]
 shape = SubResource("ConvexPolygonShape3D_cf0uc")
