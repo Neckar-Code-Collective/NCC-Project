@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://6mlvdqta0kq7"]
 
-[ext_resource type="Script" path="res://scripts/Bullet.cs" id="1_jsks3"]
+[ext_resource type="Script" path="res://scripts/PopcornBullet.cs" id="1_x2bpi"]
 [ext_resource type="Texture2D" uid="uid://bavxdqpej1vwh" path="res://Grafik/Weapons/popcorn.png" id="2_vale0"]
 [ext_resource type="ArrayMesh" uid="uid://y3byg1emesxm" path="res://Grafik/Weapons/popcorn.obj" id="3_hl4mc"]
 
@@ -11,7 +11,7 @@ albedo_texture = ExtResource("2_vale0")
 
 [node name="DebugBullet" type="Area3D"]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
-script = ExtResource("1_jsks3")
+script = ExtResource("1_x2bpi")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 1.2, 0, 2)

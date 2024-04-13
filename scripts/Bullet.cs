@@ -16,7 +16,7 @@ public partial class Bullet : Area3D
     /// After being alive for this many seconds, the bullet kills itself.
     /// </summary>
     [Export]
-    float maxLifeTime = 10;
+    protected float maxLifeTime = 10;
 
     /// <summary>
     /// The amount of time this bullet has been alive for
@@ -32,7 +32,7 @@ public partial class Bullet : Area3D
     /// <summary>
     /// The velocity that gets applied to this bullet, in units per second (e.g. vel = (1,0,0) moves the bullet by 1 unit on the x-axis every second)
     /// </summary>
-    Vector3 velocity = Vector3.Zero;
+    protected Vector3 velocity = Vector3.Zero;
 
     /// <summary>
     /// A callback for when an entity collides with this bullet

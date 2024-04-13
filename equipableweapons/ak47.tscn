@@ -10,7 +10,7 @@ script = ExtResource("1_bgdbv")
 BulletPrefab = ExtResource("2_02q34")
 ShootDelay = 0.05
 ClipSize = 9999
-DamagePerBullet = 5.0
+DamagePerBullet = 2.0
 Muzzle = NodePath("Muzzle")
 _name = "weapon_ak47"
 

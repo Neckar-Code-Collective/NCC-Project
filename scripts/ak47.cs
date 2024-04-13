@@ -29,5 +29,22 @@ public partial class ak47: BasicWeapon
         _rofTimer.Start();
     }
 
+     public override void RpcShoot(Vector3 position, Vector3 velocity, int data)
+    {
+        //Instantiate a new bullet
+        Bullet newBullet = BulletPrefab.Instantiate<Bullet>();
+        if (newBullet == null) return;
+
+        //Add the bullet to the scene
+        GetTree().Root.AddChild(newBullet);
+        //setup its position, velocity and damage
+        newBullet.Setup(position, velocity, DamagePerBullet, false);
+        //sets the bullets collision mask, i.e. that it only collides with mobs and the environment
+        newBullet.SetCollisionMaskForPlayerBullet();
+
+       
+    }
+
+
 
 }
