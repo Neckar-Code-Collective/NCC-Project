@@ -1,6 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://ckqkwbkdj7prs"]
+[gd_scene load_steps=5 format=3 uid="uid://ckqkwbkdj7prs"]
 
-[ext_resource type="ArrayMesh" uid="uid://db7i0o1o8kvco" path="res://Grafik/MapRight/Graves/GraveWithCross.vox" id="1_4t0yv"]
+[ext_resource type="Texture2D" uid="uid://da6chsqke6c5a" path="res://Grafik/MapRight/Graves/GraveWithCross.png" id="1_ds6fx"]
+[ext_resource type="ArrayMesh" uid="uid://b7gfg73hgnkvo" path="res://Grafik/MapRight/Graves/GraveWithCross.obj" id="2_y0m1k"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j8xjb"]
+albedo_texture = ExtResource("1_ds6fx")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_upk36"]
 size = Vector3(1.12158, 1.52649, 1.99658)
@@ -9,7 +13,8 @@ size = Vector3(1.12158, 1.52649, 1.99658)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.67775, 0, 12.7382)
-mesh = ExtResource("1_4t0yv")
+material_override = SubResource("StandardMaterial3D_j8xjb")
+mesh = ExtResource("2_y0m1k")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1.315, 0, 0, 0, 1.985, 0, 0, 0, 1, -0.285, 0.503156, -0.083)

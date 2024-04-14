@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://32enfydwr22w"
+path="res://.godot/imported/GraveOrRubble.obj-85d323d5aa53984cc74d66824758e024.mesh"
+
+[deps]
+
+files=["res://.godot/imported/GraveOrRubble.obj-85d323d5aa53984cc74d66824758e024.mesh"]
+
+source_file="res://Grafik/MapRight/Graves/GraveOrRubble.obj"
+dest_files=["res://.godot/imported/GraveOrRubble.obj-85d323d5aa53984cc74d66824758e024.mesh", "res://.godot/imported/GraveOrRubble.obj-85d323d5aa53984cc74d66824758e024.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
