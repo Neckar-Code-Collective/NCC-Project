@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dy1ek7ntjjp1d"
+path="res://.godot/imported/MuddyPath.obj-d0b47f82e2a1845f516c253803b10b11.mesh"
+
+[deps]
+
+files=["res://.godot/imported/MuddyPath.obj-d0b47f82e2a1845f516c253803b10b11.mesh"]
+
+source_file="res://Grafik/MapRight/Nature/MuddyPath.obj"
+dest_files=["res://.godot/imported/MuddyPath.obj-d0b47f82e2a1845f516c253803b10b11.mesh", "res://.godot/imported/MuddyPath.obj-d0b47f82e2a1845f516c253803b10b11.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

@@ -1,6 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://dmnevj70s3khn"]
+[gd_scene load_steps=5 format=3 uid="uid://dmnevj70s3khn"]
 
-[ext_resource type="ArrayMesh" uid="uid://clvvdqrqjuncx" path="res://Grafik/Models/MapRight/House/CountrySide_Source.vox" id="1_2igyo"]
+[ext_resource type="Texture2D" uid="uid://uqpk4h2pma2" path="res://Grafik/MapRight/House/House.png" id="1_wa7im"]
+[ext_resource type="ArrayMesh" uid="uid://df6236j3l4i6e" path="res://Grafik/MapRight/House/House.obj" id="2_68ki3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lj57j"]
+albedo_texture = ExtResource("1_wa7im")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ylqf2"]
 size = Vector3(9.79205, 5.10828, 5.64038)
@@ -8,7 +12,8 @@ size = Vector3(9.79205, 5.10828, 5.64038)
 [node name="House" type="StaticBody3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_2igyo")
+material_override = SubResource("StandardMaterial3D_lj57j")
+mesh = ExtResource("2_68ki3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.26111, 3.39713, 4.55815)

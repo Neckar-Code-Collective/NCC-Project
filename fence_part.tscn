@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bgg23i1bv8khp"]
 
-[ext_resource type="ArrayMesh" uid="uid://cu3rfivpggum" path="res://Grafik/Models/MapRight/WoodenFences/fence_part_1.obj" id="1_24f5x"]
+[ext_resource type="ArrayMesh" uid="uid://cu3rfivpggum" path="res://Grafik/MapRight/WoodenFences/fence_part_1.obj" id="1_24f5x"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wduww"]
 albedo_color = Color(0.305882, 0.207843, 0.141176, 1)

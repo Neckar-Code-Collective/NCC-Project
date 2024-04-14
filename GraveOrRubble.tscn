@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c1g3k44686reg"]
 
-[ext_resource type="ArrayMesh" uid="uid://thca8clh744k" path="res://Grafik/Models/MapRight/Graves/GraveOrRubble.vox" id="1_phex6"]
+[ext_resource type="ArrayMesh" uid="uid://thca8clh744k" path="res://Grafik/MapRight/Graves/GraveOrRubble.vox" id="1_phex6"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dqy1g"]
 size = Vector3(1.43811, 1.4198, 1.33887)

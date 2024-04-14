@@ -1,6 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://djgntw080puqe"]
+[gd_scene load_steps=5 format=3 uid="uid://djgntw080puqe"]
 
-[ext_resource type="ArrayMesh" uid="uid://cld5maibrvcf" path="res://Grafik/Models/MapRight/Fence/FenceType3.vox" id="1_2uxa1"]
+[ext_resource type="Texture2D" uid="uid://b2t48pytcsska" path="res://Grafik/MapRight/Fence/FenceType3.png" id="1_4khus"]
+[ext_resource type="ArrayMesh" uid="uid://cdlg37rqi15k2" path="res://Grafik/MapRight/Fence/FenceType3.obj" id="2_od6ok"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h8yvy"]
+albedo_texture = ExtResource("1_4khus")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_djaql"]
 size = Vector3(0.862427, 3, 0.629883)
@@ -9,7 +13,8 @@ size = Vector3(0.862427, 3, 0.629883)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 12.5)
-mesh = ExtResource("1_2uxa1")
+material_override = SubResource("StandardMaterial3D_h8yvy")
+mesh = ExtResource("2_od6ok")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0464478, 1, 0.0727539)

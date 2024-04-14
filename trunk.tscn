@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://mmxrytsrnqbn"]
 
-[ext_resource type="Texture2D" uid="uid://qs56xfswqnt3" path="res://Grafik/Models/MapRight/Tree/trunk_4.png" id="1_axiag"]
-[ext_resource type="ArrayMesh" uid="uid://bqwlmpu6p4hhc" path="res://Grafik/Models/MapRight/Tree/trunk_4.obj" id="2_jh4fl"]
+[ext_resource type="Texture2D" uid="uid://qs56xfswqnt3" path="res://Grafik/MapRight/Tree/trunk_4.png" id="1_axiag"]
+[ext_resource type="ArrayMesh" uid="uid://bqwlmpu6p4hhc" path="res://Grafik/MapRight/Tree/trunk_4.obj" id="2_jh4fl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uonug"]
 albedo_texture = ExtResource("1_axiag")

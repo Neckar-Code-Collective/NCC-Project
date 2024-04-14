@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://br25owphf6nhy"]
 
-[ext_resource type="Texture2D" uid="uid://cshpqlg65wbom" path="res://Grafik/Models/MapRight/KnightStatue/SoulGothic_FreeSample_001-0.png" id="1_cyvi7"]
-[ext_resource type="ArrayMesh" uid="uid://dyo056ii4rcb8" path="res://Grafik/Models/MapRight/KnightStatue/KnightStatue.obj" id="2_w3sa1"]
+[ext_resource type="Texture2D" uid="uid://cshpqlg65wbom" path="res://Grafik/MapRight/KnightStatue/SoulGothic_FreeSample_001-0.png" id="1_cyvi7"]
+[ext_resource type="ArrayMesh" uid="uid://dyo056ii4rcb8" path="res://Grafik/MapRight/KnightStatue/KnightStatue.obj" id="2_w3sa1"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ojvve"]
 albedo_texture = ExtResource("1_cyvi7")

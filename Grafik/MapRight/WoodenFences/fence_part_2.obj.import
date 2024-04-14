@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bnwe13k2jgcsa"
+path="res://.godot/imported/fence_part_2.obj-07fe9dee1b0ab72b520e61f0ef5dbe2f.mesh"
+
+[deps]
+
+files=["res://.godot/imported/fence_part_2.obj-07fe9dee1b0ab72b520e61f0ef5dbe2f.mesh"]
+
+source_file="res://Grafik/MapRight/WoodenFences/fence_part_2.obj"
+dest_files=["res://.godot/imported/fence_part_2.obj-07fe9dee1b0ab72b520e61f0ef5dbe2f.mesh", "res://.godot/imported/fence_part_2.obj-07fe9dee1b0ab72b520e61f0ef5dbe2f.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

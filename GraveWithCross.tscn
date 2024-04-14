@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ckqkwbkdj7prs"]
 
-[ext_resource type="ArrayMesh" uid="uid://db7i0o1o8kvco" path="res://Grafik/Models/MapRight/Graves/GraveWithCross.vox" id="1_4t0yv"]
+[ext_resource type="ArrayMesh" uid="uid://db7i0o1o8kvco" path="res://Grafik/MapRight/Graves/GraveWithCross.vox" id="1_4t0yv"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_upk36"]
 size = Vector3(1.12158, 1.52649, 1.99658)
