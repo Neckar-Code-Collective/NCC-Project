@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://dbkuw2jwgj3fb"]
+
+[ext_resource type="Script" path="res://scripts/Bullet.cs" id="1_kxqbd"]
+[ext_resource type="Texture2D" uid="uid://d1s7ash173adj" path="res://Grafik/Weapons/Stone.png" id="2_n6b8h"]
+[ext_resource type="ArrayMesh" uid="uid://6bqhcsdl5tc" path="res://Grafik/Weapons/Stone.obj" id="3_t68j5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5x58u"]
+albedo_texture = ExtResource("2_n6b8h")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rq81b"]
+
+[node name="SlingBullet" type="Area3D"]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+script = ExtResource("1_kxqbd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 1.74032, -0.367377, -1.64622)
+material_override = SubResource("StandardMaterial3D_5x58u")
+mesh = ExtResource("3_t68j5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_rq81b")

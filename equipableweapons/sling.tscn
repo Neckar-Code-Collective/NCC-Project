@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://4p6fg04w42dp"]
+
+[ext_resource type="Script" path="res://scripts/BasicWeapon.cs" id="1_xwl0h"]
+[ext_resource type="PackedScene" uid="uid://dbkuw2jwgj3fb" path="res://sling_bullet.tscn" id="2_het5t"]
+[ext_resource type="Texture2D" uid="uid://dy76t5jh14h6q" path="res://Grafik/Weapons/Sling.png" id="3_2m77l"]
+[ext_resource type="ArrayMesh" uid="uid://c7qirkv6yb5pg" path="res://Grafik/Weapons/Sling.obj" id="4_foh6i"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1ve4e"]
+albedo_texture = ExtResource("3_2m77l")
+
+[node name="Sling" type="Node3D" node_paths=PackedStringArray("Muzzle")]
+transform = Transform3D(1, 0, 0, 0, 0.7, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("1_xwl0h")
+BulletPrefab = ExtResource("2_het5t")
+MuzzleSpeed = 15.0
+ShootDelay = 1.0
+ClipSize = 9999
+Muzzle = NodePath("Muzzle")
+_name = "weapon_sling"
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, -0.3, -1, 0)
+material_override = SubResource("StandardMaterial3D_1ve4e")
+mesh = ExtResource("4_foh6i")
+
+[node name="Muzzle" type="Marker3D" parent="."]
+transform = Transform3D(-0.178133, 0, 0.984007, 0, 1, 0, -0.984007, 0, -0.178133, 0.315762, 0.240133, -0.365832)
+
+[node name="Timer" type="Timer" parent="."]

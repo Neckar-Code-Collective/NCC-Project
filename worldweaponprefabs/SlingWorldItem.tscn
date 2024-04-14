@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://134j4um2yye2"]
+
+[ext_resource type="Script" path="res://scripts/WorldItem.cs" id="1_nmkl5"]
+[ext_resource type="Texture2D" uid="uid://dy76t5jh14h6q" path="res://Grafik/Weapons/Sling.png" id="2_1xgbu"]
+[ext_resource type="ArrayMesh" uid="uid://c7qirkv6yb5pg" path="res://Grafik/Weapons/Sling.obj" id="3_otlxj"]
+[ext_resource type="Texture2D" uid="uid://orrxnonfspda" path="res://bloom.png" id="4_yuo11"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_axqdb"]
+size = Vector3(2, 4, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dnks8"]
+albedo_texture = ExtResource("2_1xgbu")
+
+[node name="BasicWeaponWorldItem" type="Area3D" node_paths=PackedStringArray("Visual")]
+transform = Transform3D(1, 0, 0, 0, 0.7, 0, 0, 0, 1, 0, 0, 0)
+collision_layer = 16
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_nmkl5")
+_name = "weapon_sling"
+Visual = NodePath("Visual")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_axqdb")
+
+[node name="Visual" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.138081, 1.00759, 0)
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, -0.3, -1, 0)
+material_override = SubResource("StandardMaterial3D_dnks8")
+mesh = ExtResource("3_otlxj")
+
+[node name="Decal" type="Decal" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0701383, 0)
+size = Vector3(2, 1.94214, 2)
+texture_albedo = ExtResource("4_yuo11")
+emission_energy = 0.25
+albedo_mix = 0.2
