@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bpojbptvgw07n"]
+[gd_scene load_steps=3 format=3 uid="uid://bpojbptvgw07n"]
 
 [ext_resource type="Script" path="res://scripts/BeginScene.cs" id="1_eqn6w"]
+[ext_resource type="Texture2D" uid="uid://b0b2evd1mobhn" path="res://Grafik/MainMenuImage.png" id="2_fqhad"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -10,6 +11,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_eqn6w")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1151.0
+offset_bottom = 657.0
+texture = ExtResource("2_fqhad")
+expand_mode = 1
 
 [node name="ClientButton" type="Button" parent="."]
 layout_mode = 0

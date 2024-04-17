@@ -28,6 +28,7 @@ public partial class NetworkManager : Node
     [Export]
     PackedScene ShooterPrefab;
 
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
@@ -42,7 +43,6 @@ public partial class NetworkManager : Node
         Multiplayer.ServerDisconnected += ServerDisconnected;
 
         GD.PushWarning("Ich bin : " + Multiplayer.GetUniqueId());
-
 
     }
 

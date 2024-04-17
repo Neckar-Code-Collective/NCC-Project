@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://cm0oo3g3hrblj"]
+[gd_scene load_steps=32 format=3 uid="uid://cm0oo3g3hrblj"]
 
 [ext_resource type="PackedScene" uid="uid://dhcvs3jv6hkgk" path="res://Shooter.tscn" id="2_i3ihx"]
 [ext_resource type="PackedScene" uid="uid://bn5yq3gg0rh2r" path="res://MoneyPrefab.tscn" id="2_kp24w"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://scripts/NetworkManager.cs" id="8_cefut"]
 [ext_resource type="PackedScene" uid="uid://hos0rmwwl317" path="res://BloodPrefab.tscn" id="8_gbddo"]
 [ext_resource type="PackedScene" uid="uid://c5joc54q5pfa0" path="res://revenant_enemy.tscn" id="9_i3b40"]
+[ext_resource type="PackedScene" uid="uid://20ui8fieuvxj" path="res://HydraEnemy.tscn" id="10_60tsy"]
 [ext_resource type="Texture2D" uid="uid://b36jratnk7bd6" path="res://Grafik/Lock_transparent.png" id="10_158w0"]
 [ext_resource type="PackedScene" uid="uid://cq843f3326ueq" path="res://map.tscn" id="11_mw1pq"]
 [ext_resource type="Texture2D" uid="uid://cx4dst8yjpdc8" path="res://Grafik/e.png" id="12_webtq"]
@@ -410,6 +411,7 @@ _entityHolder = NodePath("../Shooters")
 _basicEnemyPrefab = ExtResource("4_jy5dv")
 _chargerEnemyPrefab = ExtResource("8_5b1aa")
 _revenantEnemyPrefab = ExtResource("9_i3b40")
+_hydraEnemyPrefab = ExtResource("10_60tsy")
 MouseSensitivity = 0.1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Mage"]

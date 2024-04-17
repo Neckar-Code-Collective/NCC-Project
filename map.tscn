@@ -53,6 +53,7 @@ emission = Color(1, 0.462745, 0.34902, 1)
 emission_energy_multiplier = 3.0
 
 [sub_resource type="Environment" id="Environment_3jonc"]
+volumetric_fog_enabled = true
 volumetric_fog_density = 0.06
 volumetric_fog_albedo = Color(0.580392, 0.294118, 0.231373, 1)
 volumetric_fog_emission = Color(0.529412, 0.239216, 0.2, 1)
