@@ -486,6 +486,11 @@ public partial class Mage : Node
         return _currentBloodCount;
     }
 
+    public void SetCurrentBlood(int amount)
+    {
+        _currentBloodCount = amount;
+    }
+
 }
 
 

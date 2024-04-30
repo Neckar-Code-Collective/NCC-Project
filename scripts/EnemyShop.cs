@@ -9,7 +9,7 @@ public partial class EnemyShop : Interactable
 
     private Label _costLabel;
 
-    private Material originalMaterial;
+    public Material originalMaterial;
 
     private Mage mage;
 
@@ -66,7 +66,7 @@ public partial class EnemyShop : Interactable
 
 
 
-    private void ShowUnlockCost()
+    public void ShowUnlockCost()
     {
         var enemy = new KeyValuePair<string, int>("Platzhalter", 4);
         foreach(var entry in _unlockCosts)
@@ -94,7 +94,7 @@ public partial class EnemyShop : Interactable
         _costLabel.Visible = false;
     }
 
-    private void StartGlowEffect()
+    public void StartGlowEffect()
     {
         var meshInstance = GetNode<MeshInstance3D>("EnemyShopMesh");
         StandardMaterial3D newMaterial = new StandardMaterial3D
@@ -105,7 +105,7 @@ public partial class EnemyShop : Interactable
         meshInstance.MaterialOverride = newMaterial;
     }
 
-    private void StopGlowEffect()
+    public void StopGlowEffect()
     {
         var meshInstance = GetNode<MeshInstance3D>("EnemyShopMesh");
         meshInstance.MaterialOverride = originalMaterial;
