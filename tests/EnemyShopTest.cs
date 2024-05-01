@@ -3,6 +3,7 @@ using Godot;
 using GdUnit4;
 using GdUnit4.Asserts;
 using Tests;
+using System.Threading.Tasks;
 
 [TestSuite]
 public class EnemyShopTests
@@ -10,12 +11,17 @@ public class EnemyShopTests
     private EnemyShop _enemyShop;
     private Mage _mage;
 
+    private ISceneRunner runner;
+
     [Before]
-    public void Setup()
-    {
-        var runner = ISceneRunner.Load("res://level.tscn");
+    public async Task Setup()
+    {    
+        Global.Is_Mage = true;
+        runner = ISceneRunner.Load("res://level.tscn");
+        await runner.AwaitIdleFrame();
         _enemyShop = runner.Scene().GetNode<EnemyShop>("EnemyShop");
         _mage = runner.Scene().GetNode<Node>("Mage") as Mage;
+        
     }
 
     [TestCase]
@@ -25,7 +31,7 @@ public class EnemyShopTests
     }
 
     [TestCase]
-    public void TestShowUnlockCost()    //funktioniert nicht
+    public void TestShowUnlockCost()    
     {
         var costLabel = _enemyShop.GetNode<Label>("Control/CostLabel");
         _enemyShop.ShowUnlockCost();
@@ -35,14 +41,17 @@ public class EnemyShopTests
     }
 
     [TestCase] 
-    public void TestInteraction()      //funktioniert nicht
+    public void TestInteraction()      
     {
-        _mage.SetCurrentBlood(50);
+        _mage.SetCurrentBlood(300);
         var initialBlood = _mage.GetCurrentBlood();
         var unlockCosts = _enemyShop._unlockCosts;
 
         // Simulate interaction
-        _enemyShop.EmitSignal(nameof(EnemyShop.OnInteractMage));
+        foreach (var entry in unlockCosts)
+        {
+            _enemyShop.EmitSignal(nameof(EnemyShop.OnInteractMage));
+        }
 
         // Check if Mage blood was deducted correctly
         var remainingBlood = _mage.GetCurrentBlood();
