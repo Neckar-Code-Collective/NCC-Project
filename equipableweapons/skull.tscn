@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://yuntd28qpwv2"]
+
+[ext_resource type="Script" path="res://scripts/Skull.cs" id="1_2blk7"]
+[ext_resource type="ArrayMesh" uid="uid://c7nqy355hsfss" path="res://Grafik/Models/skull.obj" id="2_l5lvt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j04qi"]
+
+[node name="Skull" type="Node3D" node_paths=PackedStringArray("_visual")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.41269, 0)
+script = ExtResource("1_2blk7")
+_visual = NodePath("Visual")
+_name = "weapon_skull"
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(-1, 2.6401e-14, 1.50996e-07, 0, 1, -1.74846e-07, -1.50996e-07, -1.74846e-07, -1, 0, -2, 0)
+material_override = SubResource("StandardMaterial3D_j04qi")
+mesh = ExtResource("2_l5lvt")

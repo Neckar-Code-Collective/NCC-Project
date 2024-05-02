@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://0jytl42dk7qy"]
+
+[ext_resource type="Script" path="res://scripts/WorldItem.cs" id="1_ejm6l"]
+[ext_resource type="ArrayMesh" uid="uid://c7nqy355hsfss" path="res://Grafik/Models/skull.obj" id="2_0b2ne"]
+[ext_resource type="Texture2D" uid="uid://orrxnonfspda" path="res://bloom.png" id="3_frtik"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_axqdb"]
+size = Vector3(2, 4, 2)
+
+[node name="SkullWorldItem" type="Area3D" node_paths=PackedStringArray("Visual")]
+collision_layer = 16
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_ejm6l")
+_name = "weapon_skull"
+Visual = NodePath("Visual")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_axqdb")
+
+[node name="Visual" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.138081, 1.00759, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(-1, 2.6401e-14, 1.50996e-07, 0, 1, -1.74846e-07, -1.50996e-07, -1.74846e-07, -1, 0, -2, 0)
+mesh = ExtResource("2_0b2ne")
+skeleton = NodePath("../..")
+
+[node name="Decal" type="Decal" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0701383, 0)
+size = Vector3(2, 1.94214, 2)
+texture_albedo = ExtResource("3_frtik")
+emission_energy = 0.25
+albedo_mix = 0.2

@@ -511,6 +511,11 @@ public partial class Mage : Node
     public void SetSelectionState(SelectionState s){
         _selectionState = s;
     }
+    
+    public void SetCurrentBlood(int amount)
+    {
+        _currentBloodCount = amount;
+    }
 
 }
 
