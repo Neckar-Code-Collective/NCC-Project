@@ -10,6 +10,7 @@ albedo_texture = ExtResource("1_ssylu")
 size = Vector3(1.43811, 1.4198, 1.33887)
 
 [node name="GraveOrRubble" type="StaticBody3D"]
+collision_layer = 33
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.30104, 0, 12.7433)

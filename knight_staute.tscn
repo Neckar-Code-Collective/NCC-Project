@@ -10,6 +10,7 @@ albedo_texture = ExtResource("1_cyvi7")
 size = Vector3(0.391113, 0.795166, 0.471191)
 
 [node name="KnightStaute" type="StaticBody3D"]
+collision_layer = 33
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.67233, 0, -2.50551)

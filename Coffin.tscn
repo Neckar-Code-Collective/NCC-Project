@@ -79,6 +79,7 @@ albedo_color = Color(0.388235, 0.27451, 0.164706, 1)
 points = PackedVector3Array(0.296342, 0.2052, -0.250098, 0.296342, 0, -0.250098, 0.128239, 0.2052, -0.5, 0.128239, 0.2052, 0.5, 0.128239, 0, -0.5, 0.128239, 0, 0.5, -0.128297, 0.2052, -0.5, -0.128297, 0.2052, 0.5, -0.128297, 0, -0.5, -0.128297, 0, 0.5, -0.2964, 0.2052, -0.250098, -0.2964, 0, -0.250098)
 
 [node name="coffin2" type="StaticBody3D"]
+collision_layer = 33
 
 [node name="coffin" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_2dy3t")

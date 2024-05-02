@@ -376,6 +376,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.86286, -0.999227, 2.18601)
 script = ExtResource("8_cefut")
 _moneySpawnPath = NodePath("../MoneyHolder")
 _moneyPrefab = ExtResource("2_kp24w")
+_bloodPrefab = ExtResource("8_gbddo")
 ShooterPrefab = ExtResource("2_i3ihx")
 
 [node name="Shooters" type="Node3D" parent="."]

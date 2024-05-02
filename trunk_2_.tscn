@@ -11,6 +11,7 @@ size = Vector3(1.79688, 8.76959, 1.81918)
 
 [node name="Trunk2_" type="StaticBody3D"]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+collision_layer = 33
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 material_override = SubResource("StandardMaterial3D_35286")

@@ -10,6 +10,7 @@ albedo_texture = ExtResource("1_aq43r")
 size = Vector3(4.04639, 3.02002, 0.773438)
 
 [node name="FenceType1" type="StaticBody3D"]
+collision_layer = 33
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 12.5)

@@ -7,14 +7,15 @@
 albedo_texture = ExtResource("1_8snd8")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jsjpb"]
-size = Vector3(11.4649, 3.83496, 14.7557)
+size = Vector3(11.1465, 3.83496, 12.7963)
 
 [node name="Pond" type="StaticBody3D"]
+collision_layer = 33
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 material_override = SubResource("StandardMaterial3D_kmdgc")
 mesh = ExtResource("2_ssjef")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.03525, 1.41748, -1.94168)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.19444, 1.41748, -0.961983)
 shape = SubResource("BoxShape3D_jsjpb")

@@ -10,6 +10,7 @@ size = Vector3(0.804688, 1.88757, 2.08105)
 
 [node name="FenceMiddle" type="StaticBody3D"]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.47, 0)
+collision_layer = 33
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 material_override = SubResource("StandardMaterial3D_r6ht6")

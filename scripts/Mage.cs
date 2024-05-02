@@ -120,7 +120,7 @@ public partial class Mage : Node
         _revenantButton = GetNode<Button>("CanvasLayer/MageUI/Panel/RevenantEnemy");
         _revenantButton.Pressed += _onRevenantEnemyPress;
         _hydraButton = GetNode<Button>("CanvasLayer/MageUI/Panel/HydraEnemy");
-        _hydraButton.Pressed += _onHydraEnemyPress; 
+        _hydraButton.Pressed += _onHydraEnemyPress;
 
 
         BloodLabel = GetTree().Root.GetNode<Label>("Level/CanvasLayer/Control2/BloodLabel");
@@ -205,7 +205,11 @@ public partial class Mage : Node
             {
 
                 //check if we can do the spawn
-                CheckSpawn();
+                var pos = GetSpawnPosition();
+                if (CheckSpawn(pos))
+                {
+                    SpawnMob(pos);
+                }
             }
         }
 
@@ -233,10 +237,10 @@ public partial class Mage : Node
     }
 
     /// <summary>
-    /// Check whether we can spawn an enemy in the current mouse position
+    /// Gets the location where the mob would be spawned
     /// </summary>
-    /// <returns></returns>
-    void CheckSpawn()
+    /// <returns>The location in global space</returns>
+    public Vector3 GetSpawnPosition()
     {
         //get mouse position and instantiate enemy there
         var mousePosInView = GetViewport().GetMousePosition();
@@ -250,14 +254,25 @@ public partial class Mage : Node
 
         var targetPosition = origin + direction * distance;
 
+        return targetPosition;
+    }
+
+    /// <summary>
+    /// Check whether we can spawn an enemy in the current mouse position
+    /// </summary>
+    /// <returns>Whether we can spawn there</returns>
+    public bool CheckSpawn(Vector3 targetPosition)
+    {
+
+
         //check if area is free
 
 
         var query = new PhysicsShapeQueryParameters3D();
         var shape = new SphereShape3D();
-        shape.Radius = 2;
+        shape.Radius = 1.25f;
         //4 is the collisionmask for enemies 
-        query.CollisionMask = 4;
+        query.CollisionMask = 4 + 32;
         query.Shape = shape;
         query.Transform = query.Transform.Translated(targetPosition);
 
@@ -266,10 +281,10 @@ public partial class Mage : Node
         {
             //space is not empty
             GD.Print("Cant spawn, space not empty");
-            return;
+            return false;
         }
 
-        SpawnMob(targetPosition);
+        return true;
 
     }
 
@@ -277,13 +292,13 @@ public partial class Mage : Node
     /// Spawns the mob into the scene
     /// </summary>
     /// <param name="pos">The position the mobs should be spawned in</param>
-    void SpawnMob(Vector3 pos)
+    public void SpawnMob(Vector3 pos)
     {
         pos.Y = -1;
         switch (_selectionState)
         {
             case SelectionState.BASIC_ENEMY:
-                if(_manaManager.GetCurrentMana() >= SPAWNCOST)
+                if (_manaManager.GetCurrentMana() >= SPAWNCOST)
                 {
                     var e = _basicEnemyPrefab.Instantiate<BasicEnemy>();
                     _entityHolder.AddChild(e, true);
@@ -292,7 +307,7 @@ public partial class Mage : Node
                 }
                 break;
             case SelectionState.CHARGER_ENEMY:
-                if(_manaManager.GetCurrentMana() >= SPAWNCOST * 2 && _chargerLockIcon.Visible == false)
+                if (_manaManager.GetCurrentMana() >= SPAWNCOST * 2 && _chargerLockIcon.Visible == false)
                 {
                     var ch = _chargerEnemyPrefab.Instantiate<ChargeEnemy>();
                     _entityHolder.AddChild(ch, true);
@@ -301,7 +316,7 @@ public partial class Mage : Node
                 }
                 break;
             case SelectionState.REVENANT_ENEMY:
-                if(_manaManager.GetCurrentMana() >= SPAWNCOST * 2 && _revenantLockIcon.Visible == false)
+                if (_manaManager.GetCurrentMana() >= SPAWNCOST * 2 && _revenantLockIcon.Visible == false)
                 {
                     var r = _revenantEnemyPrefab.Instantiate<RevenantEnemy>();
                     _entityHolder.AddChild(r, true);
@@ -310,7 +325,7 @@ public partial class Mage : Node
                 }
                 break;
             case SelectionState.HYDRA_ENEMY:
-                if(_manaManager.GetCurrentMana() >= SPAWNCOST * 8)
+                if (_manaManager.GetCurrentMana() >= SPAWNCOST * 8)
                 {
                     var h = _hydraEnemyPrefab.Instantiate<HydraEnemy>();
                     _entityHolder.AddChild(h, true);
@@ -373,7 +388,7 @@ public partial class Mage : Node
             b.QueueFree();
         }
     }
-    
+
     /// <summary>
     /// Called when a blood orb intersects with the attractor. This sets the orbs lerpTarget to our position
     /// </summary>
@@ -419,15 +434,15 @@ public partial class Mage : Node
         }
     }
 
-    
+
     public void DeductBlood(int amount)
     {
-         _currentBloodCount -= amount;
+        _currentBloodCount -= amount;
         //if (IsMultiplayerAuthority())
         //    Rpc(nameof(RpcUpdateBloodOnOtherPeers), _currentBloodCount);
     }
 
-     [Rpc()]
+    [Rpc()]
     public void RpcUpdateBloodOnOtherPeers(int amount)
     {
         _currentBloodCount = amount;
@@ -435,14 +450,14 @@ public partial class Mage : Node
 
     public Dictionary<string, int> enemyUnlockCosts = new Dictionary<string, int>
     {
-        {"ChargerEnemy", 10}, 
-        {"Revenant", 20}, 
+        {"ChargerEnemy", 10},
+        {"Revenant", 20},
         {"Hydra", 40}
-    
+
     };
     public bool HasUnlockedEnemy(string Enemy)
     {
-        if(Enemy == "ChargerEnemy")
+        if (Enemy == "ChargerEnemy")
         {
             return !_chargerLockIcon.Visible;
         }
@@ -463,7 +478,7 @@ public partial class Mage : Node
 
     public void UnlockEnemy(String Enemy)
     {
-        if(Enemy == "ChargerEnemy")
+        if (Enemy == "ChargerEnemy")
         {
             _chargerLockIcon.Visible = false;
         }
@@ -486,7 +501,19 @@ public partial class Mage : Node
         return _currentBloodCount;
     }
 
+
+    public ManaManager GetManaManager()
+    {
+        return _manaManager;
+    }
+
+
+    public void SetSelectionState(SelectionState s){
+        _selectionState = s;
+    }
+
 }
+
 
 
 

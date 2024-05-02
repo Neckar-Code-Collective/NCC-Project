@@ -166,13 +166,17 @@ public partial class NetworkManager : Node
 
     [Rpc(MultiplayerApi.RpcMode.AnyPeer,CallLocal = true)]
     public void RpcSpawnBlood(Vector3 pos,float amount){
-        var b = _bloodPrefab.Instantiate<Blood>();
+        if(!IsMultiplayerAuthority()){
+            return;
+        }
+
 
         for (int i = 0; i < amount;i++){
+            var b = _bloodPrefab.Instantiate<Blood>();
+            GetTree().Root.AddChild(b,true);
             b.GlobalPosition = pos;
             b.SetLerpSpeed(0.1f);
-            b.SetLerpTarget(pos + new Vector3(Random.Shared.NextSingle(), Random.Shared.NextSingle(), Random.Shared.NextSingle()) * 4);
-            GetTree().Root.AddChild(b);
+            b.SetLerpTarget(pos + new Vector3(Random.Shared.NextSingle(), 0, Random.Shared.NextSingle()) * 4);
         }
     }
 

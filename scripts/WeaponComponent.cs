@@ -99,7 +99,7 @@ public partial class WeaponComponent : Node
         }
     }
 
-    private void DropCurrentWeapon()
+    public void DropCurrentWeapon()
     {
         if(_equippedWeapon == null){
             return;

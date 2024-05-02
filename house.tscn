@@ -10,6 +10,7 @@ albedo_texture = ExtResource("1_wa7im")
 size = Vector3(9.79205, 5.10828, 5.64038)
 
 [node name="House" type="StaticBody3D"]
+collision_layer = 33
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 material_override = SubResource("StandardMaterial3D_lj57j")

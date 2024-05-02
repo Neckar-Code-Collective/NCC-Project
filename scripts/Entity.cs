@@ -67,7 +67,7 @@ public partial class Entity : CharacterBody3D
     /// </summary>
     /// <param name="amount"></param>
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true)]
-    public void RpcDealDamage(float amount)
+    public virtual void RpcDealDamage(float amount)
     {
         GD.Print("Im getting damaged from peer ", Multiplayer.GetRemoteSenderId());
         _health.ApplyDamage(amount);

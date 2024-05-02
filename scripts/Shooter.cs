@@ -259,6 +259,20 @@ public partial class Shooter : Entity
         return -GlobalTransform.Basis.Z.Normalized();
     }
 
+    /// <summary>
+    /// override deal damage so that we spawn blood
+    /// </summary>
+    /// <param name="amount"></param>
+    public override void RpcDealDamage(float amount)
+    {
+        base.RpcDealDamage(amount);
+
+
+        if(_state == ShooterState.ALIVE && IsMultiplayerAuthority()){
+            Global.NetworkManager.Rpc(nameof(Global.NetworkManager.RpcSpawnBlood), GlobalPosition, Mathf.Round(amount));
+        }
+    }
+
 
 
 
@@ -429,6 +443,11 @@ public partial class Shooter : Entity
     public void RpcUpdateMoneyOnOtherPeers(int amount)
     {
         _currentMoneyCount = amount;
+    }
+
+    public void SetMoney(int a){
+        _currentMoneyCount = a;
+        Rpc(nameof(RpcUpdateMoneyOnOtherPeers), _currentMoneyCount);
     }
 
     [Rpc()]

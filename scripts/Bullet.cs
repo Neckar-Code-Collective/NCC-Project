@@ -153,4 +153,12 @@ public partial class Bullet : Area3D
         return aliveTime;
     }
 
+    public float GetDamage(){
+        return damage;
+    }
+
+    public bool IsLocallySimulated(){
+        return locally_owned;
+    }
+
 }
