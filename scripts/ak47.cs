@@ -2,10 +2,15 @@ using Godot;
 using System;
 using System.Threading.Tasks.Sources;
 
+/// <summary>
+/// Ak47 class, adds a little bit of randomness to the bullets
+/// </summary>
 public partial class ak47: BasicWeapon
 {
 
-
+    /// <summary>
+    /// Gets called when a projectile is to be emitted
+    /// </summary>
     protected override void Shoot()
     {
         //Instantiate a new bullet

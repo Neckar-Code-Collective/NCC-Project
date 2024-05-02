@@ -1,14 +1,26 @@
 using Godot;
 using System;
 
+/// <summary>
+/// Represents a dropped weapon
+/// </summary>
 public partial class WorldItem : Area3D
 {
+    /// <summary>
+    /// What weapon this is
+    /// </summary>
     [Export]
     string _name = "untitled";
 
+    /// <summary>
+    /// A reference to the Visuals, used to rotate the weapon in the world
+    /// </summary>
     [Export]
     Node3D Visual;
 
+    /// <summary>
+    /// helper, stores where the weapon started in the world
+    /// </summary>
     float _visualYStartPos;
 
     public override void _Ready()
@@ -17,6 +29,10 @@ public partial class WorldItem : Area3D
         _visualYStartPos = Visual.Position.Y;
     }
 
+    /// <summary>
+    /// Applies animation
+    /// </summary>
+    /// <param name="delta"></param>
     public override void _PhysicsProcess(double delta)
     {
         
@@ -35,6 +51,9 @@ public partial class WorldItem : Area3D
         return _name;
     }
 
+    /// <summary>
+    /// Called by clients to remove this weapon, i.e. on pickup
+    /// </summary>
     [Rpc(MultiplayerApi.RpcMode.AnyPeer,CallLocal = true)]
     public void RpcKill(){
         if(!IsMultiplayerAuthority()){
@@ -44,6 +63,10 @@ public partial class WorldItem : Area3D
         QueueFree();
     }
 
+    /// <summary>
+    /// Sets the position of this object on the other peers
+    /// </summary>
+    /// <param name="pos"></param>
     [Rpc(CallLocal = true)]
     public void RpcSetPosition(Vector3 pos){
         GlobalPosition = pos;

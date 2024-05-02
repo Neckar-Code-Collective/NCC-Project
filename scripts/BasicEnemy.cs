@@ -3,9 +3,14 @@ using Microsoft.CodeAnalysis;
 using System;
 
 
-
+/// <summary>
+/// The most basic enemy the game has
+/// </summary>
 public partial class BasicEnemy : Enemy{
 
+	/// <summary>
+    /// sets up starting data
+    /// </summary>
 	public override void _Ready()
 	{
 		base._Ready();

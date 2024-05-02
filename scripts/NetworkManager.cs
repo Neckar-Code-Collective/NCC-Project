@@ -69,10 +69,11 @@ public partial class NetworkManager : Node
         GetNode("../Shooters").AddChild(shooter);
 
 
-        if (true)
+        if (first)
         {
             SpawnWeapon("weapon_start_weapon", new Vector3(-5, 0.2f, 10));
-            SpawnWeapon("weapon_skull", new Vector3(5, 0.2f, 10));
+            SpawnWeapon("weapon_skull", new Vector3(100, 0.2f, 10));
+            SpawnWeapon("weapon_skull", new Vector3(-20,0.2f,-15));
             first = false;
         }
 
@@ -139,6 +140,11 @@ public partial class NetworkManager : Node
         }
     }
 
+    /// <summary>
+    /// spawn a weapon in the world
+    /// </summary>
+    /// <param name="name">the weapon to spawn</param>
+    /// <param name="pos">where to spawn it</param>
     public void SpawnWeapon(string name, Vector3 pos)
     {
 
@@ -154,6 +160,11 @@ public partial class NetworkManager : Node
 
     }
 
+    /// <summary>
+    /// Used by clients to spawn a weapon upon dropping it
+    /// </summary>
+    /// <param name="name">the weapon to drop</param>
+    /// <param name="pos">where to drop it</param>
     [Rpc(MultiplayerApi.RpcMode.AnyPeer)]
     public void RpcSpawnWeapon(string name, Vector3 pos)
     {
@@ -164,6 +175,12 @@ public partial class NetworkManager : Node
         SpawnWeapon(name, pos);
     }
 
+
+    /// <summary>
+    /// Called by clients to spawn blood
+    /// </summary>
+    /// <param name="pos">where to spawn it</param>
+    /// <param name="amount">how much to spawn</param>
     [Rpc(MultiplayerApi.RpcMode.AnyPeer,CallLocal = true)]
     public void RpcSpawnBlood(Vector3 pos,float amount){
         if(!IsMultiplayerAuthority()){
@@ -180,4 +197,13 @@ public partial class NetworkManager : Node
         }
     }
 
+    
+    /// <summary>
+    /// Gets called by GameEnder when there are enough skulls in the circle
+    /// </summary>
+    [Rpc(CallLocal = true)]
+    public void RPCEndGameShootersWin()
+    {
+        GetTree().ChangeSceneToFile("res://shooterwinscene.tscn");
+    }
 }

@@ -2,6 +2,9 @@ using Godot;
 using System;
 using System.Threading.Tasks.Sources;
 
+/// <summary>
+/// Represents a weapon that doesnt do anything
+/// </summary>
 public partial class Skull : AbstractWeapon
 {
     [Export]

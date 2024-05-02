@@ -2,13 +2,18 @@ using Godot;
 using System;
 
 
-
+/// <summary>
+/// A shotgun that fires multiple bullets
+/// </summary>
 public partial class popcorngun: BasicWeapon
 {
     private double ConvertToRadians(double angle)
     {
         return (Math.PI / 180) * angle;
     }
+    /// <summary>
+    /// Changed shot logic to shoot mulitple bullets in a cone
+    /// </summary>
     protected override void Shoot()
     {
         //Instantiate a new bullet

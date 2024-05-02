@@ -1,6 +1,9 @@
 using Godot;
 using System;
 
+/// <summary>
+/// Just handles the starting of the game and the server/client
+/// </summary>
 public partial class BeginScene : Control
 {
     /// <summary>

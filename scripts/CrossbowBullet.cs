@@ -1,10 +1,17 @@
 using Godot;
 using System;
 
+/// <summary>
+/// A bullet that can penertrate up to 3 enemies
+/// </summary>
 public partial class CrossbowBullet: Bullet
 {
 
     int hitcounter = 0;
+    /// <summary>
+    /// Overriden OnHit function to add penetration functionality
+    /// </summary>
+    /// <param name="e"></param>
     protected override void OnHit(Entity e)
     {
         hitcounter++;

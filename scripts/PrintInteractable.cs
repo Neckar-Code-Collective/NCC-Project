@@ -1,6 +1,9 @@
 using Godot;
 using System;
 
+/// <summary>
+/// Test for the interactable
+/// </summary>
 public partial class PrintInteractable : Interactable
 {
     [Export]

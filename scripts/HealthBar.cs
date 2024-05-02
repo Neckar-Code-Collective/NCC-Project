@@ -1,6 +1,9 @@
 using Godot;
 using System;
 
+/// <summary>
+/// The healthbar above the entities heads
+/// </summary>
 public partial class HealthBar : ProgressBar
 {
 	// Called when the node enters the scene tree for the first time.

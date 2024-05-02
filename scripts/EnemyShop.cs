@@ -3,6 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
+/// <summary>
+/// The shop where the mage can buy upgrades
+/// </summary>
 public partial class EnemyShop : Interactable
 {
     public Dictionary<string, int> _unlockCosts;
@@ -16,6 +19,9 @@ public partial class EnemyShop : Interactable
     private bool hovered;
 
 
+    /// <summary>
+    /// Sets up references
+    /// </summary>
     public override void _Ready()
     {
         mage = GetTree().Root.GetNode<Node>("Level/Mage") as Mage;
@@ -65,7 +71,9 @@ public partial class EnemyShop : Interactable
 
 
 
-
+    /// <summary>
+    /// Displays the unlock cost in the world
+    /// </summary>
     public void ShowUnlockCost()
     {
         var enemy = new KeyValuePair<string, int>("Platzhalter", 4);
@@ -94,6 +102,9 @@ public partial class EnemyShop : Interactable
         _costLabel.Visible = false;
     }
 
+    /// <summary>
+    /// Starts a glowing outline
+    /// </summary>
     public void StartGlowEffect()
     {
         var meshInstance = GetNode<MeshInstance3D>("EnemyShopMesh");
@@ -111,6 +122,9 @@ public partial class EnemyShop : Interactable
         meshInstance.MaterialOverride = originalMaterial;
     }
 
+    /// <summary>
+    /// Moves the label to the right position
+    /// </summary>
     private  void UpdateLabelPosition()
     {
         var camera = GetViewport().GetCamera3D();

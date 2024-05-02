@@ -1,6 +1,9 @@
 using Godot;
 using System;
 
+/// <summary>
+/// A Object representing a blood orb in the world
+/// </summary>
 public partial class Blood : Area3D
 {
     /// <summary>
@@ -27,6 +30,10 @@ public partial class Blood : Area3D
         _lerpTarget = target;
     }
 
+    /// <summary>
+    /// The speed it should lerp at
+    /// </summary>
+    /// <param name="s"></param>
     public void SetLerpSpeed(float s)
     {
         _lerpSpeed = s;

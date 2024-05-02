@@ -2,6 +2,9 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
+/// <summary>
+/// A weapon that deals damage in a block shape infront of it
+/// </summary>
 public partial class Flamethrower : AbstractWeapon
 {
 
@@ -26,7 +29,14 @@ public partial class Flamethrower : AbstractWeapon
     [Export]
     Area3D DamageArea;
 
+    /// <summary>
+    /// Whether the fire button is held down
+    /// </summary>
     bool _isShooting = false;
+
+    /// <summary>
+    /// Used to track whether to stop shooting
+    /// </summary>
     float _timeSinceLastShot = 0;
 
     List<Enemy> enemiesInDamageZone = new();
@@ -74,6 +84,11 @@ public partial class Flamethrower : AbstractWeapon
     }
 
     int ticksSinceLastDamage = 0;
+
+    /// <summary>
+    /// Apply damage to all enemies in the hitbox
+    /// </summary>
+    /// <param name="delta"></param>
     public override void _PhysicsProcess(double delta)
     {
         if(!_isShooting){

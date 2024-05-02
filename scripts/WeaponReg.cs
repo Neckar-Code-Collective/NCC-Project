@@ -2,6 +2,9 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
+/// <summary>
+/// Holds references to all weapons
+/// </summary>
 public partial class WeaponReg : Node
 {
     static Dictionary<string, PackedScene> _equipedWeapons = new();

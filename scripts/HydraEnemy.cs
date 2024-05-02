@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System;
 
 
-
+/// <summary>
+/// An enemy that spits fire, works the same as the flamethrower
+/// </summary>
 public partial class HydraEnemy : BasicEnemy{
 
 	float _movementSpeed = 1.5f;

@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cm0oo3g3hrblj"]
+[gd_scene load_steps=35 format=3 uid="uid://cm0oo3g3hrblj"]
 
 [ext_resource type="PackedScene" uid="uid://dhcvs3jv6hkgk" path="res://Shooter.tscn" id="2_i3ihx"]
 [ext_resource type="PackedScene" uid="uid://bn5yq3gg0rh2r" path="res://MoneyPrefab.tscn" id="2_kp24w"]
@@ -18,6 +18,8 @@
 [ext_resource type="Script" path="res://scripts/WeaponShop.cs" id="14_3oob3"]
 [ext_resource type="PackedScene" uid="uid://bf1qrniiphmix" path="res://EnemyShop.tscn" id="16_xuxhp"]
 [ext_resource type="Script" path="res://scripts/EnemyShop.cs" id="17_xnbqk"]
+[ext_resource type="Script" path="res://scripts/GameEnder.cs" id="19_pom33"]
+[ext_resource type="Texture2D" uid="uid://orrxnonfspda" path="res://bloom.png" id="20_by60q"]
 
 [sub_resource type="Shader" id="Shader_fu1mt"]
 code = "shader_type spatial;
@@ -369,6 +371,9 @@ albedo_color = Color(0.388235, 0.27451, 0.164706, 1)
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_cf0uc"]
 points = PackedVector3Array(0.296342, 0.2052, -0.250098, 0.296342, 0, -0.250098, 0.128239, 0.2052, -0.5, 0.212319, 0.2052, 0.124902, 0.194911, 0.14462, 0.202623, 0.128239, 0, -0.5, 0.128239, 0, 0.5, -0.128297, 0.2052, -0.5, 0.128239, 0.2052, 0.5, -0.128297, 0, -0.5, -0.128297, 0, 0.5, -0.188761, 0.2052, -0.410141, -0.226594, 0.183547, -0.353955, -0.128297, 0.2052, 0.5, -0.2964, 0, -0.250098, -0.231178, 0.2052, 0.041112, -0.2964, 0.2052, -0.250098)
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_nmrra"]
+radius = 3.0
+
 [node name="Level" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.86286, -0.999227, 2.18601)
 
@@ -671,3 +676,19 @@ surface_material_override/0 = SubResource("StandardMaterial3D_742st")
 
 [node name="EnemyShopCollision" type="CollisionShape3D" parent="EnemyShop2"]
 shape = SubResource("ConvexPolygonShape3D_cf0uc")
+
+[node name="GameEnder" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12.5921)
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("19_pom33")
+_skullsNeeded = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GameEnder"]
+shape = SubResource("SphereShape3D_nmrra")
+
+[node name="Decal" type="Decal" parent="GameEnder"]
+size = Vector3(8, 8, 8)
+texture_albedo = ExtResource("20_by60q")
+emission_energy = 0.1
+albedo_mix = 0.1
