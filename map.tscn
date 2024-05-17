@@ -2107,6 +2107,15 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -8.60615, 0.458055, -13.305)
 [node name="pine43" parent="MapRight/Pine" instance=ExtResource("17_lew1n")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 1.41362, 0.458055, -13.305)
 
+[node name="pine88" parent="MapRight/Pine" instance=ExtResource("17_lew1n")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -4.95504, 0.458055, -13.305)
+
+[node name="pine89" parent="MapRight/Pine" instance=ExtResource("17_lew1n")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -3.72823, 0.458055, -13.305)
+
+[node name="pine90" parent="MapRight/Pine" instance=ExtResource("17_lew1n")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -2.88913, 0.458055, -13.305)
+
 [node name="pine44" parent="MapRight/Pine" instance=ExtResource("17_lew1n")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 3.86141, 0.458055, -13.305)
 
