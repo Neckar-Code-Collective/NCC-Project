@@ -144,6 +144,9 @@ public partial class BasicWeapon : AbstractWeapon
         Visible = false;
     }
 
+    /// <summary>
+    /// Called when the weapon gets equiped.
+    /// </summary>
     public override void onEnable()
     {
         Visible = true;

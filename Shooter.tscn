@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dhcvs3jv6hkgk"]
+[gd_scene load_steps=23 format=3 uid="uid://dhcvs3jv6hkgk"]
 
 [ext_resource type="Script" path="res://scripts/Shooter.cs" id="1_whv74"]
 [ext_resource type="Texture2D" uid="uid://dxucnwryac8ra" path="res://character_rigged_char2(2)-5.png" id="2_8pawd"]
@@ -270,6 +270,9 @@ _data = {
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_mesrr"]
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_t83op"]
+radius = 10.0
+
 [node name="Shooter" type="CharacterBody3D" node_paths=PackedStringArray("_animPlayer")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.55101, 0.045115, 1.00584)
 collision_layer = 2
@@ -396,3 +399,10 @@ collision_mask = 18
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MoneyCollector"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0165782, -0.0408423, 0.0584023)
 shape = SubResource("CylinderShape3D_mesrr")
+
+[node name="SpawnBlocker" type="StaticBody3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SpawnBlocker"]
+shape = SubResource("SphereShape3D_t83op")

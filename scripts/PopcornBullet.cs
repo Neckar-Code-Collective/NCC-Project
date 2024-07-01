@@ -14,7 +14,7 @@ public partial class PopcornBullet: Bullet
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
-        velocity *= 0.94f;
+        _velocity *= 0.94f;
         GlobalScale(new Vector3(1.05f, 1.05f, 1.05f));
     }
 

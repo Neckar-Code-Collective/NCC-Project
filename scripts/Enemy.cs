@@ -104,7 +104,8 @@ public partial class Enemy : Entity
         var new_velocity = (next_location - current_location).Normalized() * _movementSpeed;
 
         Velocity = new_velocity;
-        MoveAndSlide();
+        // MoveAndSlide();
+        GlobalPosition += new_velocity * (float)delta;
 
         //if we dont have a target we dont want to move at all
         if (target != null)
@@ -123,6 +124,7 @@ public partial class Enemy : Entity
 
             nav_agent.TargetPosition = target.GlobalPosition;
 
+            //if we are close enough to a player, deal damage to them
             if(GlobalPosition.DistanceSquaredTo(target.GlobalPosition) > 1){
 
                 LookAt(target.GlobalPosition, Vector3.Up);
@@ -202,6 +204,10 @@ public partial class Enemy : Entity
     public void SetNetWorth(int _nw)
     {
         this.NetWorth = _nw;
+    }
+
+    public Shooter GetTarget(){
+        return target;
     }
 
 

@@ -1,11 +1,15 @@
 using Godot;
 using GdUnit4;
 
+namespace Tests;
+
 [TestSuite]
-public class WeaponComponentTests{
+public class WeaponComponentTests
+{
 
     [TestCase]
-    public void TestWeaponPickUp(){
+    public void TestWeaponPickUp()
+    {
         var runner = ISceneRunner.Load("res://level.tscn");
 
         var shooter = GD.Load<PackedScene>("res://Shooter.tscn").Instantiate<Shooter>();
@@ -25,7 +29,8 @@ public class WeaponComponentTests{
     }
 
     [TestCase]
-    public void TestWeaponDrop(){
+    public void TestWeaponDrop()
+    {
         var runner = ISceneRunner.Load("res://level.tscn");
 
         var shooter = GD.Load<PackedScene>("res://Shooter.tscn").Instantiate<Shooter>();
@@ -38,11 +43,11 @@ public class WeaponComponentTests{
         wc.EquipWeapon("weapon_start_weapon");
         wc.EquipWeapon("weapon_start_weapon");
 
-        Assertions.AssertBool(wc.HasSpace());
+        Assertions.AssertBool(wc.HasSpace()).IsFalse();
 
         wc.DropCurrentWeapon();
 
-        Assertions.AssertBool(wc.HasSpace());
+        Assertions.AssertBool(wc.HasSpace()).IsTrue();
 
 
 

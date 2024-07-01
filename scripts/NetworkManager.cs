@@ -71,6 +71,7 @@ public partial class NetworkManager : Node
 
         if (first)
         {
+            //in case this is the first shooter to join, we want to spawn a starter weapon and the skulls
             SpawnWeapon("weapon_start_weapon", new Vector3(-5, 0.2f, 10));
             SpawnWeapon("weapon_skull", new Vector3(100, 0.2f, 10));
             SpawnWeapon("weapon_skull", new Vector3(-20,0.2f,-15));

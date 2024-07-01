@@ -8,11 +8,6 @@ namespace Tests;
 [TestSuite]
 public class HealthComponentTests {
 
-	[TestCase]
-	public void TestDieTests(){
-		Assertions.AssertBool(true).IsEqual(true);
-	}
-
 //TestCase CheckIfDead()
 
 	[TestCase]

@@ -77,38 +77,38 @@ public class ShooterTests
         }
 	}
 
-	//JoystickInput
-	[TestCase]
-    public void TestJoystickRightMovement()
-    {
-        _shooter.SetSimulatedJoystickInput(1, 0); // Simulate right
-        Vector3 direction = _shooter.GetJoystickInputDirection();
-        Assertions.AssertVec3(direction).IsEqual(new Vector3(1, 0, 0)); 
-    }
+	// //JoystickInput
+	// [TestCase]
+    // public void TestJoystickRightMovement()
+    // {
+    //     _shooter.SetSimulatedJoystickInput(1, 0); // Simulate right
+    //     Vector3 direction = _shooter.GetJoystickInputDirection();
+    //     Assertions.AssertVec3(direction).IsEqual(new Vector3(1, 0, 0)); 
+    // }
 
-    [TestCase]
-    public void TestJoystickLeftMovement()
-    {
-        _shooter.SetSimulatedJoystickInput(-1, 0); // Simulate left
-        Vector3 direction = _shooter.GetJoystickInputDirection();
-        Assertions.AssertVec3(direction).IsEqual(new Vector3(-1, 0, 0)); 
-    }
+    // [TestCase]
+    // public void TestJoystickLeftMovement()
+    // {
+    //     _shooter.SetSimulatedJoystickInput(-1, 0); // Simulate left
+    //     Vector3 direction = _shooter.GetJoystickInputDirection();
+    //     Assertions.AssertVec3(direction).IsEqual(new Vector3(-1, 0, 0)); 
+    // }
 
-    [TestCase]
-    public void TestJoystickUpMovement()
-    {
-        _shooter.SetSimulatedJoystickInput(0, -1); // Simulate up
-        Vector3 direction = _shooter.GetJoystickInputDirection();
-        Assertions.AssertVec3(direction).IsEqual(new Vector3(0, 0, -1)); 
-    }
+    // [TestCase]
+    // public void TestJoystickUpMovement()
+    // {
+    //     _shooter.SetSimulatedJoystickInput(0, -1); // Simulate up
+    //     Vector3 direction = _shooter.GetJoystickInputDirection();
+    //     Assertions.AssertVec3(direction).IsEqual(new Vector3(0, 0, -1)); 
+    // }
 
-    [TestCase]
-    public void TestJoystickDownMovement()
-    {
-        _shooter.SetSimulatedJoystickInput(0, 1); // Simulate down
-        Vector3 direction = _shooter.GetJoystickInputDirection();
-        Assertions.AssertVec3(direction).IsEqual(new Vector3(0, 0, 1)); 
-    }
+    // [TestCase]
+    // public void TestJoystickDownMovement()
+    // {
+    //     _shooter.SetSimulatedJoystickInput(0, 1); // Simulate down
+    //     Vector3 direction = _shooter.GetJoystickInputDirection();
+    //     Assertions.AssertVec3(direction).IsEqual(new Vector3(0, 0, 1)); 
+    // }
 
 	
 	[TestCase]

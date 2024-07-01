@@ -284,6 +284,24 @@ public partial class Mage : Node
             return false;
         }
 
+        //check if area has ground
+        var query2 = new PhysicsShapeQueryParameters3D();
+        var shape2 = new SphereShape3D();
+        shape2.Radius = 2.25f;
+
+        query2.CollisionMask = 1;
+        query2.Shape = shape2;
+        query2.Transform = query2.Transform.Translated(targetPosition);
+
+        GD.Print(targetPosition);
+
+        var objs2 = GetViewport().GetCamera3D().GetWorld3D().DirectSpaceState.IntersectShape(query2, 1);
+        if (objs2.Count == 0){
+            GD.Print("Cant spawn, no ground.");
+            return false;
+        }
+
+
         return true;
 
     }

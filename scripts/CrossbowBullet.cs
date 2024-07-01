@@ -17,7 +17,7 @@ public partial class CrossbowBullet: Bullet
         hitcounter++;
         // Emit the onhit signal
         EmitSignal(SignalName.Hit, e);
-        if (locally_owned)
+        if (_locally_owned)
         {
             //we own this bullet, we should deal damage
             e.Rpc(nameof(e.RpcDealDamage), damage);

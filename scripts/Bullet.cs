@@ -10,7 +10,7 @@ public partial class Bullet : Area3D
     /// <summary>
     /// Shows whether this bullet is simulated locally
     /// </summary>
-    protected bool locally_owned = true;
+    protected bool _locally_owned = true;
 
     /// <summary>
     /// After being alive for this many seconds, the bullet kills itself.
@@ -21,7 +21,7 @@ public partial class Bullet : Area3D
     /// <summary>
     /// The amount of time this bullet has been alive for
     /// </summary>
-    float aliveTime = 0;
+    float _aliveTime = 0;
 
     /// <summary>
     /// The amount of damage this bullet will inflict on the entity it hits
@@ -32,7 +32,7 @@ public partial class Bullet : Area3D
     /// <summary>
     /// The velocity that gets applied to this bullet, in units per second (e.g. vel = (1,0,0) moves the bullet by 1 unit on the x-axis every second)
     /// </summary>
-    protected Vector3 velocity = Vector3.Zero;
+    protected Vector3 _velocity = Vector3.Zero;
 
     /// <summary>
     /// A callback for when an entity collides with this bullet
@@ -57,12 +57,12 @@ public partial class Bullet : Area3D
     public override void _PhysicsProcess(double delta)
     {
         //add the velocity to this bullets position
-        GlobalPosition += velocity * (float)delta;
+        GlobalPosition += _velocity * (float)delta;
 
-        aliveTime += (float)delta;
+        _aliveTime += (float)delta;
 
         //if we exceed the allowed alivetime, remove this bullet. This is to prevent bullets traveling indefinitly
-        if (aliveTime >= maxLifeTime)
+        if (_aliveTime >= maxLifeTime)
         {
             QueueFree();
         }
@@ -79,8 +79,8 @@ public partial class Bullet : Area3D
     {
         this.damage = damage;
         GlobalPosition = pos;
-        velocity = vel;
-        this.locally_owned = locally_owned;
+        _velocity = vel;
+        this._locally_owned = locally_owned;
         LookAt(Position + vel);
 
     }
@@ -120,6 +120,10 @@ public partial class Bullet : Area3D
         OnHit((Entity)other);
     }
 
+    /// <summary>
+    /// Callback for when we collide with a body
+    /// </summary>
+    /// <param name="body"></param>
     void onCollision_body(Node3D body)
     {
         if (body is not Entity)
@@ -131,11 +135,15 @@ public partial class Bullet : Area3D
 
     }
 
+    /// <summary>
+    /// Called when we hit an entity
+    /// </summary>
+    /// <param name="e">The entity we hit</param>
     protected virtual void OnHit(Entity e)
     {
         // Emit the onhit signal
         EmitSignal(SignalName.Hit, e);
-        if (locally_owned)
+        if (_locally_owned)
         {
             //we own this bullet, we should deal damage
             e.Rpc(nameof(e.RpcDealDamage), damage);
@@ -150,7 +158,7 @@ public partial class Bullet : Area3D
 
     public float GetLifetime()
     {
-        return aliveTime;
+        return _aliveTime;
     }
 
     public float GetDamage(){
@@ -158,7 +166,7 @@ public partial class Bullet : Area3D
     }
 
     public bool IsLocallySimulated(){
-        return locally_owned;
+        return _locally_owned;
     }
 
 }

@@ -5,6 +5,8 @@ using GdUnit4.Asserts;
 using Tests;
 using System.Threading.Tasks;
 
+namespace Tests;
+
 [TestSuite]
 public class EnemyShopTests
 {
@@ -15,13 +17,13 @@ public class EnemyShopTests
 
     [Before]
     public async Task Setup()
-    {    
+    {
         Global.Is_Mage = true;
         runner = ISceneRunner.Load("res://level.tscn");
         await runner.AwaitIdleFrame();
         _enemyShop = runner.Scene().GetNode<EnemyShop>("EnemyShop");
         _mage = runner.Scene().GetNode<Node>("Mage") as Mage;
-        
+
     }
 
     [TestCase]
@@ -31,7 +33,7 @@ public class EnemyShopTests
     }
 
     [TestCase]
-    public void TestShowUnlockCost()    
+    public void TestShowUnlockCost()
     {
         var costLabel = _enemyShop.GetNode<Label>("Control/CostLabel");
         _enemyShop.ShowUnlockCost();
@@ -40,8 +42,8 @@ public class EnemyShopTests
         Assertions.AssertString(costLabel.Text).IsNotEmpty();
     }
 
-    [TestCase] 
-    public void TestInteraction()      
+    [TestCase]
+    public void TestInteraction()
     {
         _mage.SetCurrentBlood(300);
         var initialBlood = _mage.GetCurrentBlood();
@@ -73,7 +75,7 @@ public class EnemyShopTests
         var emissionMaterial = meshInstance.MaterialOverride as StandardMaterial3D;
 
         Assertions.AssertBool(emissionMaterial.EmissionEnabled).IsTrue();
-        Assertions.AssertBool(emissionMaterial.Emission== new Color(1, 1, 0));
+        Assertions.AssertBool(emissionMaterial.Emission == new Color(1, 1, 0));
 
         _enemyShop.StopGlowEffect();
         Assertions.AssertBool(meshInstance.MaterialOverride == _enemyShop.originalMaterial);

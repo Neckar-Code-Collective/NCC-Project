@@ -9,12 +9,6 @@ public abstract partial class AbstractWeapon : Node3D
     [Export]
     string _name = "untitled";
 
-    [Rpc]
-    public void RpcPlayReloadAnimation()
-    {
-
-    }
-
     /// <summary>
     /// Gets called on other clients (not the player shooting) and spawns a dummy projectile with the specified properties
     /// </summary>

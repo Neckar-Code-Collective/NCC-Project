@@ -275,8 +275,9 @@ public partial class Shooter : Entity
 
 
 
-
-    // Warum wurde das hier auskommentiert? Brauche ich für das Geldeinsammeln
+    /// <summary>
+    /// Sets up references to child components
+    /// </summary>
     public override void _Ready()
     {
         base._Ready();
@@ -287,7 +288,7 @@ public partial class Shooter : Entity
         InitializeLabels();
 
 
-
+        //set the correct animation
         _animPlayer.Play("ArmatureAction_001");
         _animPlayer.Pause();
         _animPlayer.Seek(0.5f, true);
@@ -296,7 +297,7 @@ public partial class Shooter : Entity
         {
             return;
         }
-
+        //
         Global.LocalShooter = this;
         _health.SetMaxHealth(10);
         _health.SetCurrentHealth(10);
@@ -314,6 +315,9 @@ public partial class Shooter : Entity
 
     }
 
+    /// <summary>
+    /// Sets up connections to the UI
+    /// </summary>
     private void InitializeLabels()
     {
         ColorRect green = GetTree().Root.GetNode<ColorRect>("Level/CanvasLayer/Control/ColorRect");
@@ -337,6 +341,10 @@ public partial class Shooter : Entity
         return _currentMoneyCount;
     }
 
+    /// <summary>
+    /// Used by the host to tell a shooter that they should deduct money from themselves
+    /// </summary>
+    /// <param name="amount"></param>
     [Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true)]
     public void RpcDeductMoney(int amount)
     {
@@ -345,7 +353,15 @@ public partial class Shooter : Entity
             Rpc(nameof(RpcUpdateMoneyOnOtherPeers), _currentMoneyCount);
     }
 
+    /// <summary>
+    /// Keeps track over how many players are touching this player
+    /// </summary>
     int _currentlyTouchingShooters = -1;
+
+    /// <summary>
+    /// Gets called when something collides with this player, used for interactions and reviving
+    /// </summary>
+    /// <param name="other"></param>
     public void OnMoneyCollectorCollision(Node3D other)
     {
         if (!IsMultiplayerAuthority())
@@ -386,6 +402,10 @@ public partial class Shooter : Entity
     }
     Interactable _currentInteractable;
 
+    /// <summary>
+    /// Gets called when something stops touching this player, is used for reviving and interactions
+    /// </summary>
+    /// <param name="other"></param>
     private void OnMoneyCollectorAreaLeave(Node3D other)
     {
         if (other is Interactable i)

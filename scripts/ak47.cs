@@ -9,7 +9,7 @@ public partial class ak47: BasicWeapon
 {
 
     /// <summary>
-    /// Gets called when a projectile is to be emitted
+    /// Gets called when a projectile is to be emitted, the same as the normal one except this time we add a little bit of spread
     /// </summary>
     protected override void Shoot()
     {
@@ -34,6 +34,12 @@ public partial class ak47: BasicWeapon
         _rofTimer.Start();
     }
 
+    /// <summary>
+    /// The RPC version of shoot.
+    /// </summary>
+    /// <param name="position">where the projectile should be emitted</param>
+    /// <param name="velocity">the velocity of the projectile</param>
+    /// <param name="data">null</param>
      public override void RpcShoot(Vector3 position, Vector3 velocity, int data)
     {
         //Instantiate a new bullet
