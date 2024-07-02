@@ -41,6 +41,11 @@ public partial class EntityManager : Node
         }
     }
 
+    /// <summary>
+    /// returns the shooter object for the specified peer id
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public static Shooter GetShooterForPeerID(int id){
         foreach(var s in shooters){
             if(s.Name.Equals(id.ToString())){

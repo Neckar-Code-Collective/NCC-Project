@@ -71,7 +71,7 @@ public partial class Enemy : Entity
             }
         };
 
-
+        //setup attack timer
         var timer = new Timer();
         AddChild(timer);
         timer.Timeout += () => _canAttack = true;
@@ -152,7 +152,10 @@ public partial class Enemy : Entity
         }
 
     }
-
+    /// <summary>
+    /// Queries the EntityManager for the nearest player
+    /// </summary>
+    /// <returns></returns>
     public Shooter ChooseNewTarget(){
         Shooter nearest = null;
         float distance = 9999999;

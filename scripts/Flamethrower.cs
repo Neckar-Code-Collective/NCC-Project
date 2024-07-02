@@ -39,12 +39,19 @@ public partial class Flamethrower : AbstractWeapon
     /// </summary>
     float _timeSinceLastShot = 0;
 
-    List<Enemy> enemiesInDamageZone = new();
+    /// <summary>
+    /// A list of entities that are currently being damaged by the fire
+    /// </summary>
+    List<Enemy> _enemiesInDamageZone = new();
 
+    /// <summary>
+    /// The timer that ticks damage
+    /// </summary>
     Timer _damagerticker;
 
     public override void _Ready()
     {
+        //setup everything
         DamageArea.BodyEntered += _onDamageZoneEnter;
         DamageArea.BodyExited += _onDamageZoneLeave;
 
@@ -97,7 +104,7 @@ public partial class Flamethrower : AbstractWeapon
         _timeSinceLastShot += (float)delta;
 
         if(_timeSinceLastShot >= 0.1f){
-			//we stopped shooting
+			//we stopped shooting, disable all visuals
             _isShooting = false;
 
             _onParticles.Emitting = false;
@@ -109,11 +116,11 @@ public partial class Flamethrower : AbstractWeapon
             Rpc(nameof(RpcShoot), Vector3.Zero, Vector3.Zero, 0);
             return;
         }
-
+        //every 10 ticks, damage entities in fire
 		if(ticksSinceLastDamage >= 10){
             ticksSinceLastDamage = 0;
 
-			foreach(var e in enemiesInDamageZone){
+			foreach(var e in _enemiesInDamageZone){
                 e.Rpc(nameof(e.RpcDealDamage), 3);
             }
         }
@@ -126,13 +133,13 @@ public partial class Flamethrower : AbstractWeapon
 
 	void _onDamageZoneEnter(Node3D other){
 		if(other is Enemy e){
-            enemiesInDamageZone.Add(e);
+            _enemiesInDamageZone.Add(e);
         }
 	}
 
 	void _onDamageZoneLeave(Node3D other){
 		if(other is Enemy e){
-            enemiesInDamageZone.Remove(e);
+            _enemiesInDamageZone.Remove(e);
         }
 	}
 
@@ -141,7 +148,9 @@ public partial class Flamethrower : AbstractWeapon
         _visual.Visible = false;
         
     }
-
+    /// <summary>
+    /// Set all visual parts to visible
+    /// </summary>
     public override void onEnable()
     {
         _visual.Visible = true;
@@ -150,6 +159,12 @@ public partial class Flamethrower : AbstractWeapon
         _offParticles.Restart();
     }
 
+    /// <summary>
+    /// Update the visual representation of the flamethrower
+    /// </summary>
+    /// <param name="pos"></param>
+    /// <param name="vel"></param>
+    /// <param name="data"></param>
     public override void RpcShoot(Vector3 pos, Vector3 vel, int data)
     {
         if(data == 0){

@@ -5,7 +5,7 @@ using System;
 /// <summary>
 /// A shotgun that fires multiple bullets
 /// </summary>
-public partial class popcorngun: BasicWeapon
+public partial class Popcorngun: BasicWeapon
 {
     private double ConvertToRadians(double angle)
     {

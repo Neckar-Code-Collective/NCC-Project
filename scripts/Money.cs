@@ -68,6 +68,7 @@ public partial class Money: RigidBody3D {
     /// </summary>
     [Rpc(MultiplayerApi.RpcMode.AnyPeer,CallLocal = true)]
     public void RPCRemove(){
+        //only delete on host
         if( !IsMultiplayerAuthority()){
             return;
         }

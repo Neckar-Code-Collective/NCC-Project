@@ -15,8 +15,15 @@ public partial class Entity : CharacterBody3D
     /// </summary>
 	protected NetworkedTransform _netTrans;
 
+    /// <summary>
+    /// The health bar
+    /// </summary>
     protected HealthBar _healthBar;
-    protected Camera3D camera;
+
+    /// <summary>
+    /// The active camera
+    /// </summary>
+    protected Camera3D _camera;
 
 
 
@@ -46,7 +53,7 @@ public partial class Entity : CharacterBody3D
 
         GD.Print("NETTRANS AUTH IS " + _netTrans.GetMultiplayerAuthority());
 
-        camera = GetViewport().GetCamera3D() as Camera3D;
+        _camera = GetViewport().GetCamera3D() as Camera3D;
 
 
 
@@ -76,7 +83,7 @@ public partial class Entity : CharacterBody3D
     }
 
     /// <summary>
-    /// Gets called by the owning peer to destroy an entity. doesnt actually have to be a rpc 😅
+    /// Gets called by the owning peer to destroy an entity. 
     /// </summary>
 	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = true)]
     public void RpcDie()
@@ -96,7 +103,7 @@ public partial class Entity : CharacterBody3D
     public void RpcUpdateHealthBar(float h,float maxh)
     {
         _healthBar.SetHealth(h, maxh);
-        var screenPosition = camera.UnprojectPosition(GlobalTransform.Origin);
+        var screenPosition = _camera.UnprojectPosition(GlobalTransform.Origin);
         _healthBar.Position = screenPosition + new Vector2(-_healthBar.Size.X / 2, -100);
 
     }

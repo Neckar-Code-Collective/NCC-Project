@@ -27,6 +27,9 @@ public partial class ChargeEnemy : Enemy{
     /// Timer used for the delay
     /// </summary>
     Timer _timer = new Timer();
+    /// <summary>
+    /// Callback to the timer, switches state
+    /// </summary>
     public void OnTimerFire(){
         switch(_state){
             case ChargeEnemyState.WALK:

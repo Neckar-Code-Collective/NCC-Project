@@ -9,6 +9,10 @@ public partial class Camera3D : Godot.Camera3D
 {
     private float _zoom = 7;
 
+    /// <summary>
+    /// Updates the cameras position
+    /// </summary>
+    /// <param name="delta"></param>
     public override void _PhysicsProcess(double delta)
    {
 
@@ -18,6 +22,10 @@ public partial class Camera3D : Godot.Camera3D
         }
    }
 
+    /// <summary>
+    /// Listens to input and applies zoom
+    /// </summary>
+    /// <param name="event"></param>
     public override void _Input(InputEvent @event)
     {
         if(@event is InputEventMouseButton e)

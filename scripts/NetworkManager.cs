@@ -183,7 +183,7 @@ public partial class NetworkManager : Node
     /// <param name="pos">where to spawn it</param>
     /// <param name="amount">how much to spawn</param>
     [Rpc(MultiplayerApi.RpcMode.AnyPeer,CallLocal = true)]
-    public void RpcSpawnBlood(Vector3 pos,float amount){
+    public void RpcSpawnBlood(Vector3 pos,int amount){
         if(!IsMultiplayerAuthority()){
             return;
         }

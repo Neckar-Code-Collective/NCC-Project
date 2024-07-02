@@ -7,14 +7,17 @@ using System;
 public partial class CrossbowBullet: Bullet
 {
 
-    int hitcounter = 0;
+    /// <summary>
+    /// how many entities have been hit already
+    /// </summary>
+    int _hitcounter = 0;
     /// <summary>
     /// Overriden OnHit function to add penetration functionality
     /// </summary>
     /// <param name="e"></param>
     protected override void OnHit(Entity e)
     {
-        hitcounter++;
+        _hitcounter++;
         // Emit the onhit signal
         EmitSignal(SignalName.Hit, e);
         if (_locally_owned)
@@ -23,7 +26,7 @@ public partial class CrossbowBullet: Bullet
             e.Rpc(nameof(e.RpcDealDamage), damage);
         
         }
-        if(hitcounter>=3)
+        if(_hitcounter>=3)
         {
             //we dont own this bullet, just remove it
             QueueFree();

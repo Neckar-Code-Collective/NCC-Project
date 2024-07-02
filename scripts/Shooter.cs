@@ -167,7 +167,7 @@ public partial class Shooter : Entity
 
     public override void _UnhandledInput(InputEvent @event)
     {
-
+        //when we are in a interacteable hitbox and press a button, we want to interact with it
         if (@event is InputEventKey k && k.Keycode == Key.E && k.Pressed && _currentInteractable != null && IsMultiplayerAuthority())
         {
             _currentInteractable.RpcId(1, nameof(_currentInteractable.RpcInteract), Multiplayer.GetUniqueId());
