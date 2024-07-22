@@ -6,63 +6,66 @@ using System.Threading;
 [TestSuite]
 public class ShooterTests
 {
-	private SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
-	private ISceneRunner _runner;
-	private Shooter _shooter;
+    private SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
+    private ISceneRunner _runner;
+    private Shooter _shooter;
 
-	[Before]
-	public async Task SetUp()
-	{
-		_runner = ISceneRunner.Load("res://level.tscn");
-		await _runner.AwaitIdleFrame();
+    [Before]
+    public async Task SetUp()
+    {
+        _runner = ISceneRunner.Load("res://level.tscn");
+        await _runner.AwaitIdleFrame();
 
         _shooter = GD.Load<PackedScene>("res://Shooter.tscn").Instantiate<Shooter>();
         _shooter.Name = "1";
         _runner.Scene().AddChild(_shooter);
+        _shooter.GlobalPosition = new Vector3(10000, 0, 10000);
+
+        await _runner.AwaitIdleFrame();
     }
-	
-	[TestCase]
-	 public async Task TestWMovement()
-	{
-		// Test for W
-		await TestMovement(Key.W, Vector3.Forward);
-		
-	}
 
-	[TestCase]
-	 public async Task TestAMovement()
-	{
-		// Test for A
-		await TestMovement(Key.A, Vector3.Left);
-	}
+    [TestCase]
+    public async Task TestWMovement()
+    {
+        // Test for W
+        await TestMovement(Key.W, Vector3.Forward);
 
-	[TestCase]
-	 public async Task TestSMovement()
-	{
-		// Test for S
-		await TestMovement(Key.S, Vector3.Back);
-		
-	}
+    }
 
-	[TestCase]
-	 public async Task TestDMovement()
-	{
-		// Test for D
-		await TestMovement(Key.D, Vector3.Right);
-		
-	}
+    [TestCase]
+    public async Task TestAMovement()
+    {
+        // Test for A
+        await TestMovement(Key.A, Vector3.Left);
+    }
+
+    [TestCase]
+    public async Task TestSMovement()
+    {
+        // Test for S
+        await TestMovement(Key.S, Vector3.Back);
+
+    }
+
+    [TestCase]
+    public async Task TestDMovement()
+    {
+        // Test for D
+        await TestMovement(Key.D, Vector3.Right);
+
+    }
 
 
-	private async Task TestMovement(Key key, Vector3 expectedDirection)   //KeyboardInput
-	{
-		await _semaphore.WaitAsync(); // wait for semaphore
+    private async Task TestMovement(Key key, Vector3 expectedDirection)   //KeyboardInput
+    {
+        await _semaphore.WaitAsync(); // wait for semaphore
 
         try
         {
             Vector3 initialPosition = _shooter.GlobalTransform.Origin;
 
             _runner.SimulateKeyPress(key);
-            await _runner.SimulateFrames(5,100);
+            await _runner.SimulateFrames(5, 100);
             _runner.SimulateKeyRelease(key);
             await _runner.AwaitIdleFrame();
 
@@ -75,73 +78,46 @@ public class ShooterTests
         {
             _semaphore.Release(); // release the semaphore when task is done
         }
-	}
+    }
 
-	// //JoystickInput
-	// [TestCase]
-    // public void TestJoystickRightMovement()
-    // {
-    //     _shooter.SetSimulatedJoystickInput(1, 0); // Simulate right
-    //     Vector3 direction = _shooter.GetJoystickInputDirection();
-    //     Assertions.AssertVec3(direction).IsEqual(new Vector3(1, 0, 0)); 
-    // }
 
-    // [TestCase]
-    // public void TestJoystickLeftMovement()
-    // {
-    //     _shooter.SetSimulatedJoystickInput(-1, 0); // Simulate left
-    //     Vector3 direction = _shooter.GetJoystickInputDirection();
-    //     Assertions.AssertVec3(direction).IsEqual(new Vector3(-1, 0, 0)); 
-    // }
 
-    // [TestCase]
-    // public void TestJoystickUpMovement()
-    // {
-    //     _shooter.SetSimulatedJoystickInput(0, -1); // Simulate up
-    //     Vector3 direction = _shooter.GetJoystickInputDirection();
-    //     Assertions.AssertVec3(direction).IsEqual(new Vector3(0, 0, -1)); 
-    // }
 
-    // [TestCase]
-    // public void TestJoystickDownMovement()
-    // {
-    //     _shooter.SetSimulatedJoystickInput(0, 1); // Simulate down
-    //     Vector3 direction = _shooter.GetJoystickInputDirection();
-    //     Assertions.AssertVec3(direction).IsEqual(new Vector3(0, 0, 1)); 
-    // }
+    [TestCase]
+    public async Task TestMouseRotation()
+    {
 
-	
-	[TestCase]
-	public async Task TestMouseRotation()
-	{
-		// save origin rotation degree
-		var originalRotation = _shooter.GetLookDirection();
+        await _semaphore.WaitAsync();
 
-        // set mouse on start position and simulate rotation
-        _runner.SetMousePos(new Vector2(160, 20));
-        await _runner.SimulateFrames(5,100);
-        _runner.SimulateMouseMove(new Vector2(400, 100));
-        await _runner.SimulateFrames(5,100);
 
-        
-        var newRotation = _shooter.GetLookDirection();
-        Assertions.AssertVec3(newRotation).IsNotEqual(originalRotation); 
-	}
+        //test values
+        Vector2[] mousePositions = { new(100, 100), new(-220, 100), new(100, -200) };
+        Vector3[] targetPositions = { new(0f,0,1f), new(0f,0f,-1f), new(0f,0,-1f) };
+        try
+        {
+            _shooter.GlobalPosition = new Vector3();
+            for (int i = 0; i < mousePositions.Length; i++)
+            {
 
-	
-	[TestCase]
-	public async Task TestJoystickRotation()
-	{
-		var originalRotation = _shooter.GetLookDirection();
-		_shooter.SetSimulatedJoystickRotationInput(new Vector2(1, 0)); // simulate rotation
-        await _runner.SimulateFrames(5,100);
+                var mp = mousePositions[i];
+                var tp = targetPositions[i];
 
-		var newRotation = _shooter.RotationDegrees;
-        Assertions.AssertVec3(newRotation).IsNotEqual(originalRotation);
-		_shooter.SetSimulatedJoystickRotationInput(Vector2.Zero);
+                // set mouse on start position and simulate rotation
+                _runner.SetMousePos(new Vector2(0,0));
+                await _runner.SimulateFrames(40, 20);
+                _runner.SimulateMouseMove(mp);
+                await _runner.SimulateFrames(40, 20);
 
-	}
 
-	
-	
+
+
+                var newRotation = _shooter.GetLookDirection();
+                Assertions.AssertVec3(newRotation).IsEqualApprox(tp,new Vector3(0.1f,0.1f,0.1f));
+            }
+        }
+        finally
+        {
+            _semaphore.Release();
+        }
+    }
 }

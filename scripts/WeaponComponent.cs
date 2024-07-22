@@ -34,6 +34,10 @@ public partial class WeaponComponent : Node
             // EquipWeapon(StartingWeapon);
     }
 
+    /// <summary>
+    /// Returns the next empty slot
+    /// </summary>
+    /// <returns>the index of the slot or -1 if there is no space</returns>
 	private int _findEmptySlot(){
         for (int i = 0; i < 3;i++)
             if(_weapons[i] == null)
@@ -42,6 +46,10 @@ public partial class WeaponComponent : Node
         return -1;
     }
 
+    /// <summary>
+    /// Adds the weapon to the inventory
+    /// </summary>
+    /// <param name="name">The weapon to add</param>
     public void EquipWeapon(string name)
     {
         if(!IsMultiplayerAuthority()){
@@ -99,6 +107,9 @@ public partial class WeaponComponent : Node
         }
     }
 
+    /// <summary>
+    /// Drop the current weapon onto the ground and remove it from the inventory
+    /// </summary>
     public void DropCurrentWeapon()
     {
         if(_equippedWeapon == null){
@@ -118,6 +129,9 @@ public partial class WeaponComponent : Node
 
     }
 
+    /// <summary>
+    /// Scroll the weapon selection up
+    /// </summary>
     public void ScrollUp()
     {
         _currentIndex++;
@@ -129,6 +143,9 @@ public partial class WeaponComponent : Node
         SwitchWeaponTo(_currentIndex);
     }
 
+    /// <summary>
+    /// Scroll the weapon selection down
+    /// </summary>
     public void ScrollDown()
     {
         _currentIndex--;
@@ -140,6 +157,10 @@ public partial class WeaponComponent : Node
         SwitchWeaponTo(_currentIndex);
     }
 
+    /// <summary>
+    /// Switches to the weapon in the slot index
+    /// </summary>
+    /// <param name="index">the index to equip</param>
     public void SwitchWeaponTo(int index)
     {
         _equippedWeapon?.onDisable();
@@ -152,6 +173,10 @@ public partial class WeaponComponent : Node
         Rpc(nameof(RpcEquipWeapon), _currentIndex);
     }
 
+    /// <summary>
+    /// Checks if there is space in this inventory
+    /// </summary>
+    /// <returns>returns true if space is in available, false otherwise</returns>
     public bool HasSpace()
     {
         foreach (var w in _weapons)
@@ -162,6 +187,9 @@ public partial class WeaponComponent : Node
     }
 
 
+    /// <summary>
+    /// Gets called by the shooter class when input is received
+    /// </summary>
     public void ShootAction()
     {
         if (_equippedWeapon != null)
@@ -170,6 +198,10 @@ public partial class WeaponComponent : Node
         }
     }
 
+    /// <summary>
+    /// Gets called on the other clients to select which weapon to show
+    /// </summary>
+    /// <param name="index"></param>
 	[Rpc(MultiplayerApi.RpcMode.Authority,CallLocal = false)]
 	public void RpcEquipWeapon(int index){
         if(_equippedWeapon != null && IsInstanceValid(_equippedWeapon)){
@@ -183,6 +215,12 @@ public partial class WeaponComponent : Node
         
     }
 
+    /// <summary>
+    /// Sets the weapons on other peers
+    /// </summary>
+    /// <param name="index">the index to set</param>
+    /// <param name="weapon_name">the weapon to equip, or null to unequip the weapon</param>
+    /// <param name="nodeName">the name to give to the new node</param>
 	[Rpc(MultiplayerApi.RpcMode.Authority,CallLocal = false)]
 	public void RpcSetRemoteWeaponCache(int index,string weapon_name,string nodeName){
         if(weapon_name == "null"){

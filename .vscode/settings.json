@@ -1,3 +1,6 @@
 {
-    "godotTools.editorPath.godot4": "c:\\Users\\bernd\\Downloads\\Godot_v4.2.1-stable_mono_win64\\Godot_v4.2.1-stable_mono_win64\\Godot_v4.2.1-stable_mono_win64.exe"
+    "godotTools.editorPath.godot4": "c:\\Users\\bernd\\Downloads\\Godot_v4.2.1-stable_mono_win64\\Godot_v4.2.1-stable_mono_win64\\Godot_v4.2.1-stable_mono_win64.exe",
+    "print.folder.maxFiles": 100,
+    "print.editorContextMenuItemPosition": "Top",
+    "print.logLevel": "verbose"
 }
