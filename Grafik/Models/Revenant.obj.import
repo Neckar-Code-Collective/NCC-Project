@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://yqx8jm02dnyt"
+path="res://.godot/imported/Revenant.obj-3c35a956d9595d570e4b52dc5533f587.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Revenant.obj-3c35a956d9595d570e4b52dc5533f587.mesh"]
+
+source_file="res://Grafik/Models/Revenant.obj"
+dest_files=["res://.godot/imported/Revenant.obj-3c35a956d9595d570e4b52dc5533f587.mesh", "res://.godot/imported/Revenant.obj-3c35a956d9595d570e4b52dc5533f587.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

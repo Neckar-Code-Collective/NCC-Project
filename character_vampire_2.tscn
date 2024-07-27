@@ -1,0 +1,48 @@
+[gd_scene load_steps=10 format=3 uid="uid://b1ax57ecroi13"]
+
+[ext_resource type="PackedScene" uid="uid://vhdkgebhxbv6" path="res://Grafik/Models/character-vampire.glb" id="1_siajq"]
+[ext_resource type="Texture2D" uid="uid://b623kdpldgint" path="res://Grafik/Models/colormap.png" id="2_dsltl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0a2kl"]
+albedo_texture = ExtResource("2_dsltl")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qv206"]
+albedo_texture = ExtResource("2_dsltl")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a8e52"]
+albedo_texture = ExtResource("2_dsltl")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5g3vp"]
+albedo_texture = ExtResource("2_dsltl")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qjl0o"]
+albedo_texture = ExtResource("2_dsltl")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v3vx3"]
+albedo_texture = ExtResource("2_dsltl")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jo75y"]
+albedo_texture = ExtResource("2_dsltl")
+
+[node name="character-vampire2" instance=ExtResource("1_siajq")]
+
+[node name="leg-left" parent="character-vampire/root" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_0a2kl")
+
+[node name="leg-right" parent="character-vampire/root" index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_qv206")
+
+[node name="torso" parent="character-vampire/root" index="2"]
+surface_material_override/0 = SubResource("StandardMaterial3D_a8e52")
+
+[node name="arm-left" parent="character-vampire/root/torso" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_5g3vp")
+
+[node name="arm-right" parent="character-vampire/root/torso" index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_qjl0o")
+
+[node name="cape" parent="character-vampire/root/torso" index="2"]
+surface_material_override/0 = SubResource("StandardMaterial3D_v3vx3")
+
+[node name="head" parent="character-vampire/root/torso" index="3"]
+surface_material_override/0 = SubResource("StandardMaterial3D_jo75y")
