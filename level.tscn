@@ -529,7 +529,7 @@ offset_right = 377.0
 offset_bottom = 27.0
 
 [node name="BloodSpawner" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.214161, 0.246074, -0.863779)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.214161, 0.246074, -86.3535)
 script = ExtResource("7_rrgbw")
 emitInterval = 0.5
 BloodPrefab = ExtResource("8_gbddo")
