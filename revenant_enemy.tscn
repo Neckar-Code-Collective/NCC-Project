@@ -20,7 +20,7 @@ script = ExtResource("1_2t2w0")
 shape = SubResource("CapsuleShape3D_i5rlv")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3.19829, 0, 0.734684)
+transform = Transform3D(-0.7, 0, -1.05697e-07, 0, 0.7, 0, 1.05697e-07, 0, -0.7, 4.55634, -0.235936, -1.12498)
 mesh = ExtResource("2_kk0h3")
 surface_material_override/0 = SubResource("StandardMaterial3D_00d5o")
 
