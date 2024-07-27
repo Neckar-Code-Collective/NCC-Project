@@ -1,5 +1,9 @@
 using Godot;
 using System;
+using System.Net;
+using System.Linq;
+using System.Net;
+using System.Runtime.InteropServices;
 
 /// <summary>
 /// Just handles the starting of the game and the server/client
@@ -31,6 +35,10 @@ public partial class BeginScene : Control
     /// </summary>
     TextEdit _serverPort;
 
+    RichTextLabel _ipAddressLabel;
+
+    Button _copyipButton;
+
 
     /// <summary>
     /// Sets up the reference and handlers for the buttons in the main menu
@@ -43,6 +51,16 @@ public partial class BeginScene : Control
         _clientAddress = GetNode<TextEdit>("TextEdit");
         _clientPort = GetNode<TextEdit>("TextEdit2");
         _serverPort = GetNode<TextEdit>("TextEdit3");
+
+        _ipAddressLabel = GetNode<RichTextLabel>("iplabel");
+        _copyipButton = GetNode<Button>("ipbutton");
+
+        string ipAdress = GetLocalIPAddress();
+        _ipAddressLabel.Text = $"Your IP: {ipAdress}";
+
+
+        _copyipButton.Text = "Copy IP Address to Clipboard";   
+        _copyipButton.Pressed += OnCopyIPPressed;
 
         _serverButton.Pressed += () =>
         {
@@ -108,5 +126,20 @@ public partial class BeginScene : Control
             }
 
         };
+    }
+
+    private string GetLocalIPAddress(){
+        var host = Dns.GetHostEntry(Dns.GetHostName());
+        foreach(var ip in host.AddressList){
+            if(ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork){
+                return ip.ToString();
+            }
+        }
+        throw new Exception("Local IP Adress Not Found!");
+    }
+
+    private void OnCopyIPPressed(){
+        Clipboard.SetText(_ipAddressLabel.Text.Replace("Your IP: ", ""));
+        GD.Print("IP address copied to clipboard");
     }
 }
