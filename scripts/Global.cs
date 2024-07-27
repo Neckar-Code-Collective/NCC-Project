@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 /// <summary>
 /// Global helper class
@@ -26,4 +27,6 @@ public partial class Global : Node
     /// A reference to the NetworkManager for easy access
     /// </summary>
     public static NetworkManager NetworkManager;
+
+    public static List<long> peers = new List<long>();
 }

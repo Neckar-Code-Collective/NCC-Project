@@ -1,9 +1,38 @@
-[gd_scene format=3 uid="uid://b1p47520r0nvx"]
+[gd_scene load_steps=3 format=3 uid="uid://swnfnqsi3j6a"]
 
-[node name="LobbyScene" type="Control"]
+[ext_resource type="Script" path="res://scripts/LobbyScene.cs" id="1_8x1n4"]
+[ext_resource type="Texture2D" uid="uid://b0b2evd1mobhn" path="res://Grafik/MainMenuImage.png" id="2_ddmm5"]
+
+[node name="ControlMeinArsch" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_8x1n4")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1151.0
+offset_bottom = 657.0
+texture = ExtResource("2_ddmm5")
+expand_mode = 1
+
+[node name="ClientText" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 439.0
+offset_top = 38.0
+offset_right = 739.0
+offset_bottom = 238.0
+theme_override_font_sizes/normal_font_size = 33
+text = "Warte auf Server..."
+
+[node name="ServerButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 441.0
+offset_top = 243.0
+offset_right = 741.0
+offset_bottom = 443.0
+theme_override_font_sizes/font_size = 34
+text = "Start Game"

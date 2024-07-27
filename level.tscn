@@ -627,6 +627,136 @@ mesh = SubResource("CylinderMesh_o5ilp")
 [node name="WeaponSpawnPos" type="Node3D" parent="WeaponShop"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.246, 5.395)
 
+[node name="WeaponShop2" type="Area3D" parent="." node_paths=PackedStringArray("_weaponSpawnPos")]
+transform = Transform3D(0.0497214, 0, -0.998763, 0, 1, 0, 0.998763, 0, 0.0497214, 33.9867, 0, 13.2264)
+collision_layer = 16
+collision_mask = 0
+monitoring = false
+script = ExtResource("14_3oob3")
+_weaponSpawnPos = NodePath("../WeaponShop/WeaponSpawnPos")
+_price = 5
+_weaponToSell = "weapon_popcorngun"
+
+[node name="Interactionzone" type="CollisionShape3D" parent="WeaponShop2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00915527, 0.461487, 0.941199)
+shape = SubResource("BoxShape3D_0l3eu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WeaponShop2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.150563)
+mesh = SubResource("CylinderMesh_fq7sv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WeaponShop2/MeshInstance3D"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.898701, 0)
+material_override = SubResource("StandardMaterial3D_io2th")
+mesh = SubResource("CylinderMesh_o5ilp")
+
+[node name="WeaponSpawnPos" type="Node3D" parent="WeaponShop2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.246, 5.395)
+
+[node name="WeaponShop4" type="Area3D" parent="." node_paths=PackedStringArray("_weaponSpawnPos")]
+transform = Transform3D(0.741391, 0, -0.671074, 0, 1, 0, 0.671074, 0, 0.741391, 82.1378, 0, 12.4375)
+collision_layer = 16
+collision_mask = 0
+monitoring = false
+script = ExtResource("14_3oob3")
+_weaponSpawnPos = NodePath("../WeaponShop/WeaponSpawnPos")
+_price = 5
+_weaponToSell = "weapon_flamethrower"
+
+[node name="Interactionzone" type="CollisionShape3D" parent="WeaponShop4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00915527, 0.461487, 0.941199)
+shape = SubResource("BoxShape3D_0l3eu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WeaponShop4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.150563)
+mesh = SubResource("CylinderMesh_fq7sv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WeaponShop4/MeshInstance3D"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.898701, 0)
+material_override = SubResource("StandardMaterial3D_io2th")
+mesh = SubResource("CylinderMesh_o5ilp")
+
+[node name="WeaponSpawnPos" type="Node3D" parent="WeaponShop4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.246, 5.395)
+
+[node name="WeaponShop5" type="Area3D" parent="." node_paths=PackedStringArray("_weaponSpawnPos")]
+transform = Transform3D(0.840094, 0, 0.542441, 0, 1, 0, -0.542441, 0, 0.840094, 56.0986, 0, 1.5773)
+collision_layer = 16
+collision_mask = 0
+monitoring = false
+script = ExtResource("14_3oob3")
+_weaponSpawnPos = NodePath("../WeaponShop/WeaponSpawnPos")
+_price = 5
+_weaponToSell = "weapon_ak47"
+
+[node name="Interactionzone" type="CollisionShape3D" parent="WeaponShop5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00915527, 0.461487, 0.941199)
+shape = SubResource("BoxShape3D_0l3eu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WeaponShop5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.150563)
+mesh = SubResource("CylinderMesh_fq7sv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WeaponShop5/MeshInstance3D"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.898701, 0)
+material_override = SubResource("StandardMaterial3D_io2th")
+mesh = SubResource("CylinderMesh_o5ilp")
+
+[node name="WeaponSpawnPos" type="Node3D" parent="WeaponShop5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.246, 5.395)
+
+[node name="WeaponShop6" type="Area3D" parent="." node_paths=PackedStringArray("_weaponSpawnPos")]
+transform = Transform3D(-0.998763, 0, -0.0497213, 0, 1, 0, 0.0497213, 0, -0.998763, 70.8016, 0, 34.4737)
+collision_layer = 16
+collision_mask = 0
+monitoring = false
+script = ExtResource("14_3oob3")
+_weaponSpawnPos = NodePath("../WeaponShop/WeaponSpawnPos")
+_price = 5
+_weaponToSell = "weapon_sniper"
+
+[node name="Interactionzone" type="CollisionShape3D" parent="WeaponShop6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00915527, 0.461487, 0.941199)
+shape = SubResource("BoxShape3D_0l3eu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WeaponShop6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.150563)
+mesh = SubResource("CylinderMesh_fq7sv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WeaponShop6/MeshInstance3D"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.898701, 0)
+material_override = SubResource("StandardMaterial3D_io2th")
+mesh = SubResource("CylinderMesh_o5ilp")
+
+[node name="WeaponSpawnPos" type="Node3D" parent="WeaponShop6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.246, 5.395)
+
+[node name="WeaponShop3" type="Area3D" parent="." node_paths=PackedStringArray("_weaponSpawnPos")]
+transform = Transform3D(-0.0497215, 0, 0.998763, 0, 1, 0, -0.998763, 0, -0.0497215, -34.459, 9.53674e-07, 15.1912)
+collision_layer = 16
+collision_mask = 0
+monitoring = false
+script = ExtResource("14_3oob3")
+_weaponSpawnPos = NodePath("../WeaponShop/WeaponSpawnPos")
+_price = 5
+_weaponToSell = "weapon_crossbow"
+
+[node name="Interactionzone" type="CollisionShape3D" parent="WeaponShop3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00915527, 0.461487, 0.941199)
+shape = SubResource("BoxShape3D_0l3eu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WeaponShop3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.150563)
+mesh = SubResource("CylinderMesh_fq7sv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WeaponShop3/MeshInstance3D"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.898701, 0)
+material_override = SubResource("StandardMaterial3D_io2th")
+mesh = SubResource("CylinderMesh_o5ilp")
+
+[node name="WeaponSpawnPos" type="Node3D" parent="WeaponShop3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.246, 5.395)
+
 [node name="EnemyShop" parent="." instance=ExtResource("16_xuxhp")]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, -0.424659, -14.3756)
 script = ExtResource("17_xnbqk")
@@ -682,7 +812,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12.5921)
 collision_layer = 0
 collision_mask = 16
 script = ExtResource("19_pom33")
-_skullsNeeded = 1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GameEnder"]
 shape = SubResource("SphereShape3D_nmrra")

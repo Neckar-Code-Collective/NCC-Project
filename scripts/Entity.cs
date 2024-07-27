@@ -77,6 +77,9 @@ public partial class Entity : CharacterBody3D
     public virtual void RpcDealDamage(float amount)
     {
         GD.Print("Im getting damaged from peer ", Multiplayer.GetRemoteSenderId());
+        if(this is Shooter shooter && shooter.GetShooterState() == Shooter.ShooterState.INJURED && Multiplayer.GetRemoteSenderId() != GetMultiplayerAuthority()){
+            return;
+        }
         _health.ApplyDamage(amount);
         // Rpc(nameof(RpcUpdateHealthBar));
 

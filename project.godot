@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 EntityManager="*res://scripts/EntityManager.cs"
 WeaponReg="*res://scripts/WeaponReg.cs"
 SimpleGrass="*res://addons/simplegrasstextured/singleton.tscn"
+Backgroundsound="*res://backgroundsound.tscn"
 
 [display]
 

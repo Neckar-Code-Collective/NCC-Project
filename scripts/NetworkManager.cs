@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections;
 
 /// <summary>
 /// The NetworkManager handles player connections, disconnections and spawning of multiplayer objects
@@ -44,6 +45,38 @@ public partial class NetworkManager : Node
 
         GD.PushWarning("Ich bin : " + Multiplayer.GetUniqueId());
 
+        if (Global.Is_Mage)
+        {
+            GetTree().CreateTimer(0.1).Timeout += () =>
+            {
+                foreach (var id in Global.peers)
+                {
+                    PeerConnected(id);
+                }
+
+            };
+        }
+
+        Timer t = new Timer();
+        t.WaitTime = 1;
+        t.Autostart = true;
+        t.OneShot = false;
+        t.Timeout += () =>
+        {
+            if(EntityManager.GetShooters().Count == 0) return;
+            foreach (Shooter shooter in EntityManager.GetShooters())
+            {
+                if(shooter.GetShooterState() == Shooter.ShooterState.ALIVE){
+                    return;
+                }
+            }
+
+            Rpc(nameof(RPCEndGameMageWin));
+        };
+        AddChild(t);
+        t.Start();
+
+
     }
 
     #region Server Callbacks
@@ -72,8 +105,10 @@ public partial class NetworkManager : Node
         if (first)
         {
             //in case this is the first shooter to join, we want to spawn a starter weapon and the skulls
-            SpawnWeapon("weapon_start_weapon", new Vector3(-5, 0.2f, 10));
-            SpawnWeapon("weapon_skull", new Vector3(100, 0.2f, 10));
+            for (int i = 0; i < Global.peers.Count;i++){
+                SpawnWeapon("weapon_sling", new Vector3(-5, 0.2f, 10+i*3));
+            }
+                SpawnWeapon("weapon_skull", new Vector3(100, 0.2f, 10));
             SpawnWeapon("weapon_skull", new Vector3(-20,0.2f,-15));
             first = false;
         }
@@ -182,29 +217,46 @@ public partial class NetworkManager : Node
     /// </summary>
     /// <param name="pos">where to spawn it</param>
     /// <param name="amount">how much to spawn</param>
-    [Rpc(MultiplayerApi.RpcMode.AnyPeer,CallLocal = true)]
-    public void RpcSpawnBlood(Vector3 pos,int amount){
-        if(!IsMultiplayerAuthority()){
+    [Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true)]
+    public void RpcSpawnBlood(Vector3 pos, int amount)
+    {
+        if (!IsMultiplayerAuthority())
+        {
             return;
         }
 
 
-        for (int i = 0; i < amount;i++){
+        for (int i = 0; i < amount; i++)
+        {
             var b = _bloodPrefab.Instantiate<Blood>();
-            GetTree().Root.AddChild(b,true);
+            GetTree().Root.AddChild(b, true);
             b.GlobalPosition = pos;
             b.SetLerpSpeed(0.1f);
             b.SetLerpTarget(pos + new Vector3(Random.Shared.NextSingle(), 0, Random.Shared.NextSingle()) * 4);
         }
     }
 
-    
+
     /// <summary>
     /// Gets called by GameEnder when there are enough skulls in the circle
     /// </summary>
     [Rpc(CallLocal = true)]
     public void RPCEndGameShootersWin()
     {
-        GetTree().ChangeSceneToFile("res://shooterwinscene.tscn");
+
+        GetTree().CreateTimer(0.1).Timeout += () => {
+            GetTree().Root.GetNode("Level").QueueFree();
+        };
+        GetTree().Root.AddChild(GD.Load<PackedScene>("res://shooterwinscene.tscn").Instantiate());
+    }
+
+    [Rpc(CallLocal = true)]
+    public void RPCEndGameMageWin()
+    {
+
+        GetTree().CreateTimer(0.1).Timeout += () => {
+            GetTree().Root.GetNode("Level").QueueFree();
+        };
+        GetTree().Root.AddChild(GD.Load<PackedScene>("res://magewinscene.tscn").Instantiate());
     }
 }

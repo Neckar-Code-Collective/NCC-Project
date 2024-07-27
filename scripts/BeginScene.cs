@@ -67,7 +67,7 @@ public partial class BeginScene : Control
             Multiplayer.MultiplayerPeer = mult;
 
             //switch to the game scene
-            err = GetTree().ChangeSceneToFile("res://level.tscn");
+            err = GetTree().ChangeSceneToFile("res://LobbyScene.tscn");
             if (err != Error.Ok)
             {
                 GD.PrintErr(err);
@@ -101,7 +101,7 @@ public partial class BeginScene : Control
             Multiplayer.MultiplayerPeer = mult;
 
             //switch to game scene
-            err = GetTree().ChangeSceneToFile("res://level.tscn");
+            err = GetTree().ChangeSceneToFile("res://LobbyScene.tscn");
             if (err != Error.Ok)
             {
                 GD.PrintErr(err);

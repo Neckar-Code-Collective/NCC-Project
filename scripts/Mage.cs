@@ -194,7 +194,7 @@ public partial class Mage : Node
         {
             if (me.ButtonIndex == MouseButton.Right)
             {
-                _selectionState = SelectionState.NONE;
+                // _selectionState = SelectionState.NONE;
             }
         }
 

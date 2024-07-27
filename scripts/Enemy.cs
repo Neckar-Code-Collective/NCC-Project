@@ -55,7 +55,7 @@ public partial class Enemy : Entity
 
             if (body is Shooter)
             {
-                target = (Shooter)body;
+                // target = (Shooter)body;
             }
 
         };
@@ -111,7 +111,7 @@ public partial class Enemy : Entity
         if (target != null)
         {
             //We dont want to target dead players anymore
-            if(target.GetShooterState() == Shooter.ShooterState.DEAD){
+            if(target.GetShooterState() == Shooter.ShooterState.DEAD || target.GetShooterState() == Shooter.ShooterState.INJURED){
                 target = null;
                 return;
             }
@@ -158,14 +158,15 @@ public partial class Enemy : Entity
     /// <returns></returns>
     public Shooter ChooseNewTarget(){
         Shooter nearest = null;
-        float distance = 9999999;
+        float distance = float.MaxValue;
 
         foreach(Shooter s in EntityManager.GetShooters()){
             if(s.GetShooterState() != Shooter.ShooterState.ALIVE){
                 continue;
             }
 
-            float d = GlobalPosition.DistanceSquaredTo(s.GlobalPosition);
+            float d = GlobalPosition.DistanceTo(s.GlobalPosition);
+            GD.Print("s.name: ",s.Name,"d: ", d);
             if(d < distance){
                 nearest = s;
                 distance = d;

@@ -74,7 +74,7 @@ public partial class Shooter : Entity
             if(_health.GetCurrentHealth() >= _health.GetMaxHealth()){
                 GlobalRotationDegrees = new Vector3();
                 Rpc(nameof(RpcSetHardRotation), Vector3.Zero);
-                _state = ShooterState.ALIVE;
+                Rpc(nameof(RPCSetState), 0);
                 return;
             }
 
@@ -82,7 +82,7 @@ public partial class Shooter : Entity
                 _health.Heal(_currentlyTouchingShooters * 5f*(float)delta);
             }
 			else{
-            	Rpc(nameof(RpcDealDamage), 1 * delta);
+            	Rpc(nameof(RpcDealDamage), .3 * delta);
 
 			}
             return;
@@ -427,7 +427,7 @@ public partial class Shooter : Entity
         {
             case ShooterState.ALIVE:
                 GD.Print("SHooter lost all health, to Injured state with him !");
-                _state = ShooterState.INJURED;
+                Rpc(nameof(RPCSetState), 1);
                 GlobalRotationDegrees = new Vector3(90, 0, 0);
                 Rpc(nameof(RpcSetHardRotation), new Vector3(90, 0, 0));
                 _health.Heal(_health.GetMaxHealth() - 1);
@@ -436,7 +436,7 @@ public partial class Shooter : Entity
 
             case ShooterState.INJURED:
                 GD.Print("Player died again in INJURED state, he die now");
-                _state = ShooterState.DEAD;
+                Rpc(nameof(RPCSetState), 2);
                 break;
         }
     }
@@ -483,5 +483,21 @@ public partial class Shooter : Entity
     public ShooterState GetShooterState()
     {
         return _state;
+    }
+
+    [Rpc(CallLocal =true)]
+    public void RPCSetState(int s){
+        switch (s){
+            case 0:
+                _state = ShooterState.ALIVE;
+                break;
+            case 1:
+                _state = ShooterState.INJURED;
+                break;
+            case 2:
+                _state = ShooterState.DEAD;
+                break;
+
+        }
     }
 }

@@ -99,6 +99,14 @@ public partial class WeaponComponent : Node
                 ScrollDown();
             }
         }
+        if(@event is InputEventKey key){
+            if(key.Keycode == Key.Key1){
+                ScrollDown();
+            }
+            if(key.Keycode == Key.Key2){
+                ScrollUp();
+            }
+        }
 
         if(@event is InputEventKey ik && ik.Pressed){
             if(ik.Keycode == Key.G){
