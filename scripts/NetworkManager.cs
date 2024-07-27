@@ -232,6 +232,7 @@ public partial class NetworkManager : Node
             GetTree().Root.AddChild(b, true);
             b.GlobalPosition = pos;
             b.SetLerpSpeed(0.1f);
+            b.SetAmount(1);
             b.SetLerpTarget(pos + new Vector3(Random.Shared.NextSingle(), 0, Random.Shared.NextSingle()) * 4);
         }
     }
