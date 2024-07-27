@@ -633,7 +633,7 @@ collision_layer = 16
 collision_mask = 0
 monitoring = false
 script = ExtResource("14_3oob3")
-_weaponSpawnPos = NodePath("../WeaponShop/WeaponSpawnPos")
+_weaponSpawnPos = NodePath("WeaponSpawnPos")
 _price = 5
 _weaponToSell = "weapon_popcorngun"
 
@@ -659,7 +659,7 @@ collision_layer = 16
 collision_mask = 0
 monitoring = false
 script = ExtResource("14_3oob3")
-_weaponSpawnPos = NodePath("../WeaponShop/WeaponSpawnPos")
+_weaponSpawnPos = NodePath("WeaponSpawnPos")
 _price = 5
 _weaponToSell = "weapon_flamethrower"
 
@@ -685,7 +685,7 @@ collision_layer = 16
 collision_mask = 0
 monitoring = false
 script = ExtResource("14_3oob3")
-_weaponSpawnPos = NodePath("../WeaponShop/WeaponSpawnPos")
+_weaponSpawnPos = NodePath("WeaponSpawnPos")
 _price = 5
 _weaponToSell = "weapon_ak47"
 
@@ -711,7 +711,7 @@ collision_layer = 16
 collision_mask = 0
 monitoring = false
 script = ExtResource("14_3oob3")
-_weaponSpawnPos = NodePath("../WeaponShop/WeaponSpawnPos")
+_weaponSpawnPos = NodePath("WeaponSpawnPos")
 _price = 5
 _weaponToSell = "weapon_sniper"
 
@@ -737,7 +737,7 @@ collision_layer = 16
 collision_mask = 0
 monitoring = false
 script = ExtResource("14_3oob3")
-_weaponSpawnPos = NodePath("../WeaponShop/WeaponSpawnPos")
+_weaponSpawnPos = NodePath("WeaponSpawnPos")
 _price = 5
 _weaponToSell = "weapon_crossbow"
 
