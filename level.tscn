@@ -1,11 +1,10 @@
-[gd_scene load_steps=35 format=3 uid="uid://cm0oo3g3hrblj"]
+[gd_scene load_steps=34 format=3 uid="uid://cm0oo3g3hrblj"]
 
 [ext_resource type="PackedScene" uid="uid://dhcvs3jv6hkgk" path="res://Shooter.tscn" id="2_i3ihx"]
 [ext_resource type="PackedScene" uid="uid://bn5yq3gg0rh2r" path="res://MoneyPrefab.tscn" id="2_kp24w"]
 [ext_resource type="Script" path="res://scripts/Camera3D.cs" id="3_hr2hw"]
 [ext_resource type="PackedScene" uid="uid://j7s8agd142uc" path="res://BasicEnemy.tscn" id="4_jy5dv"]
 [ext_resource type="PackedScene" uid="uid://dgvxpb4rt6cga" path="res://Mage.tscn" id="6_3651a"]
-[ext_resource type="Script" path="res://scripts/debug/BloodSpawner.cs" id="7_rrgbw"]
 [ext_resource type="PackedScene" uid="uid://dum81xlrbqj6o" path="res://charge_enemy.tscn" id="8_5b1aa"]
 [ext_resource type="Script" path="res://scripts/NetworkManager.cs" id="8_cefut"]
 [ext_resource type="PackedScene" uid="uid://hos0rmwwl317" path="res://BloodPrefab.tscn" id="8_gbddo"]
@@ -527,12 +526,6 @@ offset_left = 246.0
 offset_top = 4.0
 offset_right = 377.0
 offset_bottom = 27.0
-
-[node name="BloodSpawner" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.214161, 0.246074, -86.3535)
-script = ExtResource("7_rrgbw")
-emitInterval = 0.5
-BloodPrefab = ExtResource("8_gbddo")
 
 [node name="Node3D" type="Node3D" parent="."]
 
