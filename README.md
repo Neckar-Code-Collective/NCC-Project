@@ -80,8 +80,4 @@ The design combines elements of action, survival, and RTS, offering an innovativ
 
 ---
 
-## Installation & Run
-```bash
-git clone https://github.com/Neckar-Code-Collective/NCC-Project.git
-cd NCC-Project
-# Open with Godot (C# support required)
+Download the latest builds from the [Releases page](https://github.com/Neckar-Code-Collective/NCC-Project/releases). In the folder `buildmac/` you can find the executable for macOS, and in `buildwin/` you can find the equivalent for Windows (these folders are usually ignored in Git and distributed only via releases).
