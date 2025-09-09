@@ -1,13 +1,87 @@
-This is an addon for **Godot 4.0**.  A **Godot 3.5** version is available on the [master branch](https://github.com/jon-heard/Godot-MagicaVoxel-Importer-with-Extensions).
+# Asymmetric 3D Multiplayer Twin Stick Shooter
 
-A fork of CloneDeath's Godot plugin [MagicaVoxel importer with extensions](https://github.com/CloneDeath/MagicaVoxel-Importer-with-Extensions).
+This project was developed during the **Advanced Software Internship** at Heidelberg University under the supervision of Prof. Dr. Hesser.  
+It was created by the **Neckar-Code-Collective** (Nathanael Meyer, Gianni Gagliardi, Daniel Berndt).
 
-This fork adds a number of features that are waiting to be pulled into CloneDeath's plugin.  If you wish to use these features _now_ then use _this_ plugin instead.
+---
 
-- __Hiding layers in MagicaVoxel removes their voxels in Godot.__ - This allows for toggling optional objects in MagicaVoxel, such as clothing and weapons.
-- __MagicaVoxel voxels are rendered in layer order in Godot.__ - MagicaVoxel VOX files are now shown with the latest layers "on top" of earlier layers. This lets the user decide which voxels take precedence and is useful when adding tight features where an extra voxel would be inappropriate, such as for facial expressions or tight clothing.
-- __An option has been added to only render the first MagicaVoxel keyframe in Godot.__ - MagicaVoxel allows for creating multiple keyframes of voxels. If each keyframe represents a separate pose then it can look strange when they are all rendered together in Godot. This option fixes that by only showing voxels from the first keyframe. It is on by default.
-- __Can now access multiple MagicaVoxel keyframes.__ - MagicaVoxel allows for the creation of keyframes for animations. A new importer has been added for MagicaVoxel VOX files (it's selectable in the "Import" tab). The new importer is called "MagicaVoxel MeshLibrary" and represents a MagicaVoxel VOX file as a MeshLibrary with one mesh for each keyframe. The original importer is still available and is used by default. It is called "MagicaVoxel Mesh" and loads a MagicaVoxel VOX file as a single, static Mesh.
-- __A new node-type has been added to easily animate keyframed MagicaVoxel VOX files__ - Once all keyframes are in a MeshLibrary (using the new importer), this new node-type, "FramedMeshInstance", lets you easily animate them. It takes the MeshLibrary and an an integer called "Current Frame". "Current Frame" lets you select which keyframe is display. You can set it in the inspector or with an AnimationPlayer to animate the VOX sprite.
+## Project Overview
+The game is an **asymmetric multiplayer experience** that blends real-time strategy with twin stick shooter mechanics:
 
-NOTE: If you modify a VOX file, and its associated MeshLibrary doesn't fully update, try reloading the scene (menu Scene->Reload Saved Scene). 
+- One player acts as the **Mage**, summoning monsters, managing mana, and trying to stop the others.
+- The remaining players are **Shooters**, fighting to survive, collect skulls, and eventually defeat the Mage.
+
+The design combines elements of action, survival, and RTS, offering an innovative multiplayer experience.
+
+---
+
+## Features
+- **Shooter gameplay**: WASD + Mouse/Gamepad for twin-stick movement and aiming, multiple weapons, pickups, money system.
+- **Mage gameplay**: RTS-style top-down control, enemy spawning, mana & blood resource systems, upgradeable mobs.
+- **Multiplayer Networking**: Peer-based synchronization using Godot RPCs, simple but robust to support unit testing.
+- **Weapons & Items**: Abstract weapon system with modularity (e.g., AK-47, Flamethrower, Crossbow).
+- **Enemies (Mobs)**: Zombie, Revenant, Charger, Hydra – each with unique AI and abilities.
+- **Shops & Economy**: Money, upgrades, and progression systems.
+- **Asymmetry**: Different win conditions for Mage and Shooters.
+
+---
+
+## Screenshots
+
+### Gameplay 1
+![Gameplay Screenshot 1](Grafik/screenshot1.jpg)
+
+### Gameplay 2
+![Gameplay Screenshot 2](Grafik/screenshot2.jpg)
+
+*(Replace with actual images from the `docs/images/` folder.)*
+
+---
+
+## Technologies
+- **Engine**: [Godot](https://godotengine.org/) (C# scripting)
+- **Version Control**: GitHub (Organization: Neckar-Code-Collective)
+- **Documentation**: Doxygen for code docs, UML & requirements docs
+- **Workflow**: Trello, agile-inspired process with test-driven development
+
+---
+
+## Architecture
+- **Entity-based design**: Common `Entity` base class for all units (players, enemies).
+- **Health Component**: Tracks and replicates entity health.
+- **Networked Transform**: Handles replication of positions & states across clients.
+- **Weapon Component**: Manages inventory, shooting, and weapon switching.
+- **Mage Manager**: Handles mana, mob spawning, and upgrades.
+
+---
+
+## Development Process
+- Followed an **iterative agile approach**, similar to SCRUM.
+- Key steps: idea discussion → requirements → task breakdown → prototyping → implementation → testing → review.
+- Adopted **Test-Driven Development (TDD)** with GDUnit.
+- Early large-scale prototypes shifted to **small-scale prototypes** for faster iteration.
+- Continuous process improvements: clearer requirements, task verification, mandatory documentation.
+
+---
+
+## Controls
+
+### Shooter
+- **WASD** – Movement  
+- **Mouse / Right Stick** – Aim  
+- **Left Click / Trigger** – Shoot  
+- **Mouse Wheel / Bumpers** – Switch weapon  
+- **G** – Drop weapon  
+
+### Mage
+- **Mouse movement** – Pan view  
+- **UI buttons** – Select mobs / upgrades  
+- **Click world** – Spawn enemies  
+
+---
+
+## Installation & Run
+```bash
+git clone https://github.com/Neckar-Code-Collective/NCC-Project.git
+cd NCC-Project
+# Open with Godot (C# support required)
