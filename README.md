@@ -34,8 +34,6 @@ The design combines elements of action, survival, and RTS, offering an innovativ
 ### Gameplay 2
 ![Gameplay Screenshot 2](Grafik/screenshot2.jpg)
 
-*(Replace with actual images from the `docs/images/` folder.)*
-
 ---
 
 ## Technologies
